@@ -1,0 +1,11 @@
+mod = [
+	"Console"
+]
+
+package = [
+	"resource_packages/Console/Console"
+]
+
+lua = [
+	"scripts/mods/Console/*"
+]
