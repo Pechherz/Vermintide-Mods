@@ -1,3 +1,5 @@
+Planned Mods:
+
 Vermintide QOL/Fixes[official realm]:
 -show something when Grenadier has trigger(e.g. bomb received)\
 -show potion proxy or show proxy icon next to player picture before chugging potion
@@ -26,6 +28,7 @@ Vermintide QOL/Fixes[official realm]:
 -properlly update trait changes on weapons
 -block healing draught when getting healed
 -custom messages
+-add potion dialogues
 
 Vermintide QOL/Fixes[modded realm]:
 -https://steamcommunity.com/workshop/discussions/18446744073709551615/3395163120820317370/?appid=552500 (Quit group at score screen or add custom timer for host)
