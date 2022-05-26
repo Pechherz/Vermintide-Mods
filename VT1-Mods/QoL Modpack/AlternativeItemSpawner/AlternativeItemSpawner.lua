@@ -24,6 +24,14 @@
             -remove/clean spawned items
 --]]
 
+--add other display for current items
+--add imte group keybind
+--include grenade fixes
+--add more items
+--put item group below below only inn
+--rename item pool list and add proper tooltips
+--maybe remove some groups
+
 local mod_name = "AlternativeItemSpawner"
 local oi = OptionsInjector
 
@@ -268,7 +276,7 @@ AlternativeItemSpawner.widget_settings = {
             "numpad 3",
             oi.key_modifiers.NONE,
         },
-        ["exec"] = { "patch/action", "alternative_items_spawner_next_item" },
+        ["exec"] = { "patch/action", "alternative_item_spawner_next_item" },
     },
     ITEM_SPAWNER_PREVIOUS_ITEM = {
         ["save"] = "cb_item_spawner_index_decrement",
@@ -278,7 +286,7 @@ AlternativeItemSpawner.widget_settings = {
             "numpad 1",
             oi.key_modifiers.NONE,
         },
-        ["exec"] = { "patch/action", "alternative_items_spawner_previous_item.lua" },
+        ["exec"] = { "patch/action", "alternative_item_spawner_previous_item" },
     },
     ITEM_SPAWNER_SPAWN_ITEM = {
         ["save"] = "cb_item_spawner_index_spawn",
@@ -288,7 +296,7 @@ AlternativeItemSpawner.widget_settings = {
             "numpad 2",
             oi.key_modifiers.NONE,
         },
-        ["exec"] = { "patch/action", "alternative_items_spawner_spawn_item" },
+        ["exec"] = { "patch/action", "alternative_item_spawner_spawn_item" },
     },
     ITEM_SPAWNER_CURRENT_CATEGORY = {
         ["save"] = "cb_item_spawner_current_category",
