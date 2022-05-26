@@ -1,0 +1,1 @@
+AlternativeItemSpawner:spawn_item()
