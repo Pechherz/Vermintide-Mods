@@ -82,6 +82,7 @@ Vermintide shenanigans [single mod]:
 -add moustouche to everything else
 -add googly eyes
 -add minigun to IB
+-add option to use abilities from other classes within a character
 -add Dimmadagger
 -https://steamcommunity.com/workshop/discussions/18446744073709551615/3043859512566089670/?appid=552500
 
