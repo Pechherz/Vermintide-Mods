@@ -424,19 +424,21 @@ end
 ---Change to the next item in the current item group
 ---@param self table
 AlternativeItemSpawner.next_item = function(self)
-    if Managers.player.is_server then
-        if Managers.state.game_mode._game_mode_key == "inn" or AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
-            -- check if item group has been changed
-            if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
-                self:update_items_pool_current_list()
-            end
+    if AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ENABLED) then
+        if Managers.player.is_server then
+            if Managers.state.game_mode._game_mode_key == "inn" or AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
+                -- check if item group has been changed
+                if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
+                    self:update_items_pool_current_list()
+                end
 
-            self.items_pool_current_index = self.items_pool_current_index + 1
-            if self.items_pool_current_index > self.items_pool_current_size then
-                self.items_pool_current_index = 1
-            end
+                self.items_pool_current_index = self.items_pool_current_index + 1
+                if self.items_pool_current_index > self.items_pool_current_size then
+                    self.items_pool_current_index = 1
+                end
 
-            EchoConsole("Current Item: " .. self.items_pool_current_list[self.items_pool_current_index].text)
+                EchoConsole("Current Item: " .. self.items_pool_current_list[self.items_pool_current_index].text)
+            end
         end
     end
 end
@@ -444,19 +446,21 @@ end
 ---Change to the previous item in the current item group
 ---@param self table
 AlternativeItemSpawner.previous_item = function(self)
-    if Managers.player.is_server then
-        if Managers.state.game_mode._game_mode_key == "inn" or AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
-            -- check if item group has been changed
-            if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
-                self:update_items_pool_current_list()
-            end
+    if AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ENABLED) then
+        if Managers.player.is_server then
+            if Managers.state.game_mode._game_mode_key == "inn" or AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
+                -- check if item group has been changed
+                if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
+                    self:update_items_pool_current_list()
+                end
 
-            self.items_pool_current_index = self.items_pool_current_index - 1
-            if self.items_pool_current_index < 1 then
-                self.items_pool_current_index = self.items_pool_current_size
-            end
+                self.items_pool_current_index = self.items_pool_current_index - 1
+                if self.items_pool_current_index < 1 then
+                    self.items_pool_current_index = self.items_pool_current_size
+                end
 
-            EchoConsole("Current Item: " .. self.items_pool_current_list[self.items_pool_current_index].text)
+                EchoConsole("Current Item: " .. self.items_pool_current_list[self.items_pool_current_index].text)
+            end
         end
     end
 end
@@ -464,29 +468,31 @@ end
 ---Spawn the current item from the item group
 ---@param self table
 AlternativeItemSpawner.spawn_item = function(self)
-    if Managers.player.is_server then
-        if Managers.state.game_mode._game_mode_key == "inn" or AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
-            -- check if item group has been changed
-            if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
-                self:update_items_pool_current_list()
+    if AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ENABLED) then
+        if Managers.player.is_server then
+            if Managers.state.game_mode._game_mode_key == "inn" or AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
+                -- check if item group has been changed
+                if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
+                    self:update_items_pool_current_list()
+                end
+
+                local local_player_unit = Managers.player:local_player().player_unit
+
+                local item = self.items_pool_current_list[self.items_pool_current_index].value
+
+                safe_pcall(function()
+                    Managers.state.network.network_transmit:send_rpc_server(
+                        'rpc_spawn_pickup_with_physics',
+                        NetworkLookup.pickup_names[tostring(item)],
+                        Unit.local_position(local_player_unit, 0),
+                        Unit.local_rotation(local_player_unit, 0),
+                        NetworkLookup.pickup_spawn_types['dropped']
+                    )
+                end)
             end
-
-            local local_player_unit = Managers.player:local_player().player_unit
-
-            local item = self.items_pool_current_list[self.items_pool_current_index].value
-
-            safe_pcall(function()
-                Managers.state.network.network_transmit:send_rpc_server(
-                    'rpc_spawn_pickup_with_physics',
-                    NetworkLookup.pickup_names[tostring(item)],
-                    Unit.local_position(local_player_unit, 0),
-                    Unit.local_rotation(local_player_unit, 0),
-                    NetworkLookup.pickup_spawn_types['dropped']
-                )
-            end)
+        else
+            EchoConsole("You're not the host. Cheat Protection will block your spawn request anyway.")
         end
-    else
-        EchoConsole("You're not the host. Cheat Protection will block your spawn request anyway.")
     end
 end
 
@@ -636,7 +642,6 @@ AlternativeItemSpawner.create_options = function(self)
         self.widget_settings[string.upper(checkbox_widget.save)] = checkbox_widget
     end
 
-    --load
     self:update_items_pool_current_list()
 end
 
