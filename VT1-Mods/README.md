@@ -12,6 +12,8 @@ Mod to be implement:
 
 -add searchbar to mod settings
 
+-add dodge counter customization
+
 -add toggle button for skip scoreboard/loot board
 
 -add steam info which map part and active players
@@ -19,6 +21,10 @@ Mod to be implement:
 -allow more players to join
 
 -spawn bots
+
+-add bot priority
+
+-add toggle for sound when focus is off
 
 -add draw on hud functionality
 
@@ -34,7 +40,7 @@ Mod to be implement:
 
 -show log of all weapons received
 
--add weapons table with all available weapon especially sets of traits + filter (class/Character, Weapon type, rarity) + small hint where glaive, dagger drop
+-add weapons table with all available weapon especially sets of traits + filter (class/Character, Weapon type, rarity, actual damage numbers) + small hint where glaive, dagger drop
 
 -add timer to ignited barrels
 
@@ -45,6 +51,8 @@ Mod to be implement:
 -add map load command
 
 -add cheat commands: fly, noclip, invisible to enemies, infinite ammo, trigger traits, give item
+
+-add trait buffs like contract buffs by command
 
 PlayerManager:rpc_to_client_spawn_player(110000109511b5d, 4, Vector3(-9.28056, 11.8013, 3.6614), Vector4(0, 0, 0.951757, -0.306854))
 -add pickup sound for lore pages
