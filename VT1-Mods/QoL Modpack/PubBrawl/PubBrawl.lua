@@ -51,23 +51,24 @@ end
 --     end
 -- end
 
-Mods.spawn_brawl_swords_and_other_items = function()
-    pcall(function()
-        if Managers.player.is_server then
+-- Mods.spawn_brawl_swords_and_other_items = function()
+--     pcall(function()
+--         if Managers.player.is_server then
 
-            -- Wooden Pub Brawl swords on tables
-            Mods.spawn_inn_brawl_sword_01()
-            Mods.spawn_inn_brawl_sword_02()
+--             -- Wooden Pub Brawl swords on tables
+--             Mods.spawn_inn_brawl_sword_01()
+--             Mods.spawn_inn_brawl_sword_02()
+--             Mods.spawn_inn_brawl_barrel()
 
-            -- Grenade near ammo box
-            Mods.spawn_inn_grenade()
+--             -- Grenade near ammo box
+--             Mods.spawn_inn_grenade()
 
-            -- Potions near forge and exit
-            Mods.spawn_inn_strength()
-            Mods.spawn_inn_speed()
-        end
-    end)
-end
+--             -- Potions near forge and exit
+--             Mods.spawn_inn_strength()
+--             Mods.spawn_inn_speed()
+--         end
+--     end)
+-- end
 
 Mods.spawn_inn_brawl_sword_01 = function()
     -- Pickups.level_events.wooden_sword_01.hud_description = "Wooden Sword"
@@ -91,15 +92,22 @@ Mods.spawn_inn_brawl_sword_02 = function()
     )
 end
 
+Mods.spawn_inn_brawl_barrel = function()
+    -- Beer Barrel
+    Managers.state.network.network_transmit:send_rpc_server(
+        "rpc_spawn_pickup_with_physics",
+        NetworkLookup.pickup_names["brawl_unarmed"],
+        Vector3(3.8, -2.7, 0.98),
+        Quaternion.axis_angle(Vector3(0, 0, 0), 0),
+        NetworkLookup.pickup_spawn_types["dropped"]
+    )
+end
+
 Mods.spawn_inn_grenade = function()
     local grenade_locations = {
         { -2.4, 4.1, 0.9 },
         { -2.2, 4.1, 0.9 },
         { -2.3, 3.925, 0.9 },
-        { 1.0, 4.3, 0.9 },
-        { 1.25, 4.3, 0.9 },
-        { 1.5, 4.3, 0.9 },
-        { 1.75, 4.3, 0.9 }
     }
 
     local grenade_templates = {
@@ -152,6 +160,8 @@ end
 -- Re-enables the flow event that causes Lohner to pour a drink when approached
 Mods.hook.set(mod_name, "GameModeManager.pvp_enabled", function(func, self, ...)
 
+    EchoConsole("GameModeManager.pvp_enabled")
+
     -- Changes here:
     if Managers.state.game_mode and Managers.state.game_mode._game_mode_key == "inn" then
         return true
@@ -192,9 +202,15 @@ Mods.hook.set(mod_name, "StateInGameRunning.on_enter", function(func, self, ...)
                 if user_setting(MOD_SETTINGS.additional_items_swords.save) then
                     Mods.spawn_inn_brawl_sword_01()
                     Mods.spawn_inn_brawl_sword_02()
+                    Mods.spawn_inn_brawl_barrel()
                 end
 
                 if user_setting(MOD_SETTINGS.additional_items.save) then
+                    Pickups.potions.speed_boost_potion.only_once = false
+                    Pickups.potions.damage_boost_potion.only_once = false
+                    Pickups.grenades.frag_grenade_t1.only_once = false
+                    Pickups.improved_grenades.frag_grenade_t2.only_once = false
+
                     -- Grenade near ammo box
                     Mods.spawn_inn_grenade()
 
@@ -203,6 +219,11 @@ Mods.hook.set(mod_name, "StateInGameRunning.on_enter", function(func, self, ...)
                     Mods.spawn_inn_speed()
                 end
             end
+        else
+            Pickups.potions.speed_boost_potion.only_once = true
+            Pickups.potions.damage_boost_potion.only_once = true
+            Pickups.grenades.frag_grenade_t1.only_once = true
+            Pickups.improved_grenades.frag_grenade_t2.only_once = true
         end
     end
 end)
