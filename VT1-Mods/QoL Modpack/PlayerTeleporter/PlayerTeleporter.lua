@@ -36,9 +36,29 @@ PlayerTeleporter.widget_settings = {
             "space",
             oi.key_modifiers.NONE,
         },
-        ["exec"] = { "patch/action/player_teleporter", "teleport" },
+        ["exec"] = { "patch/action/player_teleporter", "teleport_to" },
     },
 }
+
+---Teleports the local player to position where he is looking 
+---@param self table
+PlayerTeleporter.teleport_to = function(self)
+    if self.get(self.widget_settings.PLAYER_TELEPORTER_ENABLED) then
+        local local_player = Managers.player:local_player()
+        local locomotion_extension = ScriptUnit.extension(local_player.player_unit, "locomotion_system")
+        local conflict_director = Managers.state.conflict
+        local position, distance, normal, actor = conflict_director:player_aim_raycast(conflict_director._world, false, "filter_ray_projectile")
+
+        -- EchoConsole("position: " .. tostring(position))
+        -- EchoConsole("distance: " .. tostring(distance))
+        -- EchoConsole("normal: " .. tostring(normal))
+        -- EchoConsole("actor: " .. tostring(actor))
+
+        if position ~= nil then
+            locomotion_extension.teleport_to(locomotion_extension, position)
+        end
+    end
+end
 
 ---Gets the value of a widget
 ---@param data table predifined widgets object
