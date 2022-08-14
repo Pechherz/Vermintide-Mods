@@ -1,10 +1,39 @@
 local mod_name = "PubBrawl"
 
-local user_setting = Application.user_setting
-
-local MOD_SETTINGS = {
+PubBrawl = {}
+PubBrawl.widget_settings = {
+    pub_brawl_enabled = {
+        ["save"] = "cb_pub_brawl_additional_enabled",
+        ["widget_type"] = "stepper",
+        ["text"] = "Enable Pub Brawl",
+        ["tooltip"] = "",
+        ["value_type"] = "boolean",
+        ["options"] = {
+            { text = "Off", value = false },
+            { text = "On", value = true },
+        },
+        ["default"] = 1,
+        ["hide_options"] = {
+            {
+                false,
+                mode = "hide",
+                options = {
+                    "cb_pub_brawl_additional_items_sword",
+                    "cb_pub_brawl_additional_items",
+                }
+            },
+            {
+                true,
+                mode = "show",
+                options = {
+                    "cb_pub_brawl_additional_items_sword",
+                    "cb_pub_brawl_additional_items",
+                }
+            },
+        },
+    },
     additional_items_swords = {
-        ["save"] = "cb_additional_items_sword",
+        ["save"] = "cb_pub_brawl_additional_items_sword",
         ["widget_type"] = "stepper",
         ["text"] = "Add wooden swords to the inn.",
         ["tooltip"] = "Toggle additional extras on / off.\n\n" ..
@@ -17,7 +46,7 @@ local MOD_SETTINGS = {
         ["default"] = 1,
     },
     additional_items = {
-        ["save"] = "cb_additional_items",
+        ["save"] = "cb_pub_brawl_additional_items",
         ["widget_type"] = "stepper",
         ["text"] = "Add bombs and potions to the inn.",
         ["tooltip"] = "Toggle additional extras on / off.\n\n" ..
@@ -31,79 +60,29 @@ local MOD_SETTINGS = {
     },
 }
 
-local function create_options()
-    Mods.option_menu:add_group("pubbrawl", "Pub Brawl")
-
-    Mods.option_menu:add_item("pubbrawl", MOD_SETTINGS.additional_items_swords, true)
-    Mods.option_menu:add_item("pubbrawl", MOD_SETTINGS.additional_items, true)
-end
-
--- Mods.update_title_properties = function(is_brawl_enabled)
---     if Managers.backend and Managers.backend._interfaces and Managers.backend._interfaces.title_properties then
---         local title_properties = Managers.backend._interfaces.title_properties
---         if not title_properties._data then
---             title_properties._data = {
---                 brawl_enabled = is_brawl_enabled,
---             }
---         else
---             title_properties._data.brawl_enabled = is_brawl_enabled
---         end
---     end
--- end
-
--- Mods.spawn_brawl_swords_and_other_items = function()
---     pcall(function()
---         if Managers.player.is_server then
-
---             -- Wooden Pub Brawl swords on tables
---             Mods.spawn_inn_brawl_sword_01()
---             Mods.spawn_inn_brawl_sword_02()
---             Mods.spawn_inn_brawl_barrel()
-
---             -- Grenade near ammo box
---             Mods.spawn_inn_grenade()
-
---             -- Potions near forge and exit
---             Mods.spawn_inn_strength()
---             Mods.spawn_inn_speed()
---         end
---     end)
--- end
-
-Mods.spawn_inn_brawl_sword_01 = function()
+---Spawn a sword_01 on a fixed position (meant for the inn)
+---@param self table
+PubBrawl.spawn_brawl_sword_01 = function(self)
     -- Pickups.level_events.wooden_sword_01.hud_description = "Wooden Sword"
-    Managers.state.network.network_transmit:send_rpc_server(
-        'rpc_spawn_pickup',
-        NetworkLookup.pickup_names["wooden_sword_01"],
-        Vector3(0.3, -4.3, 2.1),
-        Quaternion.axis_angle(Vector3(5, 2, 3), 0.5),
-        NetworkLookup.pickup_spawn_types['dropped']
-    )
+    self.spawn_item_rpc("wooden_sword_01", 0.3, -4.3, 2.1, 5, 2, 3)
+    
 end
 
-Mods.spawn_inn_brawl_sword_02 = function()
-    -- Pickups.level_events.wooden_sword_02.hud_description = "Wooden Sword"
-    Managers.state.network.network_transmit:send_rpc_server(
-        'rpc_spawn_pickup',
-        NetworkLookup.pickup_names["wooden_sword_02"],
-        Vector3(0.0, 0.4, 2),
-        Quaternion.axis_angle(Vector3(5, 3, -8), .5),
-        NetworkLookup.pickup_spawn_types['dropped']
-    )
+---Spawn a sword_02 on a fixed position (meant for the inn)
+---@param self table
+PubBrawl.spawn_brawl_sword_02 = function(self)
+    self.spawn_item_rpc("wooden_sword_02", 0.0, 0.4, 2, 5, 3, -8)
 end
 
-Mods.spawn_inn_brawl_barrel = function()
-    -- Beer Barrel
-    Managers.state.network.network_transmit:send_rpc_server(
-        "rpc_spawn_pickup_with_physics",
-        NetworkLookup.pickup_names["brawl_unarmed"],
-        Vector3(3.8, -2.7, 0.98),
-        Quaternion.axis_angle(Vector3(0, 0, 0), 0),
-        NetworkLookup.pickup_spawn_types["dropped"]
-    )
+---Spawn a brawl barrel on a fixed position (meant for the inn)
+---@param self table
+PubBrawl.spawn_brawl_barrel = function(self)
+    self.spawn_item_rpc("brawl_unarmed", 3.8, -2.7, 0.98, 0, 0, 0)
 end
 
-Mods.spawn_inn_grenade = function()
+---Spawn greneades on a fixed position (meant for the inn)
+---@param self table
+PubBrawl.spawn_grenades = function(self)
     local grenade_locations = {
         { -2.4, 4.1, 0.9 },
         { -2.2, 4.1, 0.9 },
@@ -116,27 +95,27 @@ Mods.spawn_inn_grenade = function()
     }
 
     for index, value in ipairs(grenade_locations) do
-        Managers.state.network.network_transmit:send_rpc_server(
-            'rpc_spawn_pickup',
-            NetworkLookup.pickup_names[grenade_templates[math.random(1, 2)]],
-            Vector3(value[1], value[2], value[3]),
-            Quaternion.axis_angle(Vector3(0, 0, 0), 0),
-            NetworkLookup.pickup_spawn_types['dropped']
-        )
+        local random_item_name = grenade_templates[math.random(1, 2)]
+        self.spawn_item_rpc(random_item_name, value[1], value[2], value[3], 0, 0, 0)
     end
 end
 
-Mods.spawn_inn_strength = function()
-    Managers.state.network.network_transmit:send_rpc_server(
-        'rpc_spawn_pickup',
-        NetworkLookup.pickup_names["damage_boost_potion"],
-        Vector3(6.41, -3.15, 1.3),
-        Quaternion.axis_angle(Vector3(0, 0, 0), 0),
-        NetworkLookup.pickup_spawn_types['dropped']
-    )
+---Spawn strength potions on a fixed position (meant for the inn)
+---@param self table
+PubBrawl.spawn_strength_potions = function(self)
+    local strength_potion_location = {
+        { 6.41, -3.15, 1.3 },
+    }
+
+    for index, value in ipairs(strength_potion_location) do
+        self.spawn_item_rpc("damage_boost_potion", value[1], value[2], value[3], 0, 0, math.random(-15, 25))
+
+    end
 end
 
-Mods.spawn_inn_speed = function()
+---Spawn speed potions on a fixed position (meant for the inn)
+---@param self table
+PubBrawl.spawn_speed_potions = function(self)
     local speed_boost_potion_location = {
         { 0.07, 4.49, 1.9 },
         { 0.12, 4.42, 1.9 },
@@ -144,51 +123,33 @@ Mods.spawn_inn_speed = function()
     }
 
     for index, value in ipairs(speed_boost_potion_location) do
-        Managers.state.network.network_transmit:send_rpc_server(
-            'rpc_spawn_pickup',
-            NetworkLookup.pickup_names["speed_boost_potion"],
-            Vector3(value[1], value[2], value[3]),
-            Quaternion.axis_angle(Vector3(0, 0, math.random(-15, 25)), 0.5),
-            NetworkLookup.pickup_spawn_types['dropped']
-        )
+        self.spawn_item_rpc("speed_boost_potion", value[1], value[2], value[3], 0, 0, math.random(-15, 25))
     end
 end
 
--- ##########################################################
--- #################### Hooks ###############################
+---Enable items to be picked up infinitely
+---@param self table
+---@param enabled boolean
+PubBrawl.infinite_bombs_and_potions_pickups_enabled = function (self, enabled)
+    Pickups.potions.speed_boost_potion.only_once = not enabled
+    Pickups.potions.damage_boost_potion.only_once = not enabled
+    Pickups.grenades.frag_grenade_t1.only_once = not enabled
+    Pickups.improved_grenades.frag_grenade_t2.only_once = not enabled
+end
 
 -- Re-enables the flow event that causes Lohner to pour a drink when approached
 Mods.hook.set(mod_name, "GameModeManager.pvp_enabled", function(func, self, ...)
-
-    EchoConsole("GameModeManager.pvp_enabled")
-
-    -- Changes here:
-    if Managers.state.game_mode and Managers.state.game_mode._game_mode_key == "inn" then
-        return true
+    if PubBrawl.get(PubBrawl.widget_settings.pub_brawl_enabled) then
+        EchoConsole("Someone wants a beating..")
+        
+        if Managers.state.game_mode and Managers.state.game_mode._game_mode_key == "inn" then
+            return true
+        end
     end
-    -- Changes end.
 
     local result = func(self, ...)
     return result
 end)
-
--- ##########################################################
--- ################### Callback #############################
-
--- Call when game state changes (e.g. StateLoading -> StateIngame)
--- Mods.on_game_state_changed = function(status, state)
---     EchoConsole("MOD_SETTINGS.additional_items: " .. tostring(get(MOD_SETTINGS.additional_items)))
---     if state == "StateIngame" and get(MOD_SETTINGS.additional_items) and Managers.player.is_server then
---         if Managers.state.game_mode and Managers.state.game_mode._game_mode_key == "inn" then
-
---             -- Spawn items
---             local pickup_system = Managers.state.entity:system("pickup_system")
---             if #pickup_system._spawned_pickups < 4 then
---                 Mods.spawn_brawl_swords_and_other_items()
---             end
---         end
---     end
--- end
 
 Mods.hook.set(mod_name, "StateInGameRunning.on_enter", function(func, self, ...)
     func(self, ...)
@@ -199,53 +160,62 @@ Mods.hook.set(mod_name, "StateInGameRunning.on_enter", function(func, self, ...)
             -- Spawn items
             local pickup_system = Managers.state.entity:system("pickup_system")
             if #pickup_system._spawned_pickups < 4 then
-                if user_setting(MOD_SETTINGS.additional_items_swords.save) then
-                    Mods.spawn_inn_brawl_sword_01()
-                    Mods.spawn_inn_brawl_sword_02()
-                    Mods.spawn_inn_brawl_barrel()
+                if PubBrawl.get(PubBrawl.widget_settings.additional_items_swords) then
+                    PubBrawl:spawn_brawl_barrel()
+                    PubBrawl:spawn_brawl_sword_01()
+                    PubBrawl:spawn_brawl_sword_02()
                 end
 
-                if user_setting(MOD_SETTINGS.additional_items.save) then
-                    Pickups.potions.speed_boost_potion.only_once = false
-                    Pickups.potions.damage_boost_potion.only_once = false
-                    Pickups.grenades.frag_grenade_t1.only_once = false
-                    Pickups.improved_grenades.frag_grenade_t2.only_once = false
+                if PubBrawl.get(PubBrawl.widget_settings.additional_items) then
+                    PubBrawl:infinite_bombs_and_potions_pickups_enabled(true)
 
-                    -- Grenade near ammo box
-                    Mods.spawn_inn_grenade()
-
+                    -- Grenades in basket near inventory storage
+                    PubBrawl:spawn_grenades()
+                    
                     -- Potions near forge and exit
-                    Mods.spawn_inn_strength()
-                    Mods.spawn_inn_speed()
+                    PubBrawl:spawn_strength_potions()
+                    PubBrawl:spawn_speed_potions()
                 end
             end
         else
-            Pickups.potions.speed_boost_potion.only_once = true
-            Pickups.potions.damage_boost_potion.only_once = true
-            Pickups.grenades.frag_grenade_t1.only_once = true
-            Pickups.improved_grenades.frag_grenade_t2.only_once = true
+            PubBrawl:infinite_bombs_and_potions_pickups_enabled(false)
         end
     end
 end)
 
--- Call when governing settings checkbox is unchecked
--- Mods.on_disabled = function(initial_call)
---     EchoConsole(user_setting(MOD_SETTINGS.additional_items_swords.save))
-
---     if not initial_call then
---         Mods.update_title_properties(false)
---     end
--- end
-
--- -- Call when governing settings checkbox is checked
--- Mods.on_enabled = function(initial_call)
---     EchoConsole(user_setting(MOD_SETTINGS.additional_items_swords.save))
-
---     Mods.update_title_properties(true)
--- end
-
--- create_options()
-local status, err = pcall(create_options)
-if err ~= nil then
-    EchoConsole(err)
+---RPC request to spawn an item 
+---@param item_name string name available
+---@param x_pos float position on the X axis
+---@param y_pos float position on the Y axis
+---@param z_pos float position on the Z axis
+PubBrawl.spawn_item_rpc = function (item_name, x_pos, y_pos, z_pos, x_angle, y_angle, z_angle)
+    Managers.state.network.network_transmit:send_rpc_server(
+        'rpc_spawn_pickup',
+        NetworkLookup.pickup_names[item_name],
+        Vector3(x_pos, y_pos, z_pos),
+        Quaternion.axis_angle(Vector3(x_angle, y_angle, z_angle), 0.5),
+        NetworkLookup.pickup_spawn_types['dropped']
+    )
 end
+
+---Gets the value of a widget
+---@param data table predifined widgets object
+---@return any
+PubBrawl.get = function(data)
+    if data then
+        return Application.user_setting(data.save)
+    end
+end
+
+---Create the option entries in the mod settings
+PubBrawl.create_options = function (self)  
+    local group = "pubbrawl"
+
+    Mods.option_menu:add_group(group, "Pub Brawl")
+
+    Mods.option_menu:add_item(group, self.widget_settings.pub_brawl_enabled, true)
+    Mods.option_menu:add_item(group, self.widget_settings.additional_items_swords)
+    Mods.option_menu:add_item(group, self.widget_settings.additional_items)
+end
+
+PubBrawl:create_options()
