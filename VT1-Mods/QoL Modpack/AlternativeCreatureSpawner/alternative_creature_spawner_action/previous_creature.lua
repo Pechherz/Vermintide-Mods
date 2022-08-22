@@ -1,0 +1,1 @@
+AlternativeCreatureSpawner:previous_creature()

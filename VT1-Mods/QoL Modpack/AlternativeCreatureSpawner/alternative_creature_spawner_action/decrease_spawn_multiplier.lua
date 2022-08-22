@@ -1,0 +1,1 @@
+AlternativeCreatureSpawner:decrease_spawn_multiplier()
