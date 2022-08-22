@@ -1,0 +1,1 @@
+AlternativeCreatureSpawner:spawn_creature()

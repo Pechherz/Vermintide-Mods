@@ -1,1 +1,0 @@
-AlternativeItemSpawner:next_item()
