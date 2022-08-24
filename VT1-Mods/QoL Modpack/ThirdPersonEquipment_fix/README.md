@@ -1,0 +1,2 @@
+copy the file ThirdPersonEquipment.lua to ..\SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
+copy the file ThirdPersonEquipment_Definitons.lua to ..\SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
