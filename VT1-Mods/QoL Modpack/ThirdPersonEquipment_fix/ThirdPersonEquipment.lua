@@ -360,7 +360,31 @@ mod.get_item_setting = function(self, unit, slot_name, item_data, left)
 				item_setting = item_setting or def[item_data.item_type].left
 			end
 
+		elseif slot_name == "slot_healthkit" or slot_name == "slot_potion" then
+			-- Mods.debug.write_log(slot_name .. " " .. Mods.debug:table_to_string(item_data, 3, "item_data") .. "\n")
+
+			local profile_name = self.current.profile[unit] or nil
+			if profile_name then
+				-- if left then
+				-- 	item_setting = profile_name and def[item_data.item_type][item_data.name][profile_name] and
+				-- 		def[item_data.item_type][item_data.name][profile_name].left
+				-- end
+
+				if profile_name then
+					if not left then
+						item_setting = profile_name and def[item_data.item_type][item_data.name][profile_name] and
+							def[item_data.item_type][item_data.name][profile_name].right
+						item_setting = item_setting or def[item_data.item_type] and def[item_data.item_type].right
+					else
+						item_setting = profile_name and def[item_data.item_type][item_data.name][profile_name] and
+							def[item_data.item_type][item_data.name][profile_name].left
+						item_setting = item_setting or def[item_data.item_type] and def[item_data.item_type].left
+					end
+				end
+			end
 		else
+			-- Mods.debug.write_log(slot_name .. " " .. Mods.debug:table_to_string(item_data, 3, "item_data") .. "\n")
+
 			local profile_name = self.current.profile[unit] or nil
 			if profile_name then
 				if not left then
@@ -393,11 +417,13 @@ mod.add_item = function(self, unit, slot_name, item_data)
 		local item_units = BackendUtils.get_item_units(item_data)
 		if item_units.right_hand_unit ~= nil then
 			local item_setting = self:get_item_setting(unit, slot_name, item_data)
+
 			right_pack = item_units.right_hand_unit .. "_3p"
 			right = self:spawn(right_pack, unit, item_setting)
 		end
 		if item_units.left_hand_unit ~= nil then
 			local item_setting = self:get_item_setting(unit, slot_name, item_data, true)
+
 			left_pack = item_units.left_hand_unit .. "_3p"
 			left = self:spawn(left_pack, unit, item_setting)
 		end
@@ -577,6 +603,7 @@ Mods.hook.set(mod_name, "MatchmakingManager.update", function(func, self, dt, t)
 
 					local profile_synchronizer = Managers.state.network.profile_synchronizer
 					local profile_index = profile_synchronizer:profile_by_peer(player:network_id(), player:local_player_id())
+
 					mod.current.profile[player_unit] = SPProfiles[profile_index].unit_name
 
 					if ScriptUnit.has_extension(player_unit, "health_system") and ScriptUnit.has_extension(player_unit, "status_system") then
