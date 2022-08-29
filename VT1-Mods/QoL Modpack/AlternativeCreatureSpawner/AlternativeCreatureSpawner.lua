@@ -203,8 +203,8 @@ AlternativeCreatureSpawner.next_creature = function(self)
                 self.breed_index = 1
             end
 
-            EchoConsole("Current Creature: " ..
-                self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].text)
+            EchoConsole("Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].text)
+            Managers.chat.chat_gui:show_chat()
         end
     end
 end
@@ -219,8 +219,8 @@ AlternativeCreatureSpawner.previous_creature = function(self)
                 self.breed_index = #self.breeds
             end
 
-            EchoConsole("Current Creature: " ..
-                self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].text)
+            EchoConsole("Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].text)
+            Managers.chat.chat_gui:show_chat()
         end
     end
 end
@@ -232,11 +232,10 @@ AlternativeCreatureSpawner.increase_spawn_multiplier = function(self)
         if Managers.player.is_server then
             self.spawn_multiplier = self.spawn_multiplier + 1
 
-            EchoConsole("Current Creature: " ..
-                self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].text)
+            EchoConsole("Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].text)
+            Managers.chat.chat_gui:show_chat()
         end
     end
-
 end
 
 ---Decrease the amount of creature, that will be spawned at once
@@ -248,8 +247,8 @@ AlternativeCreatureSpawner.decrease_spawn_multiplier = function(self)
                 self.spawn_multiplier = self.spawn_multiplier - 1
             end
 
-            EchoConsole("Current Creature: " ..
-                self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].text)
+            EchoConsole("Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].text)
+            Managers.chat.chat_gui:show_chat()
         end
     end
 
@@ -281,8 +280,8 @@ AlternativeCreatureSpawner.spawn_creature = function(self)
                 false, "filter_ray_horde_spawn")
 
             if position ~= nil then
-                EchoConsole(self.spawn_multiplier ..
-                    "x " .. self.breeds[self.breed_index].text .. " were spawned")
+                EchoConsole(self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].text .. " were spawned")
+                Managers.chat.chat_gui:show_chat()
             end
         end
     end
@@ -322,6 +321,7 @@ AlternativeCreatureSpawner.kill_all_creatures = function(self)
         end
 
         EchoConsole("Removed all enemies")
+        Managers.chat.chat_gui:show_chat()
     end
 end
 
@@ -352,7 +352,7 @@ AlternativeCreatureSpawner.create_options = function(self)
     Mods.option_menu:add_item(group, self.widget_settings.DECREASE_SPAWN_MULTIPLIER)
     Mods.option_menu:add_item(group, self.widget_settings.SPAWN_CREATURE)
     Mods.option_menu:add_item(group, self.widget_settings.KILL_ALL_CREATURES)
-    Mods.option_menu:add_item(group, self.widget_settings.KILL_LAST_CREATURE)
+    --Mods.option_menu:add_item(group, self.widget_settings.KILL_LAST_CREATURE)
 end
 
 AlternativeCreatureSpawner:create_options()
