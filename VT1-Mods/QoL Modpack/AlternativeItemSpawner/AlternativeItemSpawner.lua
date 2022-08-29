@@ -429,6 +429,7 @@ AlternativeItemSpawner.next_item = function(self)
             end
 
             EchoConsole("Current Item: " .. self.items_pool_current_list[self.items_pool_current_index].text)
+            Managers.chat.chat_gui:show_chat()
         end
     end
 end
@@ -450,6 +451,7 @@ AlternativeItemSpawner.previous_item = function(self)
             end
 
             EchoConsole("Current Item: " .. self.items_pool_current_list[self.items_pool_current_index].text)
+            Managers.chat.chat_gui:show_chat()
         end
     end
 end
@@ -480,6 +482,9 @@ AlternativeItemSpawner.spawn_item = function(self)
                     Quaternion.axis_angle(Vector3(0, 0, 0), 0),
                     NetworkLookup.pickup_spawn_types['dropped']
                 )
+
+                EchoConsole(self.items_pool_current_list[self.items_pool_current_index].text .. " spawned.")
+                Managers.chat.chat_gui:show_chat()
             else
                 local local_player_unit = Managers.player:local_player().player_unit
 
@@ -490,6 +495,9 @@ AlternativeItemSpawner.spawn_item = function(self)
                     Unit.local_rotation(local_player_unit, 0),
                     NetworkLookup.pickup_spawn_types['dropped']
                 )
+
+                EchoConsole(self.items_pool_current_list[self.items_pool_current_index].text .. " spawned.")
+                Managers.chat.chat_gui:show_chat()
             end
         end
     end
