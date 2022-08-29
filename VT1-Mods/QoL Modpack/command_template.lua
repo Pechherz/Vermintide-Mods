@@ -8,14 +8,20 @@ for value in string.gmatch(args[1], "%S+") do
 end
 
 local get_help = function()
-    EchoConsole("\n")
-    EchoConsole("You need to pass " .. expected_number_of_parameters .. " arguments.")
-    --replace command example below with your own one
-    EchoConsole("/command_name <parameter_1> <parameter_2> parameter_n")
+    EchoConsole("\n-START-OF-HELP-MESSAGE-")
+
+    if expected_number_of_parameters == 1 then
+        EchoConsole("You need to pass 1 argument.")
+    else
+        EchoConsole("You need to pass " .. expected_number_of_parameters .. " arguments.")
+    end
+
+    --replace command below with your own one
+    EchoConsole("/<command_name> <parameter_1> <parameter_2> <parameter_n>")
 
     --add more context to the user here
 
-    EchoConsole("\n")
+    EchoConsole("-END-OF-HELP-MESSAGE-\n")
 end
 
 if params[1] == "help" then
@@ -23,6 +29,6 @@ if params[1] == "help" then
 elseif #params == expected_number_of_parameters then
     --insert your penis here
 else
-    --replace /command_name below with your command name
-    EchoConsole("Refer to the help page. /command_name help")
+    --replace <command_name> below with your command name
+    EchoConsole("Refer to the following help command for more information:\n/<command_name> help")
 end
