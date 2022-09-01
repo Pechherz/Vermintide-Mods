@@ -1,7 +1,7 @@
-![banner](../assets/banner_top_1057x188.png)
+![banner](../assets/top_banner.png)
 
-<p align="center" style="margin-bottom: 0px !important;">
+<p align="center">
   This is a simple branch to store assets for documentation and presentation purposes.
 </p>
   
-![banner](../assets/banner_buttom_1057x58.png)
+![banner](../assets/buttom_banner.png)
