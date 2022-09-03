@@ -1,26 +1,21 @@
-![top_banner](../../../../assets/top_banner.png)
+<p align="center">
+  <img src="../../assets/banner-top.png" width="1080">
+</p>
 
-**Description**:
-
+## Description:
 This is a chat command to add upgrade tokens to the inventory, which are used in the process of rerolling and gambling to improve a weapon traits.
 
-<br/>
+## Installation:
+- copy *givetokens.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\commands\
+- add the following line to the file \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\CommandList.lua: 
+`{ "/givetokens", true, "commands", "givetokens" },`
 
-**Installation**:
-- copy the file givetokens.lua to .\SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\commands\
-- add the following line to the file .\SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\CommandList.lua: 
-```
-{ "/givetokens", true, "commands", "givetokens" },
-```
-
-<br/>
-
-**How to use**:  
-
+## How to use:  
 There are only two parameters the command requires in order to add upgrade tokens to the inventory.  
 ```
 /givetokens <token type> <non-zero number>
 ```
+
 The first parameter is the token type and there are four of them available:
 1. iron_tokens (white tokens)
 2. bronze_tokens (green tokens)
@@ -34,13 +29,14 @@ The following example will add 30 white tokens to the player inventory.
 /givetokens iron_tokens 30
 ```
 
-<br/>
-
-**Note**:
-
+## Note:
 Refer to the following help command to get ingame information:
 ```
 /givetokens help
 ```
 
-![buttom_banner](../../../../assets/buttom_banner.png)
+<br/>
+
+<p align="center">
+  <img src="../../assets/banner-buttom.png" width="1080">
+</p>

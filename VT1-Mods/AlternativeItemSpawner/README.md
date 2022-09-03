@@ -1,4 +1,6 @@
-![top_banner](../../../../assets/banner-top.png)
+<p align="center">
+  <img src="../../assets/banner-top.png" width="1080">
+</p>
 
 ## Description:
 This is an alternative item spawner that is similar to the item spawner from Vermintide 2.  
@@ -8,9 +10,11 @@ Additionally players can iterate through the selected item group and spawn the c
 Its supposed to be a general improvement over the already existing item spawner, where every distinct item has a unique key.
 
 ## Installation:
-- copy the file AlternativeItemSpawner.lua to .\SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
-- copy the folder alternative_item_spawner_action to .\SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\action\
+- copy *AlternativeItemSpawner.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
+- copy *alternative_item_spawner_action* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\action\
 
 <br/>
 
-![buttom_banner](../../../../assets/banner-buttom.png)
+<p align="center">
+  <img src="../../assets/banner-buttom.png" width="1080">
+</p>
