@@ -1,0 +1,1 @@
+AlternativeCreatureSpawner:kill_all_creatures()

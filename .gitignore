@@ -1,0 +1,15 @@
+LightFX.dll
+PhysX3Common_x86.dll
+PhysX3_x86.dll
+Tobii.EyeX.Client.dll
+dbghelp.dll
+libfbxsdk.dll
+lua51.dll
+steam_api.dll
+tbb.dll
+tbbmalloc.dll
+vermintide-hook.log
+vermintide.exe
+
+plugins/
+Vermintide-Mod-Framework-0.18/
