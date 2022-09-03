@@ -1,22 +1,22 @@
-![top_banner](../../../../assets/banner-top.png)
+<p align="center">
+  <img src="../../assets/banner-top.png" width="1080">
+</p>
 
 ## Description:
-This is a simple chat command to load a map.
+This is a simple chat command to load any map.
 
 ## Installation:
-- copy the file loadmap.lua to .\SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
-- add the following line to the file .\SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\CommandList.lua:
-```
-  "/loadmap", true, "commands", "loadmap" },
-```
+- copy *loadmap.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
+- add the following line to the file \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\CommandList.lua:
+`{ "/loadmap", true, "commands", "loadmap" },`
 
 ## How to use:  
-There are only two parameters the command requires in order to add upgrade tokens to the inventory.  
+There are only two parameters available to provide them to the chat command. However the second parameter ```difficulty id``` is optional.
 ```
-/loadmap <map id> <optional difficulty>
+/loadmap <map id> <optional difficulty id>
 ```  
 
-The **first parameter** is for a map id and there are 28 available including the ones from the DLCs:  
+The **first parameter** is for the map id and there are 28 available including the ones from the DLCs:  
 1. inn_level (Red Moon Inn)
 2. magnus (The Horn of Magnus)
 3. merchant (Supply and Demand)
@@ -46,7 +46,7 @@ The **first parameter** is for a map id and there are 28 available including the
 27. dlc_stromdorf_town (Reaching Out - Stromdorf DLC)
 28. dlc_survival_ruins (The Fall - Schluesselschloss DLC)  
 
-The **second parameter** is for a difficulty id and **optional**.  
+The **second parameter** is for the difficulty id and **optional**.  
 There are five difficulties for campaign missions.
 1. easy (Easy)
 2. normal (Normal)
@@ -82,4 +82,6 @@ Refer to the following help command to get ingame information:
 
 <br/>
 
-![buttom_banner](../../../../assets/banner-buttom.png)
+<p align="center">
+  <img src="../../assets/banner-buttom.png" width="1080">
+</p>

@@ -1,13 +1,16 @@
-![banner](../../assets/VT1-Images/banner-vt1.png)
+<p align="center">
+  <img src="../../assets/VT1-Images/banner-vt1.png" width="1080">
+</p>
 
 ## Developer Note:
 All currently available mods are uploaded in a stable state.
 If any error occurs create an issue and/or notify me with the error message.  
 
-The sub folders [Quality-of-Life-Mods](/Quality-of-Life-Mods) and [Vermintide-Mod-Framework-Mods](/Vermintide-Mod-Framework-Mods) do not refer to some type of mods rather to the available modding frameworks.
+The mods in this folder are developed/ported for the [Quality Of Life Modpack](https://www.reddit.com/r/Vermintide/comments/7vk92o/110_quality_of_life_modpack_v15_cheatfree_w/) and wont work for the Vermintide Mod Framework.
+
+<!-- The sub folders [Quality-of-Life-Mods](/Quality-of-Life-Mods) and [Vermintide-Mod-Framework-Mods](/Vermintide-Mod-Framework-Mods) do not refer to some type of mods rather to the available modding frameworks. -->
 
 ## Currently Available Mods:
-- pub brawl
 - alternative creature spawner
 - alternative item spawner
 - teleport bots to player
@@ -16,6 +19,7 @@ The sub folders [Quality-of-Life-Mods](/Quality-of-Life-Mods) and [Vermintide-Mo
 - map load command
 - unstuck player command (WIP, only working for hosting player)
 - thirdperson equipment fix/enhancements (WIP) 
+- pub brawl (ported from VMF)
 
 ## Mod Ideas:
 - add developer console to test/debug
