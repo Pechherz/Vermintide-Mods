@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../assets/banner-top.png" width="1080">
+  <img src="../../../assets/banner-top.png" width="1080">
 </p>
 
 ## Description:
@@ -12,5 +12,5 @@ Enables bar fights with other player characters. In addition this mod spawns bom
 <br/>
 
 <p align="center">
-  <img src="../../assets/banner-buttom.png" width="1080">
+  <img src="../../../assets/banner-buttom.png" width="1080">
 </p>

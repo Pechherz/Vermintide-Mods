@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../assets/banner-top.png" width="1080">
+  <img src="../../../assets/banner-top.png" width="1080">
 </p>
 
 ## Description:
@@ -13,5 +13,5 @@ In addition it allows the hosting player to teleport bots, which might be useful
 <br/>
 
 <p align="center">
-  <img src="../../assets/banner-buttom.png" width="1080">
+  <img src="../../../assets/banner-buttom.png" width="1080">
 </p>

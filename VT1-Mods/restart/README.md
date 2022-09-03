@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../assets/banner-top.png" width="1080">
+  <img src="../../../assets/banner-top.png" width="1080">
 </p>
 
 ## Description:
@@ -21,5 +21,5 @@ Beware that all progress made during mission progression will not be accounted l
 <br/>
 
 <p align="center">
-  <img src="../../assets/banner-buttom.png" width="1080">
+  <img src="../../../assets/banner-buttom.png" width="1080">
 </p>

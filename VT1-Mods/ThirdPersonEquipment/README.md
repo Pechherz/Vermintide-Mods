@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../assets/banner-top.png" width="1080">
+  <img src="../../../assets/banner-top.png" width="1080">
 </p>
 
 ## Third Person Equipment:
@@ -20,5 +20,5 @@ Added seperate position for potions, grimoires, bandages and healing draughts an
 <br/>
 
 <p align="center">
-  <img src="../../assets/banner-buttom.png" width="1080">
+  <img src="../../../assets/banner-buttom.png" width="1080">
 </p>
