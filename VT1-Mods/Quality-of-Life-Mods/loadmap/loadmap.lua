@@ -1,146 +1,154 @@
 local args = { ... }
 local params = {}
---give a non-negative amount of parameters
 local expected_number_of_parameters = 1
-local available_maps = {
-    {
-        value = "magnus",
-        text = "The Horn of Magnus",
+
+local maps = {
+    inn_level = {
+        id = "inn_level",
+        name = "Red Moon Inn",
     },
-    {
-        value = "bridge",
-        text = "Black Powder",
+    magnus = {
+        id = "magnus",
+        name = "The Horn of Magnus",
     },
-    {
-        value = "Smuggler's Run",
-        text = "sewers_short",
+    merchant = {
+        id = "merchant",
+        name = "Supply and Demand",
     },
-    {
-        value = "wizard",
-        text = "The Wizard's Tower",
+    sewers_short = {
+        id = "sewers_short",
+        name = "Smuggler's Run",
     },
-    {
-        value = "city_wall",
-        text = "Man the Ramparts",
+    wizard = {
+        id = "wizard",
+        name = "The Wizard's Tower",
     },
-    {
-        value = "tunnels",
-        text = "The Enemy Below",
+    dlc_challenge_wizard = {
+        id = "dlc_challenge_wizard",
+        name = "Trial of the Foolhardy",
     },
-    {
-        value = "cemetery",
-        text = "Garden of Morr",
+    bridge = {
+        id = "bridge",
+        name = "Black Powder",
     },
-    {
-        value = "forest_ambush",
-        text = "Engines of War",
+    forest_ambush = {
+        id = "forest_ambush",
+        name = "Engines of War",
     },
-    {
-        value = "merchant",
-        text = "Supply and Demand",
+    city_wall = {
+        id = "city_wall",
+        name = "Man the Ramparts",
     },
-    {
-        value = "end_boss",
-        text = "The White Rat",
+    cemetery = {
+        id = "cemetery",
+        name = "Garden of Morr",
     },
-    {
-        value = "courtyard_level",
-        text = "Well Watch",
+    farm = {
+        id = "farm",
+        name = "Wheat and Chaff",
     },
-    {
-        value = "docks_short_level",
-        text = "Waterfront",
+    tunnels = {
+        id = "tunnels",
+        name = "The Enemy Below",
     },
-    {
-        value = "farm",
-        text = "Wheat and Chaff",
+    courtyard_level = {
+        id = "courtyard_level",
+        name = "Well Watch",
     },
-    {
-        value = "dlc_dwarf_interior",
-        text = "Khazid Kro",
+    docks_short_level = {
+        id = "docks_short_level",
+        name = "Waterfront",
     },
-    {
-        value = "dlc_portals",
-        text = "Summoner's Peak",
+    end_boss = {
+        id = "end_boss",
+        name = "The White Rat",
     },
-    {
-        value = "dlc_castle_dungeon",
-        text = "The Dungeons",
+    chamber = {
+        id = "chamber",
+        name = "Waylaid",
     },
-    {
-        value = "dlc_castle",
-        text = "Castle Drachenfels",
+    dlc_survival_magnus = {
+        id = "dlc_survival_magnus",
+        name = "Town Meeting",
     },
-    {
-        value = "dlc_dwarf_exterior",
-        text = "The Cursed Rune",
+    dlc_dwarf_interior = {
+        id = "dlc_dwarf_interior",
+        name = "Khazid Kro",
     },
-    {
-        value = "dlc_dwarf_beacons",
-        text = "Chain of Fire",
+    dlc_dwarf_exterior = {
+        id = "dlc_dwarf_exterior",
+        name = "The Cursed Rune",
     },
-    {
-        value = "dlc_stromdorf_hills",
-        text = "The Courier",
+    dlc_dwarf_beacons = {
+        id = "dlc_dwarf_beacons",
+        name = "Chain of Fire",
     },
-    {
-        value = "dlc_stromdorf_town",
-        text = "Reaching Out",
+    dlc_castle = {
+        id = "dlc_castle",
+        name = "Castle Drachenfels",
     },
-    {
-        value = "dlc_reikwald_forest",
-        text = "Reikwald Forest",
+    dlc_castle_dungeon = {
+        id = "dlc_castle_dungeon",
+        name = "The Dungeons",
     },
-    {
-        value = "dlc_reikwald_river",
-        text = "The River Reik",
+    dlc_portals = {
+        id = "dlc_portals",
+        name = "Summoner's Peak",
     },
-    {
-        value = "dlc_challenge_wizard",
-        text = "Trial of the Foolhardy",
+    dlc_stromdorf_hills = {
+        id = "dlc_stromdorf_hills",
+        name = "The Courier",
     },
-    {
-        value = "dlc_survival_magnus",
-        text = "Town Meeting",
+    dlc_stromdorf_town = {
+        id = "dlc_stromdorf_town",
+        name = "Reaching Out",
     },
-    {
-        value = "dlc_survival_ruins",
-        text = "The Fall",
+    dlc_reikwald_river = {
+        id = "dlc_reikwald_river",
+        name = "The River Reik",
+    },
+    dlc_reikwald_forest = {
+        id = "dlc_reikwald_forest",
+        name = "Reikwald Forest",
+    },
+    dlc_survival_ruins = {
+        id = "dlc_survival_ruins",
+        name = "The Fall",
     },
 }
 
 local difficulties = {
-    {
-        difficulty_id = "easy",
-        difficulty_name = "Easy"
+    easy = {
+        id = "easy",
+        name = "Easy"
     },
-    {
-        difficulty_id = "normal",
-        difficulty_name = "Normal"
+    normal = {
+        id = "normal",
+        name = "Normal"
     },
-    {
-        difficulty_id = "hard",
-        difficulty_name = "Hard"
+    hard = {
+        id = "hard",
+        name = "Hard"
     },
-    {
-        difficulty_id = "harder",
-        difficulty_name = "Nightmare"
+    harder = {
+        id = "harder",
+        name = "Nightmare"
     },
-    {
-        difficulty_id = "hardest",
-        difficulty_name = "Cataclysm"
+    hardest = {
+        id = "hardest",
+        name = "Cataclysm"
     },
-    {
-        difficulty_id = "survival_hard",
-        difficulty_name = "Veteran (Last Stand)",
+    survival_hard = {
+        id = "survival_hard",
+        name = "Veteran (Last Stand)",
     },
-    {
-        difficulty_id = "survival_harder",
-        difficulty_name = "Champion (Last Stand)",
+    survival_harder = {
+        id = "survival_harder",
+        name = "Champion (Last Stand)",
     },
-    {
-        difficulty_id = "survival_hardest",
-        difficulty_name = "Heroic (Last Stand)",
+    survival_hardest = {
+        id = "survival_hardest",
+        name = "Heroic (Last Stand)",
     },
 }
 
@@ -149,73 +157,83 @@ for value in string.gmatch(args[1], "%S+") do
 end
 
 local get_help = function()
-    EchoConsole("\n-START-OF-HELP-MESSAGE-")
+    local help_message = "\n-START-OF-HELP-MESSAGE-\n"
 
     if expected_number_of_parameters == 1 then
-        EchoConsole("You need to pass 1 argument.")
+        help_message = help_message .. "You need to pass atleast 1 argument.\n"
     else
-        EchoConsole("You need to pass " .. expected_number_of_parameters .. " arguments.")
+        help_message = help_message .. "You need to pass " .. expected_number_of_parameters .. " arguments.\n"
     end
-    EchoConsole("\n")
 
-    EchoConsole("/loadmap <map name> <difficulty name (optional)>")
+    help_message = help_message .. "/loadmap <map id> <optional difficulty id>\n\n"
 
-    EchoConsole("map names:")
-    for index, value in ipairs(available_maps) do
-        EchoConsole(index .. ". " .. value.value .. " (" .. value.text .. ")")
+    help_message = help_message .. "maps:\n"
+
+    local index = 1
+    for _, map in pairs(maps) do
+        help_message = help_message .. index .. ". " .. map.id .. " (" .. map.name .. ")\n"
+        index = index + 1
     end
-    EchoConsole("\n")
 
-    EchoConsole("difficulties")
-    for index, value in ipairs(difficulties) do
-        EchoConsole(index .. ". " .. value.difficulty_id .. " (" .. value.difficulty_name .. ")")
+    help_message = help_message .. "\ndifficulties:\n"
+
+    index = 1
+    for _, difficulty in pairs(difficulties) do
+        help_message = help_message .. index .. ". " .. difficulty.id .. " (" .. difficulty.name .. ")\n"
+        index = index + 1
     end
-    EchoConsole("\n")
 
-    EchoConsole("The following example would load 'The Horn of Magnus' on Nightmare:\n /loadmap magnus harder")
+    help_message = help_message .. "\nThe following example would load 'The Horn of Magnus' on Nightmare:\n"
+    help_message = help_message .. "/loadmap magnus harder\n"
+    help_message = help_message .. "-END-OF-HELP-MESSAGE-\n"
 
-    EchoConsole("-END-OF-HELP-MESSAGE-\n")
+    return help_message
 end
 
 if params[1] == "help" then
-    get_help()
+    EchoConsole(get_help())
 elseif #params >= expected_number_of_parameters then
     local map_id = params[1]
     local difficulty_id = params[2]
+    local difficulty_manager = Managers.state.difficulty
+
+    --
+    local map = maps[map_id]
+    local map_exists = map ~= nil
+
+    if not map_exists then
+        EchoConsole("\nThe map id '" .. map_id .. "' doesn't exist.")
+        EchoConsole("Refer to the following help command for more information:\n/loadmap help")
+        return
+    end
 
     --optional
-    --check if the difficulty exists
+    --check if a diffiulty is provided, otherwise just get the currently set difficulty
+    local difficulty = nil
+    local difficulty_exists = false
+
+
     if difficulty_id ~= nil then
-        local difficulty_exists = false
-        for _, difficulty in ipairs(difficulties) do
-            if difficulty.difficulty_id == difficulty_id then
-                difficulty_exists = true
-                -- return
-            end
-        end
+        difficulty = difficulties[difficulty_id]
+        difficulty_exists = difficulty ~= nil
 
         if difficulty_exists then
-            local difficulty_manager = Managers.state.difficulty
             difficulty_manager:set_difficulty(difficulty_id)
         else
-            EchoConsole("The difficulty '" .. difficulty_id .. "' doesn't exist.")
+            EchoConsole("\nThe difficulty id '" .. difficulty_id .. "' doesn't exist.")
+            EchoConsole("Refer to the following help command for more information:\n/loadmap help")
             return
         end
-    end
-
-    local map_name_exists = false
-    for _, map in ipairs(available_maps) do
-        if map.value == map_id then
-            map_name_exists = true
-            -- return
-        end
-    end
-
-    if map_name_exists then
-        Managers.state.game_mode:start_specific_level(map_id, nil)
     else
-        EchoConsole("The map '" .. map_id .. "' doesn't exist.")
+        difficulty_id = difficulty_manager:get_difficulty()
+        difficulty = difficulties[difficulty_id]
     end
+
+    local map_name = map.name
+    local difficulty_name = difficulty.name
+
+    Managers.chat:send_system_chat_message(1, "\nLoading the map " .. map_name .. " on " .. difficulty_name, 0, true)
+    Managers.state.game_mode:start_specific_level(map_id, nil)
 else
     EchoConsole("Refer to the following help command for more information:\n/loadmap help")
 end
