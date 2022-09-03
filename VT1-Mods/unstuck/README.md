@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../assets/banner-top.png" width="1080">
+  <img src="../../../assets/banner-top.png" width="1080">
 </p>
 
 ## Description:
@@ -23,5 +23,5 @@ Currently it only works for the hosting player due to navmesh being only generat
 <br/>
 
 <p align="center">
-  <img src="../../assets/banner-buttom.png" width="1080">
+  <img src="../../../assets/banner-buttom.png" width="1080">
 </p>

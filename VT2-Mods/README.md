@@ -1,4 +1,6 @@
-![banner](../../assets/VT2-Images/banner-vt2.png)
+<p align="center">
+  <img src="../../assets/VT2-Images/banner-vt2.png" width="1080">
+</p>
 
 ## Developer Note:
 
