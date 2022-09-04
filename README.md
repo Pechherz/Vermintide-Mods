@@ -1,6 +1,7 @@
 ## Purpose of this repository
-This repository acts as an archive and a way to distribute mods for the Vermintide games.  
-**I hold no intention in taking ownership and/or credit for other people's work.**
+This repository acts as way to distribute mods and improvements to the Vermintide games.  
+**I hold no intention in taking ownership and/or credit for other people's work by porting mods.**
+
 <!--
 ## Vermintide 1
 Warhammer: End Times - Vermintide exist two distinct framework namely [Vermintide Mod Framework](https://www.nexusmods.com/vermintide/mods/1?tab=files) and [Quality Of Life Modpack](https://www.reddit.com/r/Vermintide/comments/7vk92o/110_quality_of_life_modpack_v15_cheatfree_w/). Besides the difference in the core and structure both frameworks accomplish the same purpose: modifying and improving the vanilla experience.  
