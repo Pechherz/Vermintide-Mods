@@ -13,17 +13,20 @@ The mods in this folder are developed/ported for the [Quality Of Life Modpack](h
 ## Currently Available Mods:
 - alternative creature spawner
 - alternative item spawner
-- teleport bots to player
-- restart game command
-- all ready
 - map load command
-- unstuck player command (WIP, only working for hosting player)
+- player teleporter (also allows teleportation of bots)
+- restart game command
+- unstuck player command (WIP, only works for the hosting player)
 - thirdperson equipment fix/enhancements (WIP) 
-- pub brawl (ported from VMF)
+- all ready (ported from VMF)
+- no silent assassins (ported from VMF)
+- pub brawl (ported from VMF with minor custom additions)
 
 ## Mod Ideas:
 - add developer console to test/debug
 - add searchbar to mod settings
+- add achievement tracker
+
 - add command to clear chat box
 - add immersive full body awareness
 - add SteamRichPresence (current map, difficulty, player count/free slots, map progression)
@@ -39,7 +42,7 @@ The mods in this folder are developed/ported for the [Quality Of Life Modpack](h
 - add draw function to draw custom texts etc.
 - add dodge counter customization
 - add inspect anims from vt2
-- spawn additional bots
+- try to add redecorations from previous event e.g. Halloween, Mitterfruhl, Sonnstill, Skulls for the Skull Throne
 - add bot priority
 - add damage reduction, damage increase, stagger increase, shield increase buffs by command
 - fly, noclip, invisible to enemies, infinite ammo by command
