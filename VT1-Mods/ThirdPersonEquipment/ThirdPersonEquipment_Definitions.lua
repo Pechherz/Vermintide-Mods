@@ -660,7 +660,7 @@ Visible3PEquipment_Definitions = {
 				left = {
 					node = default_node,
 					position = { -0.1, -0.15, -0.1 },
-					rotation = { 120, 110, 0 },
+					rotation = { 120, 110, 90 },
 				}
 			},
 			way_watcher = {
@@ -846,8 +846,8 @@ Visible3PEquipment_Definitions = {
 			bright_wizard = {
 				left = {
 					node = default_node,
-					position = { 0, 0.15, 0.05 },
-					rotation = { 0, 90, 20 },
+					position = { 0, 0.13, -0.03 },
+					rotation = { 0, 90, -90 },
 				},
 			},
 			way_watcher = {
