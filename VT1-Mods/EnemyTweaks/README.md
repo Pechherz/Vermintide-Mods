@@ -3,8 +3,10 @@
 </p>
 
 ## Description:
-This is a merge of [No Silent Assassins](https://www.nexusmods.com/vermintide/mods/40) and specials_spawn_idling in order to have both mods work simultaneously.
-Addtionally it exposes some options from specials_spawn_idling to the mod settings.  
+This is a merge of [No Silent Assassins](https://www.nexusmods.com/vermintide/mods/40) and specials_spawn_idling to enable both mods simultaneously.  
+Addtionally this mod exposes all settings from specials_spawn_idling to the mod settings.  
+
+Some of the original functions that have been hooked by specials_spawn_idling were replaced by functions that force specials to hold position instead of not attacking the player.
 
 Mod options are found under Gameplay Tweaks.
 
