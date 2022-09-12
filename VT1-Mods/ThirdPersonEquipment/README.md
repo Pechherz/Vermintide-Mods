@@ -2,11 +2,8 @@
   <img src="../../../assets/banner-top.png" width="1080">
 </p>
 
-## Third Person Equipment:
-Shows sheathed equipment on characters. 
-
 ## Description:
-This is a minor change of item definitions.  
+This is not a port, but rather an "improvement", with currently some minor changes of the item definitions, of Third Person Equipment by [Grasmann](https://www.nexusmods.com/vermintide/mods/3).
 
 Added seperate position for potions, grimoires, bandages and healing draughts and in addition this mod fixes Kerillians item positions not being applied.
 

@@ -13,20 +13,21 @@ The mods in this folder are developed/ported for the [Quality Of Life Modpack](h
 ## Currently Available Mods:
 - alternative creature spawner
 - alternative item spawner
-- map load command
+- map load command (also allows difficulty to be set)
 - player teleporter (also allows teleportation of bots)
 - restart game command
 - unstuck player command (WIP, only works for the hosting player)
 - thirdperson equipment fix/enhancements (WIP) 
 - all ready (ported from VMF)
 - no silent assassins (ported from VMF)
+- EnemyTweaks (merged No Silent Assassins and specials_spawn_idling into one mod)
+- Game Pause (added key option to mod settings instead of command) 
 - pub brawl (ported from VMF with minor custom additions)
 
 ## Mod Ideas:
 - add developer console to test/debug
 - add searchbar to mod settings
 - add achievement tracker
-
 - add command to clear chat box
 - add immersive full body awareness
 - add SteamRichPresence (current map, difficulty, player count/free slots, map progression)
