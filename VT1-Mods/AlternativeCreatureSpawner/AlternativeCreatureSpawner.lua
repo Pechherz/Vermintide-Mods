@@ -1,9 +1,9 @@
 local mod_name = "AlternativeCreatureSpawner"
 local oi = OptionsInjector
 
---allow spawning in the inn/ prevent crash in the inn
---allow setting health and other attributes, default e.g.
---ConflictDirector.destroy_unit
+--todo:
+--allow creatures within the inn
+--display currently choosen creature with UIRENDERER
 
 AlternativeCreatureSpawner = {}
 AlternativeCreatureSpawner.breeds = {
@@ -331,6 +331,19 @@ AlternativeCreatureSpawner.kill_last_creatures = function(self)
     Managers.state.conflict:last_spawned_unit()
 end
 
+--prevents crash when the Grey Seer is spawned
+Mods.hook.set(mod_name, "BTTeleportToPortalAction.enter", function(func, self, unit, blackboard, t, dt)
+    local unit_position = POSITION_LOOKUP[unit]
+	local action_data = self._tree_node.action_data
+	local entrance_pos, exit_pos = nil
+	local id = action_data.level_portal_id
+	local portal_data = blackboard.teleport_portals[id]
+
+    if portal_data then
+        blackboard.teleport_position = portal_data.position
+    end
+end)
+
 ---Gets the value of a widget
 ---@param data table predifined widgets object
 ---@return unknown
@@ -352,7 +365,7 @@ AlternativeCreatureSpawner.create_options = function(self)
     Mods.option_menu:add_item(group, self.widget_settings.DECREASE_SPAWN_MULTIPLIER)
     Mods.option_menu:add_item(group, self.widget_settings.SPAWN_CREATURE)
     Mods.option_menu:add_item(group, self.widget_settings.KILL_ALL_CREATURES)
-    --Mods.option_menu:add_item(group, self.widget_settings.KILL_LAST_CREATURE)
+    -- Mods.option_menu:add_item(group, self.widget_settings.KILL_LAST_CREATURE )
 end
 
 AlternativeCreatureSpawner:create_options()
