@@ -331,16 +331,14 @@ AlternativeCreatureSpawner.kill_last_creatures = function(self)
     Managers.state.conflict:last_spawned_unit()
 end
 
---prevents crash when the Grey Seer is spawned
-Mods.hook.set(mod_name, "BTTeleportToPortalAction.enter", function(func, self, unit, blackboard, t, dt)
-    local unit_position = POSITION_LOOKUP[unit]
+---prevents crash when the Grey Seer is spawned
+Mods.hook.set(mod_name, "BTTeleportToPortalAction.enter", function(func, self, unit, blackboard, t)
 	local action_data = self._tree_node.action_data
-	local entrance_pos, exit_pos = nil
 	local id = action_data.level_portal_id
 	local portal_data = blackboard.teleport_portals[id]
 
     if portal_data then
-        blackboard.teleport_position = portal_data.position
+        func(self, unit, blackboard, t)
     end
 end)
 
