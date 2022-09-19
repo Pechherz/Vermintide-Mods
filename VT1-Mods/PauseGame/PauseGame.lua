@@ -58,9 +58,11 @@ PauseGame.pause_game = function(self)
             Managers.state.debug:set_time_paused()
 
             if Managers.player.is_server then
-                Managers.chat:send_system_chat_message(1, "Paused game. Pressing ESC will freeze the game!", 0, true)
+                Managers.chat:send_system_chat_message(1, "GAME PAUSED", 0, true)
+                Managers.chat:send_system_chat_message(1, "Don't open the game menu, unless you want to break your game", 0, true)
             else
-                Managers.chat:add_local_system_message(1, "Paused game. Pressing ESC will freeze the game!", true)    
+                Managers.chat:add_local_system_message(1, "GAME PAUSED", true)    
+                Managers.chat:add_local_system_message(1, "Don't open the game menu, unless you want to break your game", true)  
             end
 
         else
@@ -69,9 +71,9 @@ PauseGame.pause_game = function(self)
             Managers.state.debug:set_time_scale(Managers.state.debug.time_scale_index)
 
             if Managers.player.is_server then
-                Managers.chat:send_system_chat_message(1, "Unpaused game.", 0, true)
+                Managers.chat:send_system_chat_message(1, "GAME UNPAUSED", 0, true)
             else
-                Managers.chat:add_local_system_message(1, "Unpaused game.", true)    
+                Managers.chat:add_local_system_message(1, "GAME UNPAUSED", true)    
             end
         end
     end
