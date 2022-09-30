@@ -205,6 +205,7 @@ AlternativeCreatureSpawner.next_creature = function(self)
 
             local message = "Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value
             Managers.chat:add_local_system_message(1, message, true)  
+            Managers.chat.chat_gui:show_chat()
         end
     end
 end
@@ -220,7 +221,8 @@ AlternativeCreatureSpawner.previous_creature = function(self)
             end
 
             local message = "Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value
-            Managers.chat:add_local_system_message(1, message, true)  
+            Managers.chat:add_local_system_message(1, message, true)
+            Managers.chat.chat_gui:show_chat()
         end
     end
 end
@@ -233,7 +235,8 @@ AlternativeCreatureSpawner.increase_spawn_multiplier = function(self)
             self.spawn_multiplier = self.spawn_multiplier + 1
 
             local message = "Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value
-            Managers.chat:add_local_system_message(1, message, true)  
+            Managers.chat:add_local_system_message(1, message, true)
+            Managers.chat.chat_gui:show_chat()
         end
     end
 end
@@ -248,6 +251,7 @@ AlternativeCreatureSpawner.decrease_spawn_multiplier = function(self)
                 
                 local message = "Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value
                 Managers.chat:add_local_system_message(1, message, true)  
+                Managers.chat.chat_gui:show_chat()
             end
         end
     end
@@ -257,38 +261,45 @@ end
 ---@param self table
 AlternativeCreatureSpawner.spawn_creature = function(self)
     if self.get(self.widget_settings.CREATURE_SPAWNER_ENABLED) then
+        local message = ""
         if Managers.player.is_server then
-
-            local breed_id = self.breeds[self.breed_index].id
-            if "skaven_horde" == breed_id then
-                for i = 1, self.spawn_multiplier, 1 do
-                    Managers.state.conflict:debug_spawn_horde()
-                end
-            elseif "skaven_storm_vermin_patrol" == breed_id then
-                for i = 1, self.spawn_multiplier, 1 do
-                    Managers.state.conflict:debug_spawn_group(0)
-                end
+            if  Managers.state.game_mode._level_key == "inn_level" then
+                message = "[You can't spawn any creatures within the inn]"
             else
-                for i = 1, self.spawn_multiplier, 1 do
-                    Managers.state.conflict:aim_spawning(Breeds[breed_id], false)
-                end
-            end
-
-            local conflict_director = Managers.state.conflict
-            local position, distance, normal, actor = conflict_director:player_aim_raycast(conflict_director._world, false, "filter_ray_horde_spawn")
-
-            local message = ""
-            if position ~= nil then
-                if self.spawn_multiplier == 1 then
-                    message = self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value .. " was spawned"
+                local breed_id = self.breeds[self.breed_index].id
+                if "skaven_horde" == breed_id then
+                    for i = 1, self.spawn_multiplier, 1 do
+                        Managers.state.conflict.horde_spawner:horde()                 
+                    end
+                elseif "skaven_storm_vermin_patrol" == breed_id then
+                    for i = 1, self.spawn_multiplier, 1 do
+                        Managers.state.conflict:debug_spawn_group(0)
+                    end
                 else
-                    message = self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value .. " were spawned"
+                    for i = 1, self.spawn_multiplier, 1 do
+                        Managers.state.conflict:aim_spawning(Breeds[breed_id], false)
+                    end
                 end
-            else
-                message = "-INVALID-SPAWN-LOCATION-"
+
+                local conflict_director = Managers.state.conflict
+                local position, distance, normal, actor = conflict_director:player_aim_raycast(conflict_director._world, false, "filter_ray_horde_spawn")
+
+                if position ~= nil then
+                    if self.spawn_multiplier == 1 then
+                        message = self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value .. " was spawned"
+                    else
+                        message = self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value .. " were spawned"
+                    end
+                else
+                    message = "[Invalid spawning location]"
+                end
             end
-            Managers.chat:add_local_system_message(1, message, true)  
+        else
+            message = "[In order to spawn creatures, you have to be the host]"
         end
+
+        Managers.chat:add_local_system_message(1, message, true)
+        Managers.chat.chat_gui:show_chat()
     end
 end
 
@@ -325,7 +336,8 @@ AlternativeCreatureSpawner.kill_all_creatures = function(self)
         end
 
         local message = "All creatures were removed"
-        Managers.chat:add_local_system_message(1, message, true)  
+        Managers.chat:add_local_system_message(1, message, true)
+        Managers.chat.chat_gui:show_chat()
     end
 end
 
@@ -343,6 +355,7 @@ AlternativeCreatureSpawner.kill_last_creature = function(self)
         local breed_name = self:get_breed_name_by_id(blackboard.breed.name)
         local message = "1x " .. breed_name .. " was despawned"
         Managers.chat:add_local_system_message(1, message, true)  
+        Managers.chat.chat_gui:show_chat()
     end
 end
 
