@@ -1,35 +1,5 @@
---[[
-	Name:       Alternative Item Spawner
-	Author:     Pechherz
-	Version:    1.0.1 (2022-05-29)
-                1.0.0 (2022-05-27)
-    
-    This is a alternative Item Spawner that is similar to the item spawner from Vermintide 2.
-    It features predefined item groups (e.g. healing, bombs, potions ..) and a custom group, which can be changed by 
-    the users wish.
-
-    Required File Location:
-        -AlternativeItemSpawner.lua                    goes into "\Warhammer End Times Vermintide\binaries\mods\patch\"
-        -alternative_item_spawner_next_item.lua        goes into "\Warhammer End Times Vermintide\binaries\mods\patch\action\"
-        -alternative_item_spawner_previous_item.lua    goes into "\Warhammer End Times Vermintide\binaries\mods\patch\action\"
-        -alternative_item_spawner_spawn_item.lua       goes into "\Warhammer End Times Vermintide\binaries\mods\patch\action\"
-
-    Version history:
-	    -1.0.0 (2022-05-27): Release
-        Features:
-            -predined groups (e.g. healing, bombs .) and a custom group, which can be set by the users wish
-            -includes the fire grenade fix for the inn (Credit goes to uladz)
-            -includes the smoke bomb fix from (Credit goes to uladz)
-            -smaller set of keybinds to improve mod usability
-            -remove/clean spawned items
---]]
-
 --add other display for current items
---add imte group keybind
---include grenade fixes
 --add more items e.g grain sacks
---maybe remove some groups
---rename objects to mission type objects
 --add warning for spawning badges and other stuff that can interfere with CheatProtect
 
 local mod_name = "AlternativeItemSpawner"
@@ -37,107 +7,107 @@ local oi = OptionsInjector
 
 local all_items = {
     healing_draught = {
-        value = "healing_draught",
-        text = "Healing Draught"
+        key = "healing_draught",
+        value = "Healing Draught",
     },
     first_aid_kit = {
-        value = "first_aid_kit",
-        text = "Medical Supplies"
+        key = "first_aid_kit",
+        value = "Medical Supplies",
     },
     speed_boost_potion = {
-        value = "speed_boost_potion",
-        text = "Potion of Speed"
+        key = "speed_boost_potion",
+        value = "Potion of Speed",
     },
     damage_boost_potion = {
-        value = "damage_boost_potion",
-        text = "Potion of Strength"
+        key = "damage_boost_potion",
+        value = "Potion of Strength",
     },
     frag_grenade_t1 = {
-        value = "frag_grenade_t1",
-        text = "Explosive Bomb"
+        key = "frag_grenade_t1",
+        value = "Explosive Bomb",
     },
     frag_grenade_t2 = {
-        value = "frag_grenade_t2",
-        text = "Improved Explosive Bomb"
+        key = "frag_grenade_t2",
+        value = "Improved Explosive Bomb",
     },
     fire_grenade_t1 = {
-        value = "fire_grenade_t1",
-        text = "Incendiary Bomb"
+        key = "fire_grenade_t1",
+        value = "Incendiary Bomb",
     },
     fire_grenade_t2 = {
-        value = "fire_grenade_t2",
-        text = "Improved Incendiary Bomb"
-    },
-    smoke_grenade_t1 = {
-        value = "smoke_grenade_t1",
-        text = "Smoke Bomb",
-        message = "Caution on difficulty hard and above without the bomb trinket!\nLarger AoE then incendiary grenade."
-    },
-    smoke_grenade_t2 = {
-        value = "smoke_grenade_t2",
-        text = "Improved Smoke Bomb",
-        message = "Caution on difficulty hard and above without the bomb trinket!\nLarger AoE then incendiary grenade."
+        key = "fire_grenade_t2",
+        value = "Improved Incendiary Bomb",
     },
     all_ammo_small = {
-        value = "all_ammo_small",
-        text = "Ammunition"
+        key = "all_ammo_small",
+        value = "Ammunition",
+    },
+    all_ammo = {
+        key = "all_ammo",
+        value = "Ammunition Box",
+        physics_off = true,
     },
     tome = {
-        value = "tome",
-        text = "Tome"
+        key = "tome",
+        value = "Tome",
     },
     grimoire = {
-        value = "grimoire",
-        text = "Grimoire"
+        key = "grimoire",
+        value = "Grimoire",
+    },
+    loot_die = {
+        key = "loot_die",
+        value = "Loot Die",
     },
     lorebook_page = {
-        value = "lorebook_page",
-        text = "Lore-Book Page"
+        key = "lorebook_page",
+        value = "Lore-Book Page",
+        physics_off = true,
     },
     torch = {
-        value = "torch",
-        text = "Torch"
+        key = "torch",
+        value = "Torch",
     },
     grain_sack = {
-        value = "grain_sack",
-        text = "Grain Sack"
+        key = "grain_sack",
+        value = "Grain Sack",
     },
     explosive_barrel = {
-        value = "explosive_barrel",
-        text = "Explosive Barrel"
+        key = "explosive_barrel",
+        value = "Explosive Barrel",
     },
     brawl_unarmed = {
-        value = "brawl_unarmed",
-        text = "Pub Brawl Barrel",
+        key = "brawl_unarmed",
+        value = "Pub Brawl Barrel",
         message = ""
     },
     wooden_sword_01 = {
-        value = "wooden_sword_01",
-        text = "Wooden Sword 1"
+        key = "wooden_sword_01",
+        value = "Wooden Sword 1",
     },
     wooden_sword_02 = {
-        value = "wooden_sword_02",
-        text = "Wooden Sword 2"
+        key = "wooden_sword_02",
+        value = "Wooden Sword 2",
     },
     endurance_badge_01 = {
-        value = "endurance_badge_01",
-        text = "Endurance Badge 1"
+        key = "endurance_badge_01",
+        value = "Endurance Badge 1",
     },
     endurance_badge_02 = {
-        value = "endurance_badge_02",
-        text = "Endurance Badge 2"
+        key = "endurance_badge_02",
+        value = "Endurance Badge 2",
     },
     endurance_badge_03 = {
-        value = "endurance_badge_03",
-        text = "Endurance Badge 3"
+        key = "endurance_badge_03",
+        value = "Endurance Badge 3",
     },
     endurance_badge_04 = {
-        value = "endurance_badge_04",
-        text = "Endurance Badge 4"
+        key = "endurance_badge_04",
+        value = "Endurance Badge 4",
     },
     endurance_badge_05 = {
-        value = "endurance_badge_05",
-        text = "Endurance Badge 5"
+        key = "endurance_badge_05",
+        value = "Endurance Badge 5",
     },
 }
 
@@ -151,14 +121,14 @@ AlternativeItemSpawner.items_pool_category_all = {
     all_items.frag_grenade_t2,
     all_items.fire_grenade_t1,
     all_items.fire_grenade_t2,
-    all_items.smoke_grenade_t1,
-    all_items.smoke_grenade_t2,
     all_items.all_ammo_small,
+    all_items.all_ammo,
     all_items.tome,
     all_items.grimoire,
+    all_items.loot_die,
     all_items.lorebook_page,
     all_items.torch,
-    all_items.grain_sack,
+    -- all_items.grain_sack,
     all_items.explosive_barrel,
     all_items.brawl_unarmed,
     all_items.wooden_sword_01,
@@ -169,9 +139,7 @@ AlternativeItemSpawner.items_pool_category_all = {
     all_items.endurance_badge_04,
     all_items.endurance_badge_05,
 }
-AlternativeItemSpawner.items_pool_category_custom = {
-
-}
+AlternativeItemSpawner.items_pool_category_custom = {}
 AlternativeItemSpawner.items_pool_category_consumable = {
     all_items.healing_draught,
     all_items.first_aid_kit,
@@ -186,8 +154,10 @@ AlternativeItemSpawner.items_pool_category_consumable = {
     all_items.all_ammo_small,
 }
 AlternativeItemSpawner.items_pool_category_objects = {
+    all_items.all_ammo,
     all_items.tome,
     all_items.grimoire,
+    all_items.loot_die,
     all_items.lorebook_page,
     all_items.torch,
     all_items.explosive_barrel,
@@ -207,14 +177,17 @@ AlternativeItemSpawner.items_pool_current_category = ""
 AlternativeItemSpawner.items_pool_current_list = {}
 AlternativeItemSpawner.items_pool_current_index = 1
 AlternativeItemSpawner.items_pool_current_size = 0
+AlternativeItemSpawner.spawned_item = {}
 
 AlternativeItemSpawner.widget_settings = {
     ITEM_SPAWNER_ENABLED = {
         ["save"] = "cb_item_spawner_enabled",
         ["widget_type"] = "stepper",
         ["text"] = "Enable Alternative Item Spawner",
-        ["tooltip"] = "Enable Alternative Item Spawner\n" ..
-            "Adds keyboard shortcuts to cycle through a set of items to spawn them.",
+        ["tooltip"] = "Information:\n" ..
+            "Adds keyboard shortcuts to cycle through a set of items to spawn them.\n\n" ..
+            "Caution:\n" ..
+            "Spawning to many loot items like to 4x grimoires, loot dices or badges may be blocked by Cheat Protection.",
         ["value_type"] = "boolean",
         ["options"] = {
             { text = "Off", value = false },
@@ -229,6 +202,7 @@ AlternativeItemSpawner.widget_settings = {
                     "cb_item_spawner_next_item",
                     "cb_item_spawner_previous_item",
                     "cb_item_spawner_spawn_item",
+                    "cb_item_spawner_delete_last_item",
                     "cb_item_spawner_allow_on_missions",
                     "cb_item_spawner_current_category",
                 }
@@ -240,6 +214,7 @@ AlternativeItemSpawner.widget_settings = {
                     "cb_item_spawner_next_item",
                     "cb_item_spawner_previous_item",
                     "cb_item_spawner_spawn_item",
+                    "cb_item_spawner_delete_last_item",
                     "cb_item_spawner_allow_on_missions",
                     "cb_item_spawner_current_category",
                 }
@@ -270,11 +245,25 @@ AlternativeItemSpawner.widget_settings = {
         ["save"] = "cb_item_spawner_spawn_item",
         ["widget_type"] = "keybind",
         ["text"] = "Spawn Item",
+        ["tooltip"] = "Information\n" ..
+            "Only items which have been spawned and not picked up by a player can be removed",
         ["default"] = {
             "numpad 2",
             oi.key_modifiers.NONE,
         },
         ["exec"] = { "patch/action/alternative_item_spawner_action", "spawn_item" },
+    },
+    ITEM_SPAWNER_DELETE_LAST_ITEM = {
+        ["save"] = "cb_item_spawner_delete_last_item",
+        ["widget_type"] = "keybind",
+        ["text"] = "Delete Last Item",
+        ["tooltip"] = "Information\n" ..
+            "Only items which have been spawned and not picked up by a player can be removed",
+        ["default"] = {
+            "numpad /",
+            oi.key_modifiers.NONE,
+        },
+        ["exec"] = { "patch/action/alternative_item_spawner_action", "delete_last_item" },
     },
     ITEM_SPAWNER_ALLOW_ON_MISSIONS = {
         ["save"] = "cb_item_spawner_allow_on_missions",
@@ -285,7 +274,7 @@ AlternativeItemSpawner.widget_settings = {
             { text = "Off", value = false },
             { text = "On", value = true },
         },
-        -- ["disabled_outside_inn"] = true, --only allows to change the settings in the tavern
+        ["disabled_outside_inn"] = true, --only allows to change the settings in the tavern
         ["default"] = 1,
     },
     ITEM_SPAWNER_CURRENT_CATEGORY = {
@@ -306,80 +295,199 @@ AlternativeItemSpawner.widget_settings = {
             { text = "Objects", value = "objects" },
             { text = "Endurance Badges", value = "endurance_badges" },
         },
-        ["default"] = 3,
+        ["default"] = 1,
         ["hide_options"] = {
             {
                 "all",
                 mode = "show",
-                options = {
-                }
+                options = {}
             },
             {
                 "all",
                 mode = "hide",
-                options = {
-
-                }
+                options = {}
             },
-
             {
                 "custom",
                 mode = "show",
-                options = {
-                }
+                options = {}
             },
             {
                 "custom",
                 mode = "hide",
-                options = {
-                }
+                options = {}
             },
-
             {
                 "consumables",
                 mode = "show",
-                options = {
-                }
+                options = {}
             },
             {
                 "consumables",
                 mode = "hide",
-                options = {
-                }
+                options = {}
             },
-
             {
                 "objects",
                 mode = "show",
-                options = {
-                    "",
-                }
+                options = {}
             },
             {
                 "objects",
                 mode = "hide",
-                options = {
-                    "",
-                }
+                options = {}
             },
-
             {
                 "endurance_badges",
                 mode = "show",
-                options = {
-                    "",
-                }
+                options = {}
             },
             {
                 "endurance_badges",
                 mode = "hide",
-                options = {
-                    "",
-                }
+                options = {}
             },
         },
     },
 }
+
+---Change to the next item in the current item group
+---@param self table
+AlternativeItemSpawner.next_item = function(self)
+    if self.get(self.widget_settings.ITEM_SPAWNER_ENABLED) then
+        if Managers.state.game_mode._game_mode_key == "inn" or
+            self.get(self.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
+            -- check if item group has been changed
+            if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
+                self:update_items_pool_current_list()
+            end
+
+            --check if the current index is beyond the item pool
+            self.items_pool_current_index = self.items_pool_current_index + 1
+            if self.items_pool_current_index > self.items_pool_current_size then
+                self.items_pool_current_index = 1
+            end
+
+            local message = ""
+            local item = self.items_pool_current_list[self.items_pool_current_index]
+
+            if item then
+                message = "Current Item: " .. item.value
+            else
+                message = "[There are no available items in current item pool]"
+            end
+
+            Managers.chat:add_local_system_message(1, message, true)
+            Managers.chat.chat_gui:show_chat()
+        end
+    end
+end
+
+---Change to the previous item in the current item group
+---@param self table
+AlternativeItemSpawner.previous_item = function(self)
+    if AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ENABLED) then
+        if Managers.state.game_mode._game_mode_key == "inn" or
+            AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
+            -- check if item group has been changed
+            if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
+                self:update_items_pool_current_list()
+            end
+
+            --check if the current index is beyond the item pool
+            self.items_pool_current_index = self.items_pool_current_index - 1
+            if self.items_pool_current_index < 1 then
+                self.items_pool_current_index = self.items_pool_current_size
+            end
+
+            local message = ""
+            local item = self.items_pool_current_list[self.items_pool_current_index]           
+            
+            if item then
+                message = "Current Item: " .. item.value
+            else
+                message = "[There are no available items in current item pool]"
+            end
+
+            Managers.chat:add_local_system_message(1, message, true)
+            Managers.chat.chat_gui:show_chat()
+        end
+    end
+end
+
+---Spawn the current item from the item group
+---@param self table
+AlternativeItemSpawner.spawn_item = function(self)
+    if AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ENABLED) then
+        if Managers.state.game_mode._game_mode_key == "inn" or
+            AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
+            -- check if item group has been changed
+            if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
+                self:update_items_pool_current_list()
+            end
+
+            local message = ""
+            local item = self.items_pool_current_list[self.items_pool_current_index]
+            if item then
+                
+                local spawn_pickup_function = "rpc_spawn_pickup_with_physics"
+                local conflict_director = Managers.state.conflict
+                local position, distance, normal, actor = conflict_director:player_aim_raycast(conflict_director._world, false, "filter_ray_horde_spawn")
+
+                if position == nil then
+                    local local_player_unit = Managers.player:local_player().player_unit
+                    position = Unit.local_position(local_player_unit, 0)
+                end            
+
+                if item.physics_off then
+                    spawn_pickup_function = "rpc_spawn_pickup"
+                end
+
+                Managers.state.network.network_transmit:send_rpc_server(
+                    spawn_pickup_function,
+                    NetworkLookup.pickup_names[tostring(item.key)],
+                    position,
+                    Quaternion.axis_angle(Vector3(0, 0, 0), 0),
+                    NetworkLookup.pickup_spawn_types["debug"]
+                )
+                
+                message = item.value .. " spawned"
+            else
+                message = "[There are no available items in current item pool]"
+            end
+
+            Managers.chat:add_local_system_message(1, message, true)
+            Managers.chat.chat_gui:show_chat()
+        end
+    end
+end
+
+---Delete the last spawned item
+---@param self table
+AlternativeItemSpawner.delete_last_item = function(self)
+    local last_item = AlternativeItemSpawner.spawned_item[#AlternativeItemSpawner.spawned_item]
+
+    local message = ""
+    if last_item then
+        local last_item_name = last_item.item_name
+        message = last_item_name .. " despawned"
+
+        table.remove(AlternativeItemSpawner.spawned_item, #AlternativeItemSpawner.spawned_item)
+        if Unit.alive(last_item.unit) then
+            Managers.state.unit_spawner:mark_for_deletion(last_item.unit)
+            
+            Managers.chat:add_local_system_message(1, message, true)
+            Managers.chat.chat_gui:show_chat()
+        else
+            self:delete_last_item()
+        end
+    else
+        message = "There are no player-spawned items available"
+    end
+
+    Managers.chat:add_local_system_message(1, message, true)
+    Managers.chat.chat_gui:show_chat()
+end
 
 ---Updates the item group according to the chosen item group from the mod settings.
 ---@param self table
@@ -392,8 +500,8 @@ AlternativeItemSpawner.update_items_pool_current_list = function(self)
     elseif item_spawner_current_category == "custom" then
         self.items_pool_current_category = "custom"
         self.items_pool_current_list = {}
-        for index, item in ipairs(self.items_pool_category_all) do
-            if self.get(self.widget_settings[string.upper("cb_item_spawner_item_" .. item.value)]) then
+        for _, item in ipairs(self.items_pool_category_all) do
+            if self.get(self.widget_settings[string.upper("cb_item_spawner_item_" .. item.key)]) then
                 table.insert(self.items_pool_current_list, item)
             end
         end
@@ -412,213 +520,60 @@ AlternativeItemSpawner.update_items_pool_current_list = function(self)
     self.items_pool_current_size = #self.items_pool_current_list
 end
 
----Change to the next item in the current item group
+---Creates dynamicly the widgets and hide options for the custom items group
 ---@param self table
-AlternativeItemSpawner.next_item = function(self)
-    if self.get(self.widget_settings.ITEM_SPAWNER_ENABLED) then
-        if Managers.state.game_mode._game_mode_key == "inn" or
-            self.get(self.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
-            -- check if item group has been changed
-            if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
-                self:update_items_pool_current_list()
-            end
-
-            self.items_pool_current_index = self.items_pool_current_index + 1
-            if self.items_pool_current_index > self.items_pool_current_size then
-                self.items_pool_current_index = 1
-            end
-
-            EchoConsole("Current Item: " .. self.items_pool_current_list[self.items_pool_current_index].text)
-            Managers.chat.chat_gui:show_chat()
-        end
-    end
-end
-
----Change to the previous item in the current item group
----@param self table
-AlternativeItemSpawner.previous_item = function(self)
-    if AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ENABLED) then
-        if Managers.state.game_mode._game_mode_key == "inn" or
-            AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
-            -- check if item group has been changed
-            if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
-                self:update_items_pool_current_list()
-            end
-
-            self.items_pool_current_index = self.items_pool_current_index - 1
-            if self.items_pool_current_index < 1 then
-                self.items_pool_current_index = self.items_pool_current_size
-            end
-
-            EchoConsole("Current Item: " .. self.items_pool_current_list[self.items_pool_current_index].text)
-            Managers.chat.chat_gui:show_chat()
-        end
-    end
-end
-
----Spawn the current item from the item group
----@param self table
-AlternativeItemSpawner.spawn_item = function(self)
-    if AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ENABLED) then
-        if Managers.state.game_mode._game_mode_key == "inn" or
-            AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
-            -- check if item group has been changed
-            if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
-                self:update_items_pool_current_list()
-            end
-
-            local item = self.items_pool_current_list[self.items_pool_current_index].value
-
-
-            local conflict_director = Managers.state.conflict
-            local position, distance, normal, actor = conflict_director:player_aim_raycast(conflict_director._world,
-                false, "filter_ray_horde_spawn")
-
-            if position ~= nil then
-                Managers.state.network.network_transmit:send_rpc_server(
-                    'rpc_spawn_pickup_with_physics',
-                    NetworkLookup.pickup_names[tostring(item)],
-                    position,
-                    Quaternion.axis_angle(Vector3(0, 0, 0), 0),
-                    NetworkLookup.pickup_spawn_types['dropped']
-                )
-
-                EchoConsole(self.items_pool_current_list[self.items_pool_current_index].text .. " spawned.")
-                Managers.chat.chat_gui:show_chat()
-            else
-                local local_player_unit = Managers.player:local_player().player_unit
-
-                Managers.state.network.network_transmit:send_rpc_server(
-                    'rpc_spawn_pickup_with_physics',
-                    NetworkLookup.pickup_names[tostring(item)],
-                    Unit.local_position(local_player_unit, 0),
-                    Unit.local_rotation(local_player_unit, 0),
-                    NetworkLookup.pickup_spawn_types['dropped']
-                )
-
-                EchoConsole(self.items_pool_current_list[self.items_pool_current_index].text .. " spawned.")
-                Managers.chat.chat_gui:show_chat()
-            end
-        end
-    end
-end
-
----Creates dynamicly the widgets for the custom items group
----@return table
-AlternativeItemSpawner.widget_settings.create_items_pool_category_custom_widgets = function()
-    local items_pool_category_custom_widgets = {}
-
-    for index, item in ipairs(AlternativeItemSpawner.items_pool_category_all) do
-        local newItem = {}
-        newItem.save = "cb_item_spawner_item_" .. item.value
-        newItem.widget_type = "checkbox"
-        newItem.text = item.text
-        newItem.default = false
-
-        table.insert(items_pool_category_custom_widgets, newItem)
-    end
-
-    return items_pool_category_custom_widgets
-end
-
----Creates dynamicly the hide options for the custom items group
----@return table
-AlternativeItemSpawner.widget_settings.create_items_pool_category_custom_hide_options = function()
+---@return table widgets 
+---@return table hide_options 
+AlternativeItemSpawner.widget_settings.create_custom_item_pool_widgets = function (self)
+    local items_pool_category_custom_checkbox_widgets = {}
     local items_pool_category_custom_hide_options = {}
 
-    for index, item in ipairs(AlternativeItemSpawner.items_pool_category_all) do
-        table.insert(items_pool_category_custom_hide_options, "cb_item_spawner_item_" .. item.value)
+    for _, item in ipairs(AlternativeItemSpawner.items_pool_category_all) do
+        local newItem = {}
+        newItem.save = "cb_item_spawner_item_" .. item.key
+        newItem.widget_type = "checkbox"
+        newItem.text = item.value
+        newItem.default = false
+
+        table.insert(items_pool_category_custom_checkbox_widgets, newItem)
+        table.insert(items_pool_category_custom_hide_options, newItem.save)      
     end
 
-    return items_pool_category_custom_hide_options
+    return items_pool_category_custom_checkbox_widgets, items_pool_category_custom_hide_options
 end
 
-Mods.hook.set(mod_name, "VolumeSystem.create_nav_tag_volume_from_data", function(func, self, ...)
+Mods.hook.set(mod_name, "PickupSystem._spawn_pickup", function(func, self, pickup_settings, pickup_name, position, rotation, with_physics, spawn_type)
+    local pickup_unit = func(self, pickup_settings, pickup_name, position, rotation, with_physics, spawn_type)
+    
+    if spawn_type == "debug" then
+        local item = {
+            item_name = AlternativeItemSpawner.items_pool_current_list[AlternativeItemSpawner.items_pool_current_index].value,
+            unit = pickup_unit
+        }
+
+        table.insert(AlternativeItemSpawner.spawned_item, item)
+    end
+    
+    return pickup_unit
+end)
+
+Mods.hook.set(mod_name, "VolumeSystem.create_nav_tag_volume_from_data", function(func, self, pos, size, layer_name)
     if self.nav_tag_volume_handler then
-        -- Call orginal function
-        return func(self, ...)
+        return func(self, pos, size, layer_name)
     end
 
     return ""
 end)
 
-Mods.hook.set(mod_name, "VolumeSystem.destroy_nav_tag_volume", function(func, self, ...)
+Mods.hook.set(mod_name, "VolumeSystem.destroy_nav_tag_volume", function(func, self, volume_name)
     if self.nav_tag_volume_handler then
-        -- Call orginal function
-        func(self, ...)
+        func(self, volume_name)
     end
-
-    return
 end)
 
-AlternativeItemSpawner.patch_pickup_tables = function()
-    -- Patch AOE template
-    ExplosionTemplates.smoke_grenade = {
-        aoe = {
-            radius = 7,
-            nav_tag_volume_layer = "smoke_grenade",
-            create_nav_tag_volume = true,
-            attack_template = "poison_globe_ai_initial_damage",
-            sound_event_name = "player_combat_weapon_smoke_grenade_explosion",
-            damage_interval = 1,
-            duration = 10,
-            area_damage_template = "explosion_template_aoe",
-            effect_name = "fx/wpnfx_smoke_grenade_impact",
-        }
-    }
-
-    -- Add to Pickups
-    Pickups.grenades.smoke_grenade_t1 = {
-        only_once = true,
-        type = "inventory_item",
-        slot_name = "slot_grenade",
-        item_description = "grenade_smoke",
-        spawn_weighting = 0,
-        pickup_sound_event = "pickup_grenade",
-        dupable = true,
-        bots_mule_pickup = true,
-        item_name = "grenade_smoke_01",
-        unit_name = "units/weapons/player/pup_grenades/pup_grenade_02_t1",
-        local_pickup_sound = true,
-        hud_description = "pickup_smoke_grenade_t1"
-    }
-    Pickups.improved_grenades.smoke_grenade_t2 = {
-        only_once = true,
-        type = "inventory_item",
-        slot_name = "slot_grenade",
-        item_description = "grenade_smoke",
-        spawn_weighting = 0,
-        pickup_sound_event = "pickup_grenade",
-        dupable = true,
-        bots_mule_pickup = true,
-        item_name = "grenade_smoke_02",
-        unit_name = "units/weapons/player/pup_grenades/pup_grenade_02_t2",
-        local_pickup_sound = true,
-        hud_description = "pickup_smoke_grenade_t2"
-    }
-
-    -- Add to AllPickups table
-    AllPickups["smoke_grenade_t1"] = Pickups.grenades.smoke_grenade_t1
-    AllPickups["smoke_grenade_t2"] = Pickups.improved_grenades.smoke_grenade_t2
-
-    -- Add to NetworkLookup.pickup_names table
-    local pickup_names = NetworkLookup.pickup_names
-    if not table.find(pickup_names, "smoke_grenade_t1") then
-        table.insert(pickup_names, "smoke_grenade_t1")
-        pickup_names["smoke_grenade_t1"] = #pickup_names
-    end
-    if not table.find(pickup_names, "smoke_grenade_t2") then
-        table.insert(pickup_names, "smoke_grenade_t2")
-        pickup_names["smoke_grenade_t2"] = #pickup_names
-    end
-    if not table.find(pickup_names, "grain_sack") then
-        table.insert(pickup_names, "grain_sack")
-        pickup_names["grain_sack"] = #pickup_names
-    end
-
-    -- Fix improved grenade names.
-    Pickups.improved_grenades.frag_grenade_t2.hud_description = "pickup_frag_grenade_t2"
-    Pickups.improved_grenades.fire_grenade_t2.hud_description = "pickup_fire_grenade_t2"
+---Allow loot die to be spawned without crashing the game
+AlternativeItemSpawner.patch_event_pickup = function()
+    AllPickups.loot_die.can_spawn_func = function() return true end
 end
 
 ---Gets the value of a widget
@@ -639,12 +594,20 @@ AlternativeItemSpawner.create_options = function(self)
     Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_NEXT_ITEM)
     Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_PREVIOUS_ITEM)
     Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_SPAWN_ITEM)
+    Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_DELETE_LAST_ITEM)
     Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS)
+    Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY)
+    
+    local widgets, hide_options = AlternativeItemSpawner.widget_settings:create_custom_item_pool_widgets()
 
-    --fill the show and hide options automatically to the current category stepper
-    local hide_options = self.widget_settings.create_items_pool_category_custom_hide_options()
+    --add checkboxes to the "Custom" item category
+    for _, checkbox in ipairs(widgets) do
+        Mods.option_menu:add_item(group, checkbox)
+        self.widget_settings[string.upper(checkbox.save)] = checkbox
+    end
 
-    for index, value in ipairs(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY.hide_options) do
+    --fill automatically the show and hide options for the "Custom" item category
+    for _, value in ipairs(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY.hide_options) do
         if value[1] == "custom" and value.mode == "show" then
             value.options = hide_options
         elseif value[1] ~= "custom" and value.mode == "hide" then
@@ -652,17 +615,9 @@ AlternativeItemSpawner.create_options = function(self)
         end
     end
 
-    Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY)
-
-    local custom_widgets = self.widget_settings.create_items_pool_category_custom_widgets()
-
-    for index, checkbox_widget in ipairs(custom_widgets) do
-        Mods.option_menu:add_item(group, checkbox_widget)
-        self.widget_settings[string.upper(checkbox_widget.save)] = checkbox_widget
-    end
-
+    --initially update the current item list
     self:update_items_pool_current_list()
 end
 
 AlternativeItemSpawner:create_options()
-AlternativeItemSpawner.patch_pickup_tables()
+AlternativeItemSpawner.patch_event_pickup()
