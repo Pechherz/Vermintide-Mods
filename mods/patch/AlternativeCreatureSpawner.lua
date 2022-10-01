@@ -1,79 +1,79 @@
 local mod_name = "AlternativeCreatureSpawner"
 local oi = OptionsInjector
 
---allow spawning in the inn/ prevent crash in the inn
---allow setting health and other attributes, default e.g.
---ConflictDirector.destroy_unit
+--todo:
+--allow creatures within the inn
+--display currently choosen creature with UIRENDERER
 
 AlternativeCreatureSpawner = {}
 AlternativeCreatureSpawner.breeds = {
     {
-        value = "critter_pig",
-        text = "Pig",
+        id = "critter_pig",
+        value = "Pig",
     },
     {
-        value = "critter_rat",
-        text = "Critter Rat",
+        id = "critter_rat",
+        value = "Critter Rat",
     },
     {
-        value = "skaven_slave",
-        text = "Slave Rat",
+        id = "skaven_slave",
+        value = "Slave Rat",
     },
     {
-        value = "skaven_clan_rat",
-        text = "Clan Rat",
+        id = "skaven_clan_rat",
+        value = "Clan Rat",
     },
     {
-        value = "skaven_storm_vermin",
-        text = "Storm Vermin",
+        id = "skaven_storm_vermin",
+        value = "Storm Vermin",
     },
     {
-        value = "skaven_storm_vermin_patrol",
-        text = "Storm Vermin Patrol",
+        id = "skaven_storm_vermin_patrol",
+        value = "Storm Vermin Patrol",
     },
     {
-        value = "skaven_horde",
-        text = "Slave Rat Horde",
+        id = "skaven_horde",
+        value = "Slave Rat Horde",
     },
     {
-        value = "skaven_storm_vermin_commander",
-        text = "Storm Vermin Commander",
+        id = "skaven_storm_vermin_commander",
+        value = "Storm Vermin Commander",
     },
     {
-        value = "skaven_gutter_runner",
-        text = "Gutter Runner",
+        id = "skaven_gutter_runner",
+        value = "Gutter Runner",
     },
     {
-        value = "skaven_gutter_runner_decoy",
-        text = "Gutter Runner (Decoy)",
+        id = "skaven_gutter_runner_decoy",
+        value = "Gutter Runner (Decoy)",
     },
     {
-        value = "skaven_pack_master",
-        text = "Packmaster",
+        id = "skaven_pack_master",
+        value = "Packmaster",
     },
     {
-        value = "skaven_ratling_gunner",
-        text = "Ratling Gunner",
+        id = "skaven_ratling_gunner",
+        value = "Ratling Gunner",
     },
     {
-        value = "skaven_poison_wind_globadier",
-        text = "Poison Wind Globadier",
+        id = "skaven_poison_wind_globadier",
+        value = "Poison Wind Globadier",
     },
     {
-        value = "skaven_rat_ogre",
-        text = "Rat Ogre",
+        id = "skaven_rat_ogre",
+        value = "Rat Ogre",
     },
     {
-        value = "skaven_loot_rat",
-        text = "Sack Rat",
+        id = "skaven_loot_rat",
+        value = "Sack Rat",
     },
     {
-        value = "skaven_storm_vermin_champion",
-        text = "Storm Vermin Boss (Krench)",
+        id = "skaven_storm_vermin_champion",
+        value = "Storm Vermin Boss (Krench)",
     },
     {
-        value = "skaven_grey_seer",
-        text = "Grey Seer (Rasknitt)",
+        id = "skaven_grey_seer",
+        value = "Grey Seer (Rasknitt)",
     },
 }
 AlternativeCreatureSpawner.breed_index = 1
@@ -189,7 +189,7 @@ AlternativeCreatureSpawner.widget_settings = {
             "numpad /",
             oi.key_modifiers.NONE,
         },
-        ["exec"] = { "patch/action/alternative_creature_spawner_action", "kill_last_creatures" },
+        ["exec"] = { "patch/action/alternative_creature_spawner_action", "kill_last_creature" },
     },
 }
 
@@ -203,7 +203,8 @@ AlternativeCreatureSpawner.next_creature = function(self)
                 self.breed_index = 1
             end
 
-            EchoConsole("Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].text)
+            local message = "Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value
+            Managers.chat:add_local_system_message(1, message, true)  
             Managers.chat.chat_gui:show_chat()
         end
     end
@@ -219,7 +220,8 @@ AlternativeCreatureSpawner.previous_creature = function(self)
                 self.breed_index = #self.breeds
             end
 
-            EchoConsole("Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].text)
+            local message = "Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value
+            Managers.chat:add_local_system_message(1, message, true)
             Managers.chat.chat_gui:show_chat()
         end
     end
@@ -232,7 +234,8 @@ AlternativeCreatureSpawner.increase_spawn_multiplier = function(self)
         if Managers.player.is_server then
             self.spawn_multiplier = self.spawn_multiplier + 1
 
-            EchoConsole("Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].text)
+            local message = "Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value
+            Managers.chat:add_local_system_message(1, message, true)
             Managers.chat.chat_gui:show_chat()
         end
     end
@@ -245,47 +248,59 @@ AlternativeCreatureSpawner.decrease_spawn_multiplier = function(self)
         if Managers.player.is_server then
             if self.spawn_multiplier > 1 then
                 self.spawn_multiplier = self.spawn_multiplier - 1
+                
+                local message = "Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value
+                Managers.chat:add_local_system_message(1, message, true)  
+                Managers.chat.chat_gui:show_chat()
             end
-
-            EchoConsole("Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].text)
-            Managers.chat.chat_gui:show_chat()
         end
     end
-
 end
 
 ---Spawn a creature, that is currently choosen
 ---@param self table
 AlternativeCreatureSpawner.spawn_creature = function(self)
     if self.get(self.widget_settings.CREATURE_SPAWNER_ENABLED) then
+        local message = ""
         if Managers.player.is_server then
-
-            local creature_name = self.breeds[self.breed_index].value
-            if "skaven_horde" == creature_name then
-                for i = 1, self.spawn_multiplier, 1 do
-                    Managers.state.conflict:debug_spawn_horde()
-                end
-            elseif "skaven_storm_vermin_patrol" == creature_name then
-                for i = 1, self.spawn_multiplier, 1 do
-                    Managers.state.conflict:debug_spawn_group(0)
-                end
+            if  Managers.state.game_mode._level_key == "inn_level" then
+                message = "[You can't spawn any creatures within the inn]"
             else
-                for i = 1, self.spawn_multiplier, 1 do
-                    Managers.state.conflict:aim_spawning(Breeds[creature_name], false)
+                local breed_id = self.breeds[self.breed_index].id
+                if "skaven_horde" == breed_id then
+                    for i = 1, self.spawn_multiplier, 1 do
+                        Managers.state.conflict.horde_spawner:horde()                 
+                    end
+                elseif "skaven_storm_vermin_patrol" == breed_id then
+                    for i = 1, self.spawn_multiplier, 1 do
+                        Managers.state.conflict:debug_spawn_group(0)
+                    end
+                else
+                    for i = 1, self.spawn_multiplier, 1 do
+                        Managers.state.conflict:aim_spawning(Breeds[breed_id], false)
+                    end
+                end
+
+                local conflict_director = Managers.state.conflict
+                local position, distance, normal, actor = conflict_director:player_aim_raycast(conflict_director._world, false, "filter_ray_horde_spawn")
+
+                if position ~= nil then
+                    if self.spawn_multiplier == 1 then
+                        message = self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value .. " was spawned"
+                    else
+                        message = self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value .. " were spawned"
+                    end
+                else
+                    message = "[Invalid spawning location]"
                 end
             end
-
-            local conflict_director = Managers.state.conflict
-            local position, distance, normal, actor = conflict_director:player_aim_raycast(conflict_director._world,
-                false, "filter_ray_horde_spawn")
-
-            if position ~= nil then
-                EchoConsole(self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].text .. " were spawned")
-                Managers.chat.chat_gui:show_chat()
-            end
+        else
+            message = "[In order to spawn creatures, you have to be the host]"
         end
-    end
 
+        Managers.chat:add_local_system_message(1, message, true)
+        Managers.chat.chat_gui:show_chat()
+    end
 end
 
 ---Remove all creatures, that are currently alive and roaming the level
@@ -320,15 +335,54 @@ AlternativeCreatureSpawner.kill_all_creatures = function(self)
             end)
         end
 
-        EchoConsole("Removed all enemies")
+        local message = "All creatures were removed"
+        Managers.chat:add_local_system_message(1, message, true)
         Managers.chat.chat_gui:show_chat()
     end
 end
 
 ---Removes the last creature, that has been spawned
 ---@param self table
-AlternativeCreatureSpawner.kill_last_creatures = function(self)
-    Managers.state.conflict:last_spawned_unit()
+AlternativeCreatureSpawner.kill_last_creature = function(self)
+    local last_spawned_unit = Managers.state.conflict:last_spawned_unit()
+
+    if last_spawned_unit then
+        local blackboard = Unit.get_data(last_spawned_unit, "blackboard")
+        local reason = "ai_despawn" 
+
+        Managers.state.conflict:destroy_unit(last_spawned_unit, blackboard, reason)   
+
+        local breed_name = self:get_breed_name_by_id(blackboard.breed.name)
+        local message = "1x " .. breed_name .. " was despawned"
+        Managers.chat:add_local_system_message(1, message, true)  
+        Managers.chat.chat_gui:show_chat()
+    end
+end
+
+--prevents crash when the Grey Seer is spawned
+Mods.hook.set(mod_name, "BTTeleportToPortalAction.enter", function(func, self, unit, blackboard, t)
+	local action_data = self._tree_node.action_data
+	local id = action_data.level_portal_id
+	local portal_data = blackboard.teleport_portals[id]
+
+    if portal_data then
+        --if its not passed to the original function, then the grey seer wont ever teleport himself
+        func(self, unit, blackboard, t)
+    end
+end)
+
+---Returns the breed name by providing the breed id
+---@param self table
+---@param breed_id string
+---@return string
+AlternativeCreatureSpawner.get_breed_name_by_id = function(self, breed_id)
+    for _, breed in pairs(self.breeds) do
+        if breed.id == breed_id then
+            return breed.value
+        end
+    end
+
+    return "no_breed_name_available"
 end
 
 ---Gets the value of a widget
@@ -352,7 +406,7 @@ AlternativeCreatureSpawner.create_options = function(self)
     Mods.option_menu:add_item(group, self.widget_settings.DECREASE_SPAWN_MULTIPLIER)
     Mods.option_menu:add_item(group, self.widget_settings.SPAWN_CREATURE)
     Mods.option_menu:add_item(group, self.widget_settings.KILL_ALL_CREATURES)
-    Mods.option_menu:add_item(group, self.widget_settings.KILL_LAST_CREATURE)
+    Mods.option_menu:add_item(group, self.widget_settings.KILL_LAST_CREATURE )
 end
 
 AlternativeCreatureSpawner:create_options()

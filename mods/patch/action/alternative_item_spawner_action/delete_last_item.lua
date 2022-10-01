@@ -1,0 +1,1 @@
+AlternativeItemSpawner:delete_last_item()

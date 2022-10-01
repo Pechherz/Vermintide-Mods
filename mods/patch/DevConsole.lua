@@ -58,9 +58,26 @@ end
 Mods.hook.set(mod_name, "print", function(func, ...)
 	if mod.get(mod.widget_settings.ACTIVE) then
 		CommandWindow.print(...)
+		-- Managers.chat:add_local_system_message(1, ..., true)
 	else
 		func(...)
 	end
+end)
+
+local log = {}
+Mods.hook.set(mod_name, "Localize", function(func, text_id)
+	local text_value = func(text_id)
+
+	if mod.get(mod.widget_settings.ACTIVE) then
+		local log_message  = "[Localization] text_id:" .. text_id .. " -> text_value:" .. text_value
+
+		if not log[text_id] then
+			log[text_id] = log_message
+			CommandWindow.print(log_message)
+		end
+	end
+
+	return text_value
 end)
 
 Mods.hook.set(mod_name, "MatchmakingManager.update", function(func, ...)
@@ -68,6 +85,28 @@ Mods.hook.set(mod_name, "MatchmakingManager.update", function(func, ...)
 		-- Open Command Window
 		if mod.get(mod.widget_settings.ACTIVE) == true and mod.enabled == false then
 			CommandWindow.open("Development command window")
+			
+			-- GameSettingsDevelopment.show_fps = true
+			-- Development._hardcoded_dev_params.hide_fps = false
+			-- GameSettingsDevelopment.help_screen_enabled = false
+			-- GameSettingsDevelopment.network_revision_check_enabled = true
+			-- GameSettingsDevelopment.simple_first_person = true
+			-- GameSettingsDevelopment.disable_shadow_lights_system = false
+			-- GameSettingsDevelopment.beta = false
+			-- Development._hardcoded_dev_params.debug_enabled = true
+			-- Development._hardcoded_dev_params.navigation_visual_debug_enabled = true
+			-- Development._hardcoded_dev_params.navigation_thread_disabled = false
+			-- Development._hardcoded_dev_params.networked_flow_state_debug = true
+			-- Development._hardcoded_dev_params.network_debug = false
+			-- Development._hardcoded_dev_params.network_debug_connections = true
+			-- script_data.debug_interactions = true
+			-- Development._hardcoded_dev_params.package_debug = false
+			-- script_data.debug_behaviour_trees = true
+			-- Development._hardcoded_dev_params.matchmaking_debug = false
+			-- script_data.use_tech_telemetry = true
+			-- script_data.use_telemetry = true
+			-- script_data.extrapolation_debug = true
+			-- script_data.debug_voip = true
 
 			mod.enabled = true
 		end

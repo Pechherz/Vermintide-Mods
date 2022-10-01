@@ -1,1 +1,1 @@
-AlternativeCreatureSpawner:kill_last_creatures()
+AlternativeCreatureSpawner:kill_last_creature()

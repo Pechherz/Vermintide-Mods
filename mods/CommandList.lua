@@ -27,4 +27,5 @@ Mods.commands = {
 	{ "/suicide", false, "commands", "suicide" },
 	{ "/debug", false, "commands", "debug" },
 	{ "/test", false, "commands", "test" },
+	{ "/testmode", false, "commands", "testmode" },
 }

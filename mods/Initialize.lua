@@ -38,6 +38,8 @@ Mods.init = function()
 
 	-- Suggested load order of mods
 	local load_order = {
+		"Khazalid05Fix",
+		"HiDefUIScaling",
 		"AnimationFix",
 		"CheatProtect",
 		"DisconnectResilience",
@@ -85,7 +87,7 @@ Mods.init = function()
 			Mods.exec("patch", modname)
 		end
 	end
-
+	EchoConsole("Finished Loading Mods")
 	-- Draw options menu
 	Mods.option_menu:draw()
 end

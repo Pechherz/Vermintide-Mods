@@ -1,8 +1,17 @@
 -- LevelSettings in matchmaking_manager.lua bots in inn erlauben
+local achievement_manager = Managers.state.achievement
 
-Mods.debug.clear_log()
+
+-- Mods.debug.clear_log()
+-- Mods.debug.write_log(Mods.debug:table_to_string(Managers.player._human_players, "Managers.player._human_players", 3))
+
+-- Mods.debug.write_log(Mods.debug:table_to_string(AchievementTemplates, "AchievementTemplates", 3))
+-- Mods.debug.write_log(Mods.debug:table_to_string(achievement_manager.completed_achievements, "achievement_manager.completed_achievements", 3))
+-- Mods.debug.write_log(Mods.debug:table_to_string(achievement_manager.completed_achievements, "achievement_manager.completed_achievements", 3))
+EchoConsole("Has changed?:" .. tostring(AlternativeItemSpawner:has_custom_category_changed()))
+
+
 -- Mods.debug.write_log(Mods.debug:table_to_string(Managers.player:local_player(), 1, "Managers.player:local_player()"))
-Mods.debug.write_log(Mods.debug:table_to_string(Managers.player, 3, "Managers.player"))
 -- -- Mods.debug.write_log(Mods.debug:table_to_string(Managers.chat, 1, "Managers.chat"))
 -- local local_player_unit = Managers.player:local_player().player_unit
 -- local health_extension = ScriptUnit.extension(local_player_unit, "health_system")

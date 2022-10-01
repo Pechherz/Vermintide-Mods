@@ -66,7 +66,7 @@ PlayerTeleporter.teleport_to = function(self)
         local position, distance, normal, actor = conflict_director:player_aim_raycast(conflict_director._world, false,
             "filter_ray_horde_spawn")
 
-        -- EchoConsole("position: " .. tostring(position))
+        EchoConsole("position: " .. tostring(position))
         -- EchoConsole("distance: " .. tostring(distance))
         -- EchoConsole("normal: " .. tostring(normal))
         -- EchoConsole("actor: " .. tostring(actor))
