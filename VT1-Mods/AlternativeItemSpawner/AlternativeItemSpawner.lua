@@ -439,6 +439,7 @@ AlternativeItemSpawner.spawn_item = function(self)
                     position = Unit.local_position(local_player_unit, 0)
                 end            
 
+                --ammo boxes are really bouncy with physics
                 if item.physics_off then
                     spawn_pickup_function = "rpc_spawn_pickup"
                 end
@@ -489,7 +490,7 @@ AlternativeItemSpawner.delete_last_item = function(self)
     Managers.chat.chat_gui:show_chat()
 end
 
----Updates the item group according to the chosen item group from the mod settings.
+---Updates the item group according to the chosen item group from the mod settings
 ---@param self table
 AlternativeItemSpawner.update_items_pool_current_list = function(self)
     local item_spawner_current_category = self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY)
@@ -524,7 +525,7 @@ end
 ---@param self table
 ---@return table widgets 
 ---@return table hide_options 
-AlternativeItemSpawner.widget_settings.create_custom_item_pool_widgets = function (self)
+AlternativeItemSpawner.widget_settings.create_custom_category_widgets = function (self)
     local items_pool_category_custom_checkbox_widgets = {}
     local items_pool_category_custom_hide_options = {}
 
@@ -534,6 +535,7 @@ AlternativeItemSpawner.widget_settings.create_custom_item_pool_widgets = functio
         newItem.widget_type = "checkbox"
         newItem.text = item.value
         newItem.default = false
+        newItem.item_key = item.key
 
         table.insert(items_pool_category_custom_checkbox_widgets, newItem)
         table.insert(items_pool_category_custom_hide_options, newItem.save)      
@@ -543,8 +545,14 @@ AlternativeItemSpawner.widget_settings.create_custom_item_pool_widgets = functio
 end
 
 Mods.hook.set(mod_name, "PickupSystem._spawn_pickup", function(func, self, pickup_settings, pickup_name, position, rotation, with_physics, spawn_type)
-    local pickup_unit = func(self, pickup_settings, pickup_name, position, rotation, with_physics, spawn_type)
+    ---Allow loot die to be spawned without crashing the game
+    if spawn_type == "debug" then
+        pickup_settings.can_spawn_func = function () return true end
+    end
     
+    local pickup_unit = func(self, pickup_settings, pickup_name, position, rotation, with_physics, spawn_type)
+
+    --in order to delete items, it is required to track the items
     if spawn_type == "debug" then
         local item = {
             item_name = AlternativeItemSpawner.items_pool_current_list[AlternativeItemSpawner.items_pool_current_index].value,
@@ -571,11 +579,6 @@ Mods.hook.set(mod_name, "VolumeSystem.destroy_nav_tag_volume", function(func, se
     end
 end)
 
----Allow loot die to be spawned without crashing the game
-AlternativeItemSpawner.patch_event_pickup = function()
-    AllPickups.loot_die.can_spawn_func = function() return true end
-end
-
 ---Gets the value of a widget
 ---@param data table predifined widgets object
 ---@return unknown
@@ -598,13 +601,16 @@ AlternativeItemSpawner.create_options = function(self)
     Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS)
     Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY)
     
-    local widgets, hide_options = AlternativeItemSpawner.widget_settings:create_custom_item_pool_widgets()
+    local widgets, hide_options = AlternativeItemSpawner.widget_settings:create_custom_category_widgets()
 
     --add checkboxes to the "Custom" item category
     for _, checkbox in ipairs(widgets) do
         Mods.option_menu:add_item(group, checkbox)
         self.widget_settings[string.upper(checkbox.save)] = checkbox
     end
+
+    --add checkbox to track it easily
+    self.widget_settings.checkboxes = widgets
 
     --fill automatically the show and hide options for the "Custom" item category
     for _, value in ipairs(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY.hide_options) do
@@ -620,4 +626,3 @@ AlternativeItemSpawner.create_options = function(self)
 end
 
 AlternativeItemSpawner:create_options()
-AlternativeItemSpawner.patch_event_pickup()
