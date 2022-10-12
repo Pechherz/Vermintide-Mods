@@ -3,9 +3,10 @@
 </p>
 
 ## Developer Note:
+<!--
 All currently available mods are uploaded in a stable state.
 If any error occurs create an issue and/or notify me with the error message.  
-
+-->
 The mods in this folder are developed/ported for the [Quality Of Life Modpack](https://www.reddit.com/r/Vermintide/comments/7vk92o/110_quality_of_life_modpack_v15_cheatfree_w/) and wont work for the Vermintide Mod Framework.
 
 <!-- The sub folders [Quality-of-Life-Mods](/Quality-of-Life-Mods) and [Vermintide-Mod-Framework-Mods](/Vermintide-Mod-Framework-Mods) do not refer to some type of mods rather to the available modding frameworks. -->
@@ -39,6 +40,7 @@ The mods in this folder are developed/ported for the [Quality Of Life Modpack](h
 - add timer to ignited barrels
 - add gas grenades to spawntable when item spawner is active
 - add moving heroes portraits
+- add barrel to show items on map
 - fix last arrow refill ammo
 - add draw function to draw custom texts etc.
 - add dodge counter customization

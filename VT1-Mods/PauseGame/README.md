@@ -4,10 +4,12 @@
 
 ## Description:
 This mod allows pausing the game on a key press.  
-When a host pauses the game, then all clients freeze too.  
-If a client attempts to pause the game, then only the said client will be paused while the other peers won't be affected.
 
-Mod options are found under Shenanigans.
+When a host pauses the game, then all clients including the host and the game will freeze.  
+If a client attempts to pause the game, then only the client will be paused while the other peers won't be affected.  
+The said client will perceive the world to be paused, but in actuallity its only causes a client side desync.
+
+Mod options are found under *Shenanigans*.
 
 ## Installation:
 - copy *PauseGame.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\

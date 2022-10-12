@@ -3,11 +3,11 @@
 </p>
 
 ## Description:
-This is an alternative item spawner that is similar to the item spawner from Vermintide 2.  
-It features predefined item groups (e.g. all, healing, bombs, potions ..) and a custom group, which can be adjusted by the player.  
-Additionally players can iterate through the selected item group and spawn the currently choosen item.  
+This is an item spawner that aims to as convenient as the [Item Spawner](https://steamcommunity.com/sharedfiles/filedetails/?id=1391975678) from Vermintide 2 and attempts to be a general improvement over the already existing VT1 item spawner mod, where every distinct item has a unique keybinding.  
 
-Its supposed to be a general improvement over the already existing item spawner, where every distinct item has a unique key.
+The player can iterate through a selected item group and spawn a currently choosen item.  
+It features predefined item groups like *All Items*, *Only Consumables*, *Only Loot Items*, objects and a custom group,  
+which can be adjusted by the player.   
 
 ## Installation:
 - copy *AlternativeItemSpawner.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\

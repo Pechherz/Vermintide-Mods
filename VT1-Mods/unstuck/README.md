@@ -3,7 +3,7 @@
 </p>
 
 ## Description:
-Adds a chat command to unstuck the player.
+A simple chat command to unstuck the player.
 
 ## Installation:
 - copy *unstuck.lua* to ..\SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
@@ -11,14 +11,14 @@ Adds a chat command to unstuck the player.
 `{ "/unstuck", false, "commands", "unstuck" },`
 
 ## How to use:
-If you happen to get stuck somewhere on a map, simply type following line into the chat box:
+If the player happens to get stuck somewhere on a map, simply type following line into the chat box:
 ```
 /unstuck
 ```  
 This moves the player onto walkable ground. 
 
 ## Note:
-Currently it only works for the hosting player due to navmesh being only generated serverside.
+Currently only the hosting player can unstuck himself due to navmesh being only generated server side.
 
 <br/>
 

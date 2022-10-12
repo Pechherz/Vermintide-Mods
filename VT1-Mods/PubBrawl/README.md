@@ -3,11 +3,13 @@
 </p>
 
 ## Description:
-Looking for a fight with another character from the Red Moon Inn? Then this might be something for you.  
-Enables bar fights with other player characters. In addition this mod spawns bombs and potions of infinit quantity.
+This mod enables bar fights with other player characters in the Red Moon Inn. This is a port of [Pub Brawl](https://www.nexusmods.com/vermintide/mods/27?tab=files) with some minor additions like bombs and potions of infinit quantity.
 
 ## Installation:
 - copy *PubBrawl.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
+
+## Credits:
+**I did not create the original mod.** Credits to IamLupo.
 
 <br/>
 
