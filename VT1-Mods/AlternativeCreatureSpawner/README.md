@@ -3,8 +3,11 @@
 </p>
 
 ## Description:
-This is an alternative creature spawner that is similar to the item spawner from Vermintide 2.  
-Players can iterate through all available creatures and spawn the currently choosen one.  
+This is an alternative creature spawner to the already existing enemy spawner, which served its purpose but wasn't conventient to use.
+
+The mod allows the player to iterate through all available creatures in the game and spawn the currently choosen creature. In addition its also possible to spawn skaven patrols, hordes and apply a multipier to the number of creatures to be spawned.
+
+Mod options are found under *Gameplay Cheats*.
 
 ## Installation:
 - copy *AlternativeCreatureSpawner.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\

@@ -3,7 +3,7 @@
 </p>
 
 ## Description:
-Allows the host to start a game without the need to wait for all players to ready up.
+This mod allows the host to start a game without the need to wait for all players.
 
 ## Installation:
 - copy *AllReady.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\  

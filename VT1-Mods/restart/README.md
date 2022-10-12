@@ -3,7 +3,7 @@
 </p>
 
 ## Description:
-Adds a chat command to restart the current game.
+A simple chat command to restart the current game.
 
 ## Installation:
 - copy *restart.lua* to .\SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\commands\
@@ -15,8 +15,9 @@ To restart a game simply open the chat box and type the following line:
 ```
 /restart
 ```  
-This will immediately reload the map for the hosting player and all connected peers and everybody starts from anew.  
-Beware that all progress made during mission progression will not be accounted like in the Defeat screen.
+This will immediately reload the map for all players to start the game from anew.  
+Beware that all progress made during the mission will not be accounted like in the *Defeat* screen, thus no player will receive any  
+experience points.
 
 <br/>
 
