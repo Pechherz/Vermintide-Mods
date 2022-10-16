@@ -59,10 +59,10 @@ PauseGame.pause_game = function(self)
 
             if Managers.player.is_server then
                 Managers.chat:send_system_chat_message(1, "GAME PAUSED", 0, true)
-                Managers.chat:send_system_chat_message(1, "Don't open the game menu, unless you want to break your game", 0, true)
+                Managers.chat:send_system_chat_message(1, "Do not click any button in the main menu, unless you want to break your game.", 0, true)
             else
                 Managers.chat:add_local_system_message(1, "GAME PAUSED", true)    
-                Managers.chat:add_local_system_message(1, "Don't open the game menu, unless you want to break your game", true)  
+                Managers.chat:add_local_system_message(1, "Do not click any button in the main menu, unless you want to break your game.", true)  
             end
 
         else
