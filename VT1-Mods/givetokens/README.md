@@ -6,6 +6,7 @@
 This is a chat command to add upgrade tokens to the inventory, which are used in the process of rerolling and gambling to improve the traits of a weapon.
 
 ## Installation:
+- download and unzip the [givetokens.zip](../../../../releases/tag/givetokens) archive
 - copy *givetokens.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\commands\
 - add the following line to the file \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\CommandList.lua: 
 `{ "/givetokens", true, "commands", "givetokens" },`

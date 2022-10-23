@@ -6,6 +6,7 @@
 This is a chat command to award yourself with item e.g. trinkets, melee/range weapons or hats.
 
 ## Installation:
+- download and unzip the [giveitem.zip](../../../../releases/tag/giveitem) archive
 - copy *giveitem.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\commands\
 - add the following line to the file \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\CommandList.lua: 
 `{ "/giveitem", true, "commands", "giveitem" },`

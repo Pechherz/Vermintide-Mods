@@ -7,9 +7,10 @@ An alternative creature spawner to the already existing enemy spawner, which ser
 
 This mod allows the player to iterate through all available creatures in the game and spawn the currently choosen creature. In addition its also possible to spawn skaven patrols, hordes and apply a multiplier to the number of creatures to be spawned.
 
-Mod options are found under *Gameplay Cheats*.
+Mod options are found under *Cheats*.
 
 ## Installation:
+- download and unzip the [AlternativeCreatureSpawner.zip](../../../../releases/tag/AlternativeCreatureSpawner) archive
 - copy *AlternativeCreatureSpawner.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
 - copy *alternative_creature_spawner_action* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\action\
 

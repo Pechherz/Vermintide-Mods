@@ -11,6 +11,7 @@ Some of the original functions that have been hooked by specials_spawn_idling we
 Mod options are found under Gameplay Tweaks.
 
 ## Installation:
+- download and unzip the [EnemyTweaks.zip](../../../../releases/tag/EnemyTweaks) archive
 - copy *EnemyTweaks.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
 
 ## Note

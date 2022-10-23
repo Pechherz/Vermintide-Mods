@@ -9,7 +9,10 @@ The player can iterate through a selected item group and spawn a currently choos
 It features predefined item groups like *All Items*, *Only Consumables*, *Only Loot Items*, objects and a custom group,  
 which can be adjusted by the player.   
 
+Mod options are found under *Cheats*.
+
 ## Installation:
+- download and unzip the [AlternativeItemSpawner.zip](../../../../releases/tag/AlternativeItemSpawner) archive
 - copy *AlternativeItemSpawner.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
 - copy *alternative_item_spawner_action* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\action\
 

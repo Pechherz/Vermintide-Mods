@@ -6,6 +6,7 @@
 A simple chat command to restart the current game.
 
 ## Installation:
+- download and unzip the [restart.zip](../../../../releases/tag/restart) archive
 - copy *restart.lua* to .\SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\commands\
 - add the following line to the file .\SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\CommandList.lua: 
 `{ "/restart", false, "commands", "restart" },`
