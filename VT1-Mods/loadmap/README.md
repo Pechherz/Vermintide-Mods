@@ -6,6 +6,7 @@
 This is a simple chat command to load any map.
 
 ## Installation:
+- download and unzip the [loadmap.zip](../../../../releases/tag/loadmap) archive
 - copy *loadmap.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
 - add the following line to the file \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\CommandList.lua:
 `{ "/loadmap", true, "commands", "loadmap" },`

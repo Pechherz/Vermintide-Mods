@@ -7,6 +7,7 @@ Use different assassin spawn sound to prevent silent spawns.
 This is a simple port of [No Silent Assassins](https://www.nexusmods.com/vermintide/mods/40) without any additions.
 
 ## Installation:
+- download and unzip the [NoSilentAssassins.zip](../../../../releases/tag/NoSilentAssassins) archive
 - copy *NoSilentAssassins.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
 
 ## Credits:

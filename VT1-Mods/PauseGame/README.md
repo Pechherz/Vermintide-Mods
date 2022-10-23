@@ -12,6 +12,7 @@ The said client will perceive the world to be paused, but in actuallity its only
 Mod options are found under *Shenanigans*.
 
 ## Installation:
+- download and unzip the [PauseGame.zip](../../../../releases/tag/PauseGame) archive
 - copy *PauseGame.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
 - copy *pause_game.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\action\
 

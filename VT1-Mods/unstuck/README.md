@@ -6,6 +6,7 @@
 A simple chat command to unstuck the player.
 
 ## Installation:
+- download and unzip the [unstuck.zip](../../../../releases/tag/unstuck) archive
 - copy *unstuck.lua* to ..\SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
 - add the following line to the file \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\CommandList.lua: 
 `{ "/unstuck", false, "commands", "unstuck" },`

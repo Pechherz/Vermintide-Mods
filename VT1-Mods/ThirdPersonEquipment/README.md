@@ -8,6 +8,7 @@ This is not a port, but rather an "improvement", with currently some minor chang
 It adds seperate position for potions, grimoires, bandages and healing draughts and in addition this mod fixes Kerillians item positions not being applied.
 
 ## Installation:
+- download and unzip the [ThirdPersonEquipment.zip](../../../../releases/tag/ThirdPersonEquipment) archive
 - copy *ThirdPersonEquipment.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
 - copy *ThirdPersonEquipment_Definitons.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
 
