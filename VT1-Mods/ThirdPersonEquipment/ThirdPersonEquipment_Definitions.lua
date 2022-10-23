@@ -652,8 +652,8 @@ Visible3PEquipment_Definitions = {
 			empire_soldier = {
 				left = {
 					node = default_node,
-					position = { -0.1, -0.1, -0.15 },
-					rotation = { 40, 90, 0 },
+					position = { -0.045, -0.1, -0.15 },
+					rotation = { 40, 90, 165 },
 				},
 			},
 			bright_wizard = {
@@ -689,8 +689,8 @@ Visible3PEquipment_Definitions = {
 			empire_soldier = {
 				left = {
 					node = default_node,
-					position = { -0.1, -0.1, -0.15 },
-					rotation = { 40, 90, 0 },
+					position = { -0.1, -0.15, -0.08 },
+					rotation = { 40, 90, 55 },
 				},
 			},
 			bright_wizard = {
@@ -727,8 +727,8 @@ Visible3PEquipment_Definitions = {
 			empire_soldier = {
 				left = {
 					node = default_node,
-					position = { -0.1, -0.1, -0.15 },
-					rotation = { 40, 90, 0 },
+					position = { -0.1, -0.15, -0.08 },
+					rotation = { 40, 90, 55 },
 				},
 			},
 			bright_wizard = {
@@ -839,8 +839,8 @@ Visible3PEquipment_Definitions = {
 			empire_soldier = {
 				left = {
 					node = default_node,
-					position = { 0, -0.15, 0.03 },
-					rotation = { 0, 90, 0 },
+					position = { 0.05, -0.15, 0.03 },
+					rotation = { 0, 90, 90 },
 				},
 			},
 			bright_wizard = {
@@ -879,8 +879,8 @@ Visible3PEquipment_Definitions = {
 			empire_soldier = {
 				left = {
 					node = default_node,
-					position = { 0, -0.15, 0.03 },
-					rotation = { 0, 90, 0 },
+					position = { 0, -0.15, 0.05 },
+					rotation = { 0, 90, 175 },
 				},
 			},
 			bright_wizard = {
