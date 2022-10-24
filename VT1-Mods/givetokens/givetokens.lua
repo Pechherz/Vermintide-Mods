@@ -1,4 +1,4 @@
-local token_type_list = {
+local token_name_list = {
     {
         value = "iron_tokens",
         text = "White Tokens"
@@ -34,12 +34,12 @@ local get_help = function()
         EchoConsole("You need to pass " .. expected_number_of_parameters .. " arguments.")
     end
 
-    EchoConsole("/givetokens <token type> <non-zero number>")
+    EchoConsole("/givetokens <token name> <non-zero number>")
     EchoConsole("\n")
 
     EchoConsole("There are only 4 available tokens you can award yourself with.")
 
-    for index, token in ipairs(token_type_list) do
+    for index, token in ipairs(token_name_list) do
         EchoConsole(index .. ". " .. token.value .. " (" .. token.text .. ")")
     end
 
@@ -51,20 +51,20 @@ end
 if params[1] == "help" then
     get_help()
 elseif #params == expected_number_of_parameters then
-    local token_type = params[1]
+    local token_name = params[1]
     local number_of_tokens = tonumber(params[2])
 
-    for index, token in ipairs(token_type_list) do
-        if token_type == token.value then
+    for index, token in ipairs(token_name_list) do
+        if token_name == token.value then
             if number_of_tokens < 0 then
                 EchoConsole("No tokens were added to your inventory.")
             elseif number_of_tokens == 1 then
-                BackendUtils.add_tokens(number_of_tokens, token_type)
+                BackendUtils.add_tokens(number_of_tokens, token_name)
                 Managers.backend:commit()
 
                 EchoConsole("A single " .. token.text .. " was added to your inventory.")
             else
-                BackendUtils.add_tokens(number_of_tokens, token_type)
+                BackendUtils.add_tokens(number_of_tokens, token_name)
                 Managers.backend:commit()
 
                 EchoConsole(number_of_tokens .. "x " .. token.text .. " were successfully added to your inventory.")
@@ -72,7 +72,7 @@ elseif #params == expected_number_of_parameters then
             return
         end
     end
-    EchoConsole("The token '" .. token_type .. "' doesn't exist.")
+    EchoConsole("The token '" .. token_name .. "' doesn't exist.")
 else
     EchoConsole("Refer to the following help command for more information: \n/givetokens help")
 end
