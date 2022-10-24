@@ -66,7 +66,7 @@ EnemyTweaks.widget_settings = {
         ["widget_type"] = "checkbox",
         ["text"] = "Gutter Runner",
         ["tooltip"] = "Note:\n" .. 
-            "Gutter Runner show some unusual/tactical behaviour if only one player is within the Lobby",
+            "Gutter Runner shows some unusual/tactical behaviour if only one player is within the Lobby",
         ["value_type"] = "boolean",
         ["default"] = false,
         ["breed_name"] = "skaven_gutter_runner",

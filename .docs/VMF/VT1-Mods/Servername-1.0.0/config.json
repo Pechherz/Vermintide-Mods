@@ -1,0 +1,11 @@
+{
+	"mod_name": "Servername",
+	"version": "1.0.0",
+	"chat": [
+		{
+			"command": "servername",
+			"execute": "chat/servername",
+			"description": "/servername [name] > Change your server name"
+		}
+	]
+}

@@ -3,7 +3,6 @@ local oi = OptionsInjector
 
 --todo:
 --allow creatures within the inn
---display currently choosen creature with UIRENDERER
 
 AlternativeCreatureSpawner = {}
 AlternativeCreatureSpawner.breeds = {
@@ -78,28 +77,26 @@ AlternativeCreatureSpawner.breeds = {
 }
 AlternativeCreatureSpawner.breed_index = 1
 AlternativeCreatureSpawner.spawn_multiplier = 1
+AlternativeCreatureSpawner.disable_ai = false
 
 AlternativeCreatureSpawner.widget_settings = {
-    CREATURE_SPAWNER_ENABLED = {
-        ["save"] = "cb_alternative_creature_spawner_enabled",
-        ["widget_type"] = "stepper",
-        ["text"] = "Enable Alternative Creature Spawner",
-        ["tooltip"] = "Enable Alternative Creature Spawner",
-        ["value_type"] = "boolean",
-        ["options"] = {
-            { text = "Off", value = false },
-            { text = "On", value = true },
-        },
-        ["default"] = 1, -- Default second option is enabled. In this case Off
+    SUB_GROUP = {
+        ["save"] = "cb_alternative_creature_subgroup",
+        ["widget_type"] = "dropdown_checkbox",
+        ["text"] = "Alternative Creature Spawner",
+        ["tooltip"] = "",
+        ["default"] = false,
         ["hide_options"] = {
             {
                 false,
                 mode = "hide",
                 options = {
+                    "cb_alternative_creature_spawner_enabled",
                     "cb_alternative_creature_spawner_next_creature",
                     "cb_alternative_creature_spawner_previous_creature",
                     "cb_alternative_creature_spawner_increase_multiplier",
                     "cb_alternative_creature_spawner_decrease_multiplier",
+                    "cb_alternative_creature_spawner_toggle_ai",
                     "cb_alternative_creature_spawner_spawn_creature",
                     "cb_alternative_creature_spawner_kill_all_creatures",
                     "cb_alternative_creature_spawner_kill_last_creature",
@@ -109,16 +106,30 @@ AlternativeCreatureSpawner.widget_settings = {
                 true,
                 mode = "show",
                 options = {
+                    "cb_alternative_creature_spawner_enabled",
                     "cb_alternative_creature_spawner_next_creature",
                     "cb_alternative_creature_spawner_previous_creature",
                     "cb_alternative_creature_spawner_increase_multiplier",
                     "cb_alternative_creature_spawner_decrease_multiplier",
+                    "cb_alternative_creature_spawner_toggle_ai",
                     "cb_alternative_creature_spawner_spawn_creature",
                     "cb_alternative_creature_spawner_kill_all_creatures",
                     "cb_alternative_creature_spawner_kill_last_creature",
                 }
             },
         },
+    },
+    CREATURE_SPAWNER_ENABLED = {
+        ["save"] = "cb_alternative_creature_spawner_enabled",
+        ["widget_type"] = "stepper",
+        ["text"] = "Enable",
+        ["tooltip"] = "",
+        ["value_type"] = "boolean",
+        ["options"] = {
+            { text = "Off", value = false },
+            { text = "On", value = true },
+        },
+        ["default"] = 1, -- Default second option is enabled. In this case Off
     },
     NEXT_CREATURE = {
         ["save"] = "cb_alternative_creature_spawner_next_creature",
@@ -160,6 +171,17 @@ AlternativeCreatureSpawner.widget_settings = {
         },
         ["exec"] = { "patch/action/alternative_creature_spawner_action", "decrease_spawn_multiplier" },
     },
+    TOGGLE_AI = {
+        ["save"] = "cb_alternative_creature_spawner_toggle_ai",
+        ["widget_type"] = "keybind",
+        ["text"] = "Disable AI",
+        ["tooltip"] = "",
+        ["default"] = {
+            "p",
+            oi.key_modifiers.ALT,
+        },
+        ["exec"] = { "patch/action/alternative_creature_spawner_action", "toggle_ai" },
+    },
     SPAWN_CREATURE = {
         ["save"] = "cb_alternative_creature_spawner_spawn_creature",
         ["widget_type"] = "keybind",
@@ -169,16 +191,6 @@ AlternativeCreatureSpawner.widget_settings = {
             oi.key_modifiers.NONE,
         },
         ["exec"] = { "patch/action/alternative_creature_spawner_action", "spawn_creature" },
-    },
-    KILL_ALL_CREATURES = {
-        ["save"] = "cb_alternative_creature_spawner_kill_all_creatures",
-        ["widget_type"] = "keybind",
-        ["text"] = "Kill All Creatures",
-        ["default"] = {
-            "numpad *",
-            oi.key_modifiers.NONE,
-        },
-        ["exec"] = { "patch/action/alternative_creature_spawner_action", "kill_all_creatures" },
     },
     KILL_LAST_CREATURE = {
         ["save"] = "cb_alternative_creature_spawner_kill_last_creature",
@@ -190,6 +202,16 @@ AlternativeCreatureSpawner.widget_settings = {
             oi.key_modifiers.NONE,
         },
         ["exec"] = { "patch/action/alternative_creature_spawner_action", "kill_last_creature" },
+    },
+    KILL_ALL_CREATURES = {
+        ["save"] = "cb_alternative_creature_spawner_kill_all_creatures",
+        ["widget_type"] = "keybind",
+        ["text"] = "Kill All Creatures",
+        ["default"] = {
+            "numpad *",
+            oi.key_modifiers.NONE,
+        },
+        ["exec"] = { "patch/action/alternative_creature_spawner_action", "kill_all_creatures" },
     },
 }
 
@@ -203,9 +225,9 @@ AlternativeCreatureSpawner.next_creature = function(self)
                 self.breed_index = 1
             end
 
-            local message = "Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value
-            Managers.chat:add_local_system_message(1, message, true)  
-            Managers.chat.chat_gui:show_chat()
+            local creature_name = self.breeds[self.breed_index].value
+            local number_of_creatures = self.spawn_multiplier
+            self:add_local_system_message("iterate_creatures", creature_name, number_of_creatures)
         end
     end
 end
@@ -220,9 +242,9 @@ AlternativeCreatureSpawner.previous_creature = function(self)
                 self.breed_index = #self.breeds
             end
 
-            local message = "Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value
-            Managers.chat:add_local_system_message(1, message, true)
-            Managers.chat.chat_gui:show_chat()
+            local creature_name = self.breeds[self.breed_index].value
+            local number_of_creatures = self.spawn_multiplier
+            self:add_local_system_message("iterate_creatures", creature_name, number_of_creatures)
         end
     end
 end
@@ -234,9 +256,9 @@ AlternativeCreatureSpawner.increase_spawn_multiplier = function(self)
         if Managers.player.is_server then
             self.spawn_multiplier = self.spawn_multiplier + 1
 
-            local message = "Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value
-            Managers.chat:add_local_system_message(1, message, true)
-            Managers.chat.chat_gui:show_chat()
+            local creature_name = self.breeds[self.breed_index].value
+            local number_of_creatures = self.spawn_multiplier
+            self:add_local_system_message("iterate_creatures", creature_name, number_of_creatures)
         end
     end
 end
@@ -249,11 +271,18 @@ AlternativeCreatureSpawner.decrease_spawn_multiplier = function(self)
             if self.spawn_multiplier > 1 then
                 self.spawn_multiplier = self.spawn_multiplier - 1
                 
-                local message = "Current Creature: " .. self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value
-                Managers.chat:add_local_system_message(1, message, true)  
-                Managers.chat.chat_gui:show_chat()
+                local creature_name = self.breeds[self.breed_index].value
+                local number_of_creatures = self.spawn_multiplier
+                self:add_local_system_message("iterate_creatures", creature_name, number_of_creatures)
             end
         end
+    end
+end
+
+AlternativeCreatureSpawner.toggle_ai = function(self)
+    if self.get(self.widget_settings.CREATURE_SPAWNER_ENABLED) then 
+        self.disable_ai = not self.disable_ai
+        self:add_local_system_message("toggle_ai", self.disable_ai)
     end
 end
 
@@ -262,6 +291,8 @@ end
 AlternativeCreatureSpawner.spawn_creature = function(self)
     if self.get(self.widget_settings.CREATURE_SPAWNER_ENABLED) then
         local message = ""
+        local conflict_director = Managers.state.conflict
+
         if Managers.player.is_server then
             if  Managers.state.game_mode._level_key == "inn_level" then
                 message = "[You can't spawn any creatures within the inn]"
@@ -269,27 +300,22 @@ AlternativeCreatureSpawner.spawn_creature = function(self)
                 local breed_id = self.breeds[self.breed_index].id
                 if "skaven_horde" == breed_id then
                     for i = 1, self.spawn_multiplier, 1 do
-                        Managers.state.conflict.horde_spawner:horde()                 
+                        conflict_director.horde_spawner:horde()                 
                     end
                 elseif "skaven_storm_vermin_patrol" == breed_id then
                     for i = 1, self.spawn_multiplier, 1 do
-                        Managers.state.conflict:debug_spawn_group(0)
+                        conflict_director:debug_spawn_group(0)
                     end
                 else
                     for i = 1, self.spawn_multiplier, 1 do
-                        Managers.state.conflict:aim_spawning(Breeds[breed_id], false)
+                        conflict_director:aim_spawning(Breeds[breed_id], false)
                     end
                 end
 
-                local conflict_director = Managers.state.conflict
                 local position, distance, normal, actor = conflict_director:player_aim_raycast(conflict_director._world, false, "filter_ray_horde_spawn")
 
                 if position ~= nil then
-                    if self.spawn_multiplier == 1 then
-                        message = self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value .. " was spawned"
-                    else
-                        message = self.spawn_multiplier .. "x " .. self.breeds[self.breed_index].value .. " were spawned"
-                    end
+                    message = "spawn_creature"
                 else
                     message = "[Invalid spawning location]"
                 end
@@ -298,8 +324,27 @@ AlternativeCreatureSpawner.spawn_creature = function(self)
             message = "[In order to spawn creatures, you have to be the host]"
         end
 
-        Managers.chat:add_local_system_message(1, message, true)
-        Managers.chat.chat_gui:show_chat()
+        local creature_name = self.breeds[self.breed_index].value
+        local number_of_creatures = self.spawn_multiplier
+        self:add_local_system_message(message, creature_name, number_of_creatures)
+    end
+end
+
+---Removes the last creature, that has been spawned
+---@param self table
+AlternativeCreatureSpawner.kill_last_creature = function(self)
+    if self.get(self.widget_settings.CREATURE_SPAWNER_ENABLED) then 
+        local last_spawned_unit = Managers.state.conflict:last_spawned_unit()
+        
+        if last_spawned_unit then
+            local blackboard = Unit.get_data(last_spawned_unit, "blackboard")
+            local reason = "ai_despawn" 
+            
+            Managers.state.conflict:destroy_unit(last_spawned_unit, blackboard, reason)   
+            
+            local breed_name = self:get_breed_name_by_id(blackboard.breed.name)      
+            self:add_local_system_message("despawn_creature", breed_name, 1)
+        end
     end
 end
 
@@ -336,38 +381,31 @@ AlternativeCreatureSpawner.kill_all_creatures = function(self)
         end
 
         local message = "All creatures were removed"
-        Managers.chat:add_local_system_message(1, message, true)
-        Managers.chat.chat_gui:show_chat()
-    end
-end
-
----Removes the last creature, that has been spawned
----@param self table
-AlternativeCreatureSpawner.kill_last_creature = function(self)
-    local last_spawned_unit = Managers.state.conflict:last_spawned_unit()
-
-    if last_spawned_unit then
-        local blackboard = Unit.get_data(last_spawned_unit, "blackboard")
-        local reason = "ai_despawn" 
-
-        Managers.state.conflict:destroy_unit(last_spawned_unit, blackboard, reason)   
-
-        local breed_name = self:get_breed_name_by_id(blackboard.breed.name)
-        local message = "1x " .. breed_name .. " was despawned"
-        Managers.chat:add_local_system_message(1, message, true)  
-        Managers.chat.chat_gui:show_chat()
+        self:add_local_system_message(message)
     end
 end
 
 --prevents crash when the Grey Seer is spawned
 Mods.hook.set(mod_name, "BTTeleportToPortalAction.enter", function(func, self, unit, blackboard, t)
-	local action_data = self._tree_node.action_data
-	local id = action_data.level_portal_id
-	local portal_data = blackboard.teleport_portals[id]
-
-    if portal_data then
-        --if its not passed to the original function, then the grey seer wont ever teleport himself
+    local mod = AlternativeCreatureSpawner
+    if mod.get(mod.widget_settings.CREATURE_SPAWNER_ENABLED) then
+        local action_data = self._tree_node.action_data
+        local id = action_data.level_portal_id
+        local portal_data = blackboard.teleport_portals[id]
+    
+        if portal_data then
+            --if its not passed to the original function, then the grey seer wont ever teleport himself
+            func(self, unit, blackboard, t)
+        end
+    else
         func(self, unit, blackboard, t)
+    end
+end)
+
+Mods.hook.set(mod_name, "AISystem.update_brains", function (func, self, t, dt)
+    local mod = AlternativeCreatureSpawner
+    if mod.disable_ai == false or mod.get(mod.widget_settings.CREATURE_SPAWNER_ENABLED) == false then
+        func(self, t, dt)
     end
 end)
 
@@ -385,6 +423,107 @@ AlternativeCreatureSpawner.get_breed_name_by_id = function(self, breed_id)
     return "no_breed_name_available"
 end
 
+AlternativeCreatureSpawner.message_definitions = {
+    iterate_creatures = {
+        format_strings = {
+            single = "Current Creature: %dx %s",
+        },
+        format = function (self, previous_message, creature_name, number_of_creatures)
+            local message_id = "iterate_creatures"
+            local message_template = self.format_strings.single
+            return string.format(message_template, number_of_creatures, creature_name), message_id
+        end,
+    },
+    toggle_ai = {
+        format_strings = {
+            single = "AI Disabled: %s",
+        },
+        format = function (self, previous_message, disable_ai)
+            local message_template = self.format_strings.single
+            local message_id = "toggle_ai"
+            return string.format(message_template, disable_ai), message_id
+        end,
+    },
+    spawn_creature = {
+        format_strings = {
+            single = "%dx %s was spawned",
+            many = "%dx %s were spawned",
+        },
+        format = function (self, previous_message, creature_name, number_of_creatures)
+            local message_id = "spawn_creature_" .. creature_name
+
+            if previous_message and previous_message.message_id == message_id then
+                local i, j = string.find(previous_message.message, "%d+")
+                local extracted_number = string.sub(previous_message.message, i, j)
+                number_of_creatures = number_of_creatures + (tonumber(extracted_number) or 0)            
+            end
+
+            local message_template = number_of_creatures > 1 and self.format_strings.many or self.format_strings.single
+
+            return string.format(message_template, number_of_creatures, creature_name), message_id
+        end,
+    },
+    despawn_creature = {
+        format_strings = {
+            single = "%dx %s was despawned",
+            many = "%dx %s were despawned",
+        },
+        format = function (self, previous_message, creature_name, number_of_creatures)
+            local message_id = "despawn_creature_" .. creature_name
+            
+            if previous_message and previous_message.message_id == message_id then
+                local i, j = string.find(previous_message.message, "%d+")
+                local extracted_counter = string.sub(previous_message.message, i, j)
+                number_of_creatures = number_of_creatures + (tonumber(extracted_counter) or 0)
+            end
+            
+            local message_template = number_of_creatures > 1 and self.format_strings.many or self.format_strings.single
+
+            return string.format(message_template, number_of_creatures, creature_name), message_id
+        end,
+    }
+}
+
+---Adds local system messages with counter in order to prevent spamming messages into the chat chat box.
+---Message defintions allow chat box message to be updated instead of being replaced by a new message.
+---@param self table
+---@param message string The new message to be appended into the chat box
+---@param ... any Values which are passed to the format function of the message defintions
+AlternativeCreatureSpawner.add_local_system_message = function (self, message, ...)
+    local chat_manager = Managers.chat
+    local chat_gui = chat_manager.chat_gui
+    local messages = chat_gui.chat_output_widget.content.message_tables
+    local previous_message = #messages > 0 and messages[#messages] or {}
+    local message_definition = self.message_definitions[message]
+
+    if message_definition then
+        local formatted_message, message_id = message_definition:format(previous_message, ...)
+
+        if previous_message.message_id ~= message_id then
+            --add a new message and update in order to get the last message
+            chat_manager:add_local_system_message(1, "", true)
+            chat_gui:_update_chat_messages()
+            previous_message = messages[#messages]
+            previous_message.message_id = message_id
+        end
+
+        previous_message.message = formatted_message
+    else
+        if previous_message.repeated_message ~= message then
+            chat_manager:add_local_system_message(1, message, true)
+            chat_gui:_update_chat_messages()
+            previous_message = messages[#messages]
+            previous_message.repeated_message = message
+            previous_message.number_of_repeated_messages = 1
+        else
+            previous_message.number_of_repeated_messages = previous_message.number_of_repeated_messages + 1
+            previous_message.message = previous_message.repeated_message .. " (" .. previous_message.number_of_repeated_messages .. "x)"
+        end 
+    end
+    
+    chat_gui:show_chat()
+end
+
 ---Gets the value of a widget
 ---@param data table predifined widgets object
 ---@return unknown
@@ -398,15 +537,17 @@ end
 ---@param self table
 AlternativeCreatureSpawner.create_options = function(self)
     local group = "cheats"
-    Mods.option_menu:add_group(group, "Gameplay Cheats")
-    Mods.option_menu:add_item(group, self.widget_settings.CREATURE_SPAWNER_ENABLED, true)
+    Mods.option_menu:add_group(group, "Cheats")
+    Mods.option_menu:add_item(group, self.widget_settings.SUB_GROUP, true)
+    Mods.option_menu:add_item(group, self.widget_settings.CREATURE_SPAWNER_ENABLED)
     Mods.option_menu:add_item(group, self.widget_settings.NEXT_CREATURE)
     Mods.option_menu:add_item(group, self.widget_settings.PREVIOUS_CREATURE)
     Mods.option_menu:add_item(group, self.widget_settings.INCREASE_SPAWN_MULTIPLIER)
     Mods.option_menu:add_item(group, self.widget_settings.DECREASE_SPAWN_MULTIPLIER)
+    Mods.option_menu:add_item(group, self.widget_settings.TOGGLE_AI)
     Mods.option_menu:add_item(group, self.widget_settings.SPAWN_CREATURE)
-    Mods.option_menu:add_item(group, self.widget_settings.KILL_ALL_CREATURES)
     Mods.option_menu:add_item(group, self.widget_settings.KILL_LAST_CREATURE )
+    Mods.option_menu:add_item(group, self.widget_settings.KILL_ALL_CREATURES)
 end
 
 AlternativeCreatureSpawner:create_options()

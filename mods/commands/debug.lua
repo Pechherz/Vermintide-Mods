@@ -1,14 +1,95 @@
 -- LevelSettings in matchmaking_manager.lua bots in inn erlauben
 local achievement_manager = Managers.state.achievement
+local all_distinct_traits = {}
+local all_distinct_slot_types = {}
+local all_distinct_rarities = {}
+local all_promo_items = {}
+
+for weapon, attributes in pairs(ItemMasterList) do
+    if attributes.traits then 
+        for _, trait in ipairs(attributes.traits) do
+            if not all_distinct_traits[trait] then
+                local buff_template = BuffTemplates[trait]
+                all_distinct_traits[trait] = {
+                    name = Localize(buff_template.display_name),
+                    description =  BackendUtils.get_trait_description(trait, attributes.rarity),
+                }
+            end
+        end
+    end
+
+    if attributes.slot_type and not table.contains(all_distinct_slot_types, attributes.slot_type) then
+        table.insert(all_distinct_slot_types, attributes.slot_type)
+    end
+
+    if attributes.rarity and not table.contains(all_distinct_rarities, attributes.rarity) then
+        table.insert(all_distinct_rarities, attributes.rarity)
+    end
+
+    if attributes.rarity and attributes.rarity == "promo" then
+        all_promo_items[weapon] = {
+            name = Localize(attributes.display_name),
+            description = Localize(attributes.description),
+            can_wield = {}
+        }
+
+        for _, character_id in pairs(attributes.can_wield) do
+            table.insert(all_promo_items[weapon].can_wield, Localize(character_id))
+        end
+    end
+end
+
+Mods.debug.clear_log()
+Mods.debug.write_log(Mods.debug:table_to_string(all_distinct_traits, "all_distinct_traits", 3))
+Mods.debug.write_log(Mods.debug:table_to_string(all_distinct_slot_types, "all_distinct_slot_types", 3))
+Mods.debug.write_log(Mods.debug:table_to_string(all_distinct_rarities, "all_distinct_rarities", 3))
+Mods.debug.write_log(Mods.debug:table_to_string(all_promo_items, "all_promo_items", 3))
+
+-- Mods.hook.set("debug", "UnitSpawner.spawn_network_unit", function(func, self, unit_name, unit_template_name, extension_init_data, position, rotation, material)
+--     -- if unit_name == "units/weapons/player/wpn_tankard/wpn_tankard_3p" then
+--     --     EchoConsole(unit_name)
+--     -- end
+
+--     return func(self, unit_name, unit_template_name, extension_init_data, position, rotation, material)
+-- end)
+
+-- Mods.hook.set("debug", "UnitSpawner.spawn_local_unit", function(func, self, unit_name, position, rotation, material)
+--     -- if unit_name == "units/weapons/player/wpn_tankard/wpn_tankard_3p" then
+--         EchoConsole(unit_name)
+--     -- end
+    
+--     return func(self, unit_name, position, rotation, material)
+-- end)
 
 
--- Mods.debug.clear_log()
+-- EchoConsole("Has changed?:" .. tostring(AlternativeItemSpawner:has_custom_category_changed()))
+
+
+
+-- EchoConsole(last_message.number_of_repeated_messages)
+-- local s_unit = nil
+-- local world = Managers.world:world("level_world")
+-- local unit_spawner = Managers.state.unit_spawner
+-- local node = Unit.node(unit, item_setting.node)
+
+-- s_unit = World.spawn_unit(world, package_name)
+-- World.link_unit(world, s_unit, unit, node)
+-- equipment_3p_spawned_items[s_unit] = s_unit
+
+-- local i_pos = item_setting.position
+-- local pos_offset = i_pos ~= nil and Vector3(i_pos[1], i_pos[2], i_pos[3]) or Vector3(0, 0, 0)
+-- Unit.teleport_local_position(s_unit, 0, pos_offset)
+
+-- local i_rot = item_setting.rotation
+-- local rot_offset = i_rot ~= nil and Vector3(i_rot[1], i_rot[2], i_rot[3]) or Vector3(0, 0, 0)
+-- local rotation = Quaternion.from_euler_angles_xyz(rot_offset[1], rot_offset[2], rot_offset[3])
+-- Unit.teleport_local_rotation(s_unit, 0, rotation)
+
 -- Mods.debug.write_log(Mods.debug:table_to_string(Managers.player._human_players, "Managers.player._human_players", 3))
 
 -- Mods.debug.write_log(Mods.debug:table_to_string(AchievementTemplates, "AchievementTemplates", 3))
 -- Mods.debug.write_log(Mods.debug:table_to_string(achievement_manager.completed_achievements, "achievement_manager.completed_achievements", 3))
 -- Mods.debug.write_log(Mods.debug:table_to_string(achievement_manager.completed_achievements, "achievement_manager.completed_achievements", 3))
-EchoConsole("Has changed?:" .. tostring(AlternativeItemSpawner:has_custom_category_changed()))
 
 
 -- Mods.debug.write_log(Mods.debug:table_to_string(Managers.player:local_player(), 1, "Managers.player:local_player()"))

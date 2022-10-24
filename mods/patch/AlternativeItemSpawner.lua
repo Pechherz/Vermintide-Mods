@@ -3,7 +3,6 @@
 --add warning for spawning badges and other stuff that can interfere with CheatProtect
 
 local mod_name = "AlternativeItemSpawner"
-local oi = OptionsInjector
 
 local all_items = {
     healing_draught = {
@@ -91,23 +90,23 @@ local all_items = {
     },
     endurance_badge_01 = {
         key = "endurance_badge_01",
-        value = "Endurance Badge 1",
-    },
-    endurance_badge_02 = {
-        key = "endurance_badge_02",
-        value = "Endurance Badge 2",
-    },
-    endurance_badge_03 = {
-        key = "endurance_badge_03",
-        value = "Endurance Badge 3",
-    },
-    endurance_badge_04 = {
-        key = "endurance_badge_04",
-        value = "Endurance Badge 4",
+        value = "Footman Badge",
     },
     endurance_badge_05 = {
         key = "endurance_badge_05",
-        value = "Endurance Badge 5",
+        value = "Lord Badge",
+    },
+    endurance_badge_04 = {
+        key = "endurance_badge_04",
+        value = "General Badge",
+    },
+    endurance_badge_02 = {
+        key = "endurance_badge_02",
+        value = "Sergeant Badge",
+    },
+    endurance_badge_03 = {
+        key = "endurance_badge_03",
+        value = "Captain Badge",
     },
 }
 
@@ -134,10 +133,10 @@ AlternativeItemSpawner.items_pool_category_all = {
     all_items.wooden_sword_01,
     all_items.wooden_sword_02,
     all_items.endurance_badge_01,
+    all_items.endurance_badge_05,
+    all_items.endurance_badge_04,
     all_items.endurance_badge_02,
     all_items.endurance_badge_03,
-    all_items.endurance_badge_04,
-    all_items.endurance_badge_05,
 }
 AlternativeItemSpawner.items_pool_category_custom = {}
 AlternativeItemSpawner.items_pool_category_consumable = {
@@ -149,15 +148,11 @@ AlternativeItemSpawner.items_pool_category_consumable = {
     all_items.frag_grenade_t2,
     all_items.fire_grenade_t1,
     all_items.fire_grenade_t2,
-    all_items.smoke_grenade_t1,
-    all_items.smoke_grenade_t2,
     all_items.all_ammo_small,
+    all_items.all_ammo,
 }
 AlternativeItemSpawner.items_pool_category_objects = {
     all_items.all_ammo,
-    all_items.tome,
-    all_items.grimoire,
-    all_items.loot_die,
     all_items.lorebook_page,
     all_items.torch,
     all_items.explosive_barrel,
@@ -165,12 +160,15 @@ AlternativeItemSpawner.items_pool_category_objects = {
     all_items.wooden_sword_01,
     all_items.wooden_sword_02,
 }
-AlternativeItemSpawner.items_pool_category_endurance_badges = {
+AlternativeItemSpawner.loot_items = {
+    all_items.tome,
+    all_items.grimoire,
+    all_items.loot_die,
     all_items.endurance_badge_01,
+    all_items.endurance_badge_05,
+    all_items.endurance_badge_04,
     all_items.endurance_badge_02,
     all_items.endurance_badge_03,
-    all_items.endurance_badge_04,
-    all_items.endurance_badge_05,
 }
 
 AlternativeItemSpawner.items_pool_current_category = ""
@@ -180,25 +178,21 @@ AlternativeItemSpawner.items_pool_current_size = 0
 AlternativeItemSpawner.spawned_item = {}
 
 AlternativeItemSpawner.widget_settings = {
-    ITEM_SPAWNER_ENABLED = {
-        ["save"] = "cb_item_spawner_enabled",
-        ["widget_type"] = "stepper",
-        ["text"] = "Enable Alternative Item Spawner",
+    SUB_GROUP = {
+        ["save"] = "cb_item_spawner_enabled_subgroup",
+        ["widget_type"] = "dropdown_checkbox",
+        ["text"] = "Alternative Item Spawner",
         ["tooltip"] = "Information:\n" ..
             "Adds keyboard shortcuts to cycle through a set of items to spawn them.\n\n" ..
             "Caution:\n" ..
             "Spawning to many loot items like to 4x grimoires, loot dices or badges may be blocked by Cheat Protection.",
-        ["value_type"] = "boolean",
-        ["options"] = {
-            { text = "Off", value = false },
-            { text = "On", value = true },
-        },
-        ["default"] = 1, -- Default second option is enabled. In this case Off
+        ["default"] = false,
         ["hide_options"] = {
             {
                 false,
                 mode = "hide",
                 options = {
+                    "cb_item_spawner_enabled",
                     "cb_item_spawner_next_item",
                     "cb_item_spawner_previous_item",
                     "cb_item_spawner_spawn_item",
@@ -211,6 +205,7 @@ AlternativeItemSpawner.widget_settings = {
                 true,
                 mode = "show",
                 options = {
+                    "cb_item_spawner_enabled",
                     "cb_item_spawner_next_item",
                     "cb_item_spawner_previous_item",
                     "cb_item_spawner_spawn_item",
@@ -220,6 +215,18 @@ AlternativeItemSpawner.widget_settings = {
                 }
             },
         },
+    },
+    ITEM_SPAWNER_ENABLED = {
+        ["save"] = "cb_item_spawner_enabled",
+        ["widget_type"] = "stepper",
+        -- ["text"] = "Enable Alternative Item Spawner",
+        ["text"] = "Enabled",
+        ["value_type"] = "boolean",
+        ["options"] = {
+            { text = "Off", value = false },
+            { text = "On", value = true },
+        },
+        ["default"] = 1, -- Default second option is enabled. In this case Off
     },
     ITEM_SPAWNER_NEXT_ITEM = {
         ["save"] = "cb_item_spawner_next_item",
@@ -282,28 +289,28 @@ AlternativeItemSpawner.widget_settings = {
         ["widget_type"] = "stepper",
         ["text"] = "Item Category",
         ["tooltip"] = "Limits the Item Spawner to certain set of items\n" ..
-            "All: items that can be spawned without crashing the game\n" ..
+            "All Items: items that can be spawned without crashing the game\n" ..
             "Custom: user defined set of items\n" ..
-            "Consumables: healing items, potions, bombs and ammuniation\n" ..
-            "Objects: Endurance Badges, Barrels, event items\n" ..
-            "Endurance Badges: Badges usually found on survival missions\n",
+            "Only Consumables: healing items, potions, bombs and ammunition\n" ..
+            "Objects: Barrels, event items\n" ..
+            "Only Loot Items: Tomes, Grimoires, Loot Dices, Endurance Badges\n",
         ["value_type"] = "string",
         ["options"] = {
-            { text = "All", value = "all" },
-            { text = "Custom", value = "custom" },
-            { text = "Consumables", value = "consumables" },
+            { text = "All Items", value = "all_items" },
+            { text = "Only Consumables", value = "consumables" },
+            { text = "Only Loot Items", value = "loot_items" },
             { text = "Objects", value = "objects" },
-            { text = "Endurance Badges", value = "endurance_badges" },
+            { text = "Custom", value = "custom" },
         },
         ["default"] = 1,
         ["hide_options"] = {
             {
-                "all",
+                "all_items",
                 mode = "show",
                 options = {}
             },
             {
-                "all",
+                "all_items",
                 mode = "hide",
                 options = {}
             },
@@ -338,12 +345,12 @@ AlternativeItemSpawner.widget_settings = {
                 options = {}
             },
             {
-                "endurance_badges",
+                "loot_items",
                 mode = "show",
                 options = {}
             },
             {
-                "endurance_badges",
+                "loot_items",
                 mode = "hide",
                 options = {}
             },
@@ -355,8 +362,7 @@ AlternativeItemSpawner.widget_settings = {
 ---@param self table
 AlternativeItemSpawner.next_item = function(self)
     if self.get(self.widget_settings.ITEM_SPAWNER_ENABLED) then
-        if Managers.state.game_mode._game_mode_key == "inn" or
-            self.get(self.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
+        if Managers.state.game_mode._game_mode_key == "inn" or self.get(self.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
             -- check if item group has been changed
             if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
                 self:update_items_pool_current_list()
@@ -368,17 +374,13 @@ AlternativeItemSpawner.next_item = function(self)
                 self.items_pool_current_index = 1
             end
 
-            local message = ""
             local item = self.items_pool_current_list[self.items_pool_current_index]
 
             if item then
-                message = "Current Item: " .. item.value
+                self:add_local_system_message("iterate_items", item.value)
             else
-                message = "[There are no available items in current item pool]"
+                self:add_local_system_message("[There are no available items in current item pool]")
             end
-
-            Managers.chat:add_local_system_message(1, message, true)
-            Managers.chat.chat_gui:show_chat()
         end
     end
 end
@@ -386,9 +388,8 @@ end
 ---Change to the previous item in the current item group
 ---@param self table
 AlternativeItemSpawner.previous_item = function(self)
-    if AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ENABLED) then
-        if Managers.state.game_mode._game_mode_key == "inn" or
-            AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
+    if self.get(self.widget_settings.ITEM_SPAWNER_ENABLED) then
+        if Managers.state.game_mode._game_mode_key == "inn" or self.get(self.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
             -- check if item group has been changed
             if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
                 self:update_items_pool_current_list()
@@ -400,17 +401,13 @@ AlternativeItemSpawner.previous_item = function(self)
                 self.items_pool_current_index = self.items_pool_current_size
             end
 
-            local message = ""
-            local item = self.items_pool_current_list[self.items_pool_current_index]           
-            
-            if item then
-                message = "Current Item: " .. item.value
-            else
-                message = "[There are no available items in current item pool]"
-            end
+            local item = self.items_pool_current_list[self.items_pool_current_index]
 
-            Managers.chat:add_local_system_message(1, message, true)
-            Managers.chat.chat_gui:show_chat()
+            if item then
+                self:add_local_system_message("iterate_items", item.value)
+            else
+                self:add_local_system_message("[There are no available items in current item pool]")
+            end
         end
     end
 end
@@ -418,27 +415,27 @@ end
 ---Spawn the current item from the item group
 ---@param self table
 AlternativeItemSpawner.spawn_item = function(self)
-    if AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ENABLED) then
-        if Managers.state.game_mode._game_mode_key == "inn" or
-            AlternativeItemSpawner.get(AlternativeItemSpawner.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
+    if self.get(self.widget_settings.ITEM_SPAWNER_ENABLED) then
+        if Managers.state.game_mode._game_mode_key == "inn" or self.get(self.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
             -- check if item group has been changed
             if self.items_pool_current_category ~= self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY) then
                 self:update_items_pool_current_list()
             end
 
-            local message = ""
             local item = self.items_pool_current_list[self.items_pool_current_index]
+
             if item then
                 
-                local spawn_pickup_function = "rpc_spawn_pickup_with_physics"
                 local conflict_director = Managers.state.conflict
                 local position, distance, normal, actor = conflict_director:player_aim_raycast(conflict_director._world, false, "filter_ray_horde_spawn")
+                local spawn_pickup_function = "rpc_spawn_pickup_with_physics"
 
                 if position == nil then
                     local local_player_unit = Managers.player:local_player().player_unit
                     position = Unit.local_position(local_player_unit, 0)
                 end            
 
+                --ammo boxes are really bouncy with physics
                 if item.physics_off then
                     spawn_pickup_function = "rpc_spawn_pickup"
                 end
@@ -451,13 +448,11 @@ AlternativeItemSpawner.spawn_item = function(self)
                     NetworkLookup.pickup_spawn_types["debug"]
                 )
                 
-                message = item.value .. " spawned"
+                self:add_local_system_message("spawn_item", item.value, 1)
             else
-                message = "[There are no available items in current item pool]"
+                self:add_local_system_message("[There are no available items in current item pool]")
             end
 
-            Managers.chat:add_local_system_message(1, message, true)
-            Managers.chat.chat_gui:show_chat()
         end
     end
 end
@@ -465,28 +460,29 @@ end
 ---Delete the last spawned item
 ---@param self table
 AlternativeItemSpawner.delete_last_item = function(self)
-    local last_item = AlternativeItemSpawner.spawned_item[#AlternativeItemSpawner.spawned_item]
+    if self.get(self.widget_settings.ITEM_SPAWNER_ENABLED) then
+        if Managers.state.game_mode._game_mode_key == "inn" or self.get(self.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS) then
+            local last_item = AlternativeItemSpawner.spawned_item[#AlternativeItemSpawner.spawned_item]
 
-    local message = ""
-    if last_item then
-        local last_item_name = last_item.item_name
-        message = last_item_name .. " despawned"
+            local message = ""
+            local last_item_name = ""
+            if last_item then
+                last_item_name = last_item.item_name
+                message = "despawn_item"
 
-        table.remove(AlternativeItemSpawner.spawned_item, #AlternativeItemSpawner.spawned_item)
-        if Unit.alive(last_item.unit) then
-            Managers.state.unit_spawner:mark_for_deletion(last_item.unit)
-            
-            Managers.chat:add_local_system_message(1, message, true)
-            Managers.chat.chat_gui:show_chat()
-        else
-            self:delete_last_item()
+                table.remove(AlternativeItemSpawner.spawned_item, #AlternativeItemSpawner.spawned_item)
+                if Unit.alive(last_item.unit) then
+                    Managers.state.unit_spawner:mark_for_deletion(last_item.unit)
+                else
+                    self:delete_last_item()
+                end
+            else
+                message = "[There are no player-spawned items available]"
+            end
+
+            self:add_local_system_message(message, last_item_name, 1)
         end
-    else
-        message = "There are no player-spawned items available"
     end
-
-    Managers.chat:add_local_system_message(1, message, true)
-    Managers.chat.chat_gui:show_chat()
 end
 
 AlternativeItemSpawner.has_custom_category_changed = function (self)
@@ -520,8 +516,8 @@ end
 AlternativeItemSpawner.update_items_pool_current_list = function(self)
     local item_spawner_current_category = self.get(self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY)
 
-    if item_spawner_current_category == "all" then
-        self.items_pool_current_category = "all"
+    if item_spawner_current_category == "all_items" then
+        self.items_pool_current_category = "all_items"
         self.items_pool_current_list = self.items_pool_category_all
     elseif item_spawner_current_category == "custom" then
         self.items_pool_current_category = "custom"
@@ -537,9 +533,9 @@ AlternativeItemSpawner.update_items_pool_current_list = function(self)
     elseif item_spawner_current_category == "objects" then
         self.items_pool_current_category = "objects"
         self.items_pool_current_list = self.items_pool_category_objects
-    elseif item_spawner_current_category == "endurance_badges" then
-        self.items_pool_current_category = "endurance_badges"
-        self.items_pool_current_list = self.items_pool_category_endurance_badges
+    elseif item_spawner_current_category == "loot_items" then
+        self.items_pool_current_category = "loot_items"
+        self.items_pool_current_list = self.loot_items
     end
 
     self.items_pool_current_index = 1
@@ -570,8 +566,14 @@ AlternativeItemSpawner.widget_settings.create_custom_category_widgets = function
 end
 
 Mods.hook.set(mod_name, "PickupSystem._spawn_pickup", function(func, self, pickup_settings, pickup_name, position, rotation, with_physics, spawn_type)
-    local pickup_unit = func(self, pickup_settings, pickup_name, position, rotation, with_physics, spawn_type)
+    ---Allow loot die to be spawned without crashing the game
+    if spawn_type == "debug" then
+        pickup_settings.can_spawn_func = function () return true end
+    end
     
+    local pickup_unit = func(self, pickup_settings, pickup_name, position, rotation, with_physics, spawn_type)
+
+    --in order to delete items, it is required to track the items
     if spawn_type == "debug" then
         local item = {
             item_name = AlternativeItemSpawner.items_pool_current_list[AlternativeItemSpawner.items_pool_current_index].value,
@@ -584,6 +586,8 @@ Mods.hook.set(mod_name, "PickupSystem._spawn_pickup", function(func, self, picku
     return pickup_unit
 end)
 
+--fixes crash, when throwing incendiary grenades within the inn
+--credits to uladz
 Mods.hook.set(mod_name, "VolumeSystem.create_nav_tag_volume_from_data", function(func, self, pos, size, layer_name)
     if self.nav_tag_volume_handler then
         return func(self, pos, size, layer_name)
@@ -592,15 +596,103 @@ Mods.hook.set(mod_name, "VolumeSystem.create_nav_tag_volume_from_data", function
     return ""
 end)
 
+--fixes crash, when throwing incendiary grenades within the inn
+--credits to uladz
 Mods.hook.set(mod_name, "VolumeSystem.destroy_nav_tag_volume", function(func, self, volume_name)
     if self.nav_tag_volume_handler then
         func(self, volume_name)
     end
 end)
 
----Allow loot die to be spawned without crashing the game
-AlternativeItemSpawner.patch_event_pickup = function()
-    AllPickups.loot_die.can_spawn_func = function() return true end
+AlternativeItemSpawner.message_definitions = {
+    iterate_items = {
+        format_strings = {
+            single = "Current Item: %s",
+        },
+        format = function (self, previous_message, item_name)
+            local message_id = "iterate_items"
+            local message_template = self.format_strings.single
+            return string.format(message_template, item_name), message_id
+        end,
+    },
+    spawn_item = {
+        format_strings = {
+            single = "%dx %s was spawned",
+            many = "%dx %s were spawned",
+        },
+        format = function (self, previous_message, item_name, number_of_items)
+            local message_id = "spawn_item_" .. item_name
+
+            if previous_message and previous_message.message_id == message_id then
+                local i, j = string.find(previous_message.message, "%d+")
+                local extracted_number_of_items = string.sub(previous_message.message, i, j)
+                number_of_items = number_of_items + (tonumber(extracted_number_of_items) or 0)            
+            end
+
+            local message_template = number_of_items > 1 and self.format_strings.many or self.format_strings.single
+
+            return string.format(message_template, number_of_items, item_name), message_id
+        end,
+    },
+    despawn_item = {
+        format_strings = {
+            single = "%dx %s was despawned",
+            many = "%dx %s were despawned",
+        },
+        format = function (self, previous_message, item_name, number_of_items)
+            local message_id = "despawn_item_" .. item_name
+
+            if previous_message and previous_message.message_id == message_id then
+                local i, j = string.find(previous_message.message, "%d+")
+                local extracted_number_of_items = string.sub(previous_message.message, i, j)
+                number_of_items = number_of_items + (tonumber(extracted_number_of_items) or 0)            
+            end
+
+            local message_template = number_of_items > 1 and self.format_strings.many or self.format_strings.single
+
+            return string.format(message_template, number_of_items, item_name), message_id
+        end,
+    }
+}
+
+---Adds local system messages with counter in order to prevent spamming messages into the chat chat box.
+---Message defintions allow chat box message to be updated instead of being replaced by a new message.
+---@param self table
+---@param message string The new message to be appended into the chat box
+---@param ... any Values which are passed to the format function of the message defintions
+AlternativeItemSpawner.add_local_system_message = function (self, message, ...)
+    local chat_manager = Managers.chat
+    local chat_gui = chat_manager.chat_gui
+    local messages = chat_gui.chat_output_widget.content.message_tables
+    local previous_message = #messages > 0 and messages[#messages] or {}
+    local message_definition = self.message_definitions[message]
+
+    if message_definition then
+        local formatted_message, message_id = message_definition:format(previous_message, ...)
+
+        if previous_message.message_id ~= message_id then
+            --add a new message and update in order to get the last message
+            chat_manager:add_local_system_message(1, "", true)
+            chat_gui:_update_chat_messages()
+            previous_message = messages[#messages]
+            previous_message.message_id = message_id
+        end
+
+        previous_message.message = formatted_message
+    else
+        if previous_message.repeated_message ~= message then
+            chat_manager:add_local_system_message(1, message, true)
+            chat_gui:_update_chat_messages()
+            previous_message = messages[#messages]
+            previous_message.repeated_message = message
+            previous_message.number_of_repeated_messages = 1
+        else
+            previous_message.number_of_repeated_messages = previous_message.number_of_repeated_messages + 1
+            previous_message.message = previous_message.repeated_message .. " (" .. previous_message.number_of_repeated_messages .. "x)"
+        end 
+    end
+    
+    chat_gui:show_chat()
 end
 
 ---Gets the value of a widget
@@ -616,15 +708,17 @@ end
 ---@param self table
 AlternativeItemSpawner.create_options = function(self)
     local group = "cheats"
-    Mods.option_menu:add_group(group, "Gameplay Cheats")
-    Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_ENABLED, true)
+    Mods.option_menu:add_group(group, "Cheats")
+    Mods.option_menu:add_item(group, self.widget_settings.SUB_GROUP, true)
+    Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_ENABLED)
     Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_NEXT_ITEM)
     Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_PREVIOUS_ITEM)
     Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_SPAWN_ITEM)
     Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_DELETE_LAST_ITEM)
     Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_ALLOW_ON_MISSIONS)
     Mods.option_menu:add_item(group, self.widget_settings.ITEM_SPAWNER_CURRENT_CATEGORY)
-    
+    Mods.option_menu:add_item(group, self.widget_settings.CUSTOM_CATEGORY_SUB_GROUP)
+        
     local widgets, hide_options = AlternativeItemSpawner.widget_settings:create_custom_category_widgets()
 
     --add checkboxes to the "Custom" item category
@@ -650,4 +744,3 @@ AlternativeItemSpawner.create_options = function(self)
 end
 
 AlternativeItemSpawner:create_options()
-AlternativeItemSpawner.patch_event_pickup()

@@ -646,14 +646,203 @@ Visible3PEquipment_Definitions = {
 			rotation = { 90, 130, -90 },
 		},
 	},
+	healthkit = {
+		potion_healing_draught_01 = {
+			empire_soldier = {
+				left = {
+					node = default_node,
+					position = { 0.05, -0.15, 0.03 },
+					rotation = { 0, 90, 90 },
+				},
+			},
+			bright_wizard = {
+				left = {
+					node = default_node,
+					position = { 0, 0.13, -0.03 },
+					rotation = { 0, 90, -90 },
+				},
+			},
+			way_watcher = {
+				left = {
+					node = default_node,
+					position = { -0.05, -0.01, -0.2 },
+				rotation = { 90, 90, 70 },
+				},
+			},
+			witch_hunter = {
+				left = {
+					node = default_node,
+					position = { 0, 0.15, -0.1 },
+					rotation = { 0, 90, 20 },
+				},
+			},
+			dwarf_ranger = {
+				left = {
+					node = backpack_node,
+					position = { 0.15, -0.2, 0.13 },
+					rotation = { 60, -20, -10 },
+				},
+			}
+		},
+		healthkit_first_aid_kit_01 = {
+			empire_soldier = {
+				left = {
+					node = default_node,
+					position = { 0, -0.15, 0.05 },
+					rotation = { 0, 90, 175 },
+				},
+			},
+			bright_wizard = {
+				left = {
+					node = default_node,
+					position = { 0, 0.15, 0.05 },
+					rotation = { 0, 90, 20 },
+				},
+			},
+			way_watcher = {
+				left = {
+					node = default_node,
+					position = { -0.09, -0.13, 0 },
+					rotation = { 180, 90, 0 },
+				},
+			},
+			witch_hunter = {
+				left = {
+					node = default_node,
+					position = { -0.05, -0.15, 0.025 },
+					rotation = { 0, 90, 170 },
+				},
+			},
+			dwarf_ranger = {
+				left = {
+					node = backpack_node,
+					position = { 0.15, -0.2, 0.13 },
+					rotation = { 60, -20, -10 },
+				},
+			}
+		},
+		wpn_side_objective_tome_01 = {
+			empire_soldier = {
+				left = {
+					node = default_node,
+					position = { 0, -0.15, 0.03 },
+					rotation = { 0, 90, 0 },
+				},
+			},
+			bright_wizard = {
+				left = {
+					node = default_node,
+					position = { 0, 0.15, 0.05 },
+					rotation = { 0, 90, 20 },
+				},
+			},
+			way_watcher = {
+				left = {
+					node = default_node,
+					position = { -0.09, -0.13, -0.02 },
+					rotation = { 180, 90, 190 },
+				},
+			},
+			witch_hunter = {
+				left = {
+					node = default_node,
+					position = { -0.05, -0.15, 0 },
+					rotation = { 0, 90, 0 },
+				},
+			},
+			dwarf_ranger = {
+				left = {
+					node = backpack_node,
+					position = { 0.15, -0.2, 0.13 },
+					rotation = { 60, -20, -10 },
+				},
+			}
+		},
+	},
 	-- Common
 	potion = {
+		potion_speed_boost_01 = {
+			empire_soldier = {
+				left = {
+					node = default_node,
+					position = { -0.1, -0.15, -0.08 },
+					rotation = { 40, 90, 55 },
+				},
+			},
+			bright_wizard = {
+				left = {
+					node = default_node,
+					position = { -0.1, -0.15, -0.1 },
+					rotation = { 120, 110, 0 },
+				}
+			},
+			way_watcher = {
+				left = {
+					node = default_node,
+					position = { -0.17, -0.1, -0.12 },
+					rotation = { 40, 90, 70 },
+				}
+			},
+			witch_hunter = {
+				left = {
+					node = default_node,
+					position = { -0.15, -0.12, -0.1 },
+					rotation = { 20, 90, 90 },
+				},
+			},
+			dwarf_ranger =
+			{
+				left = {
+					node = default_node,
+					position = { -0.1, -0.1, -0.23 },
+					rotation = { 40, 90, 90 },
+				},
+			},
+		},
+		potion_damage_boost_01 = {
+			empire_soldier = {
+				left = {
+					node = default_node,
+					position = { -0.1, -0.15, -0.08 },
+					rotation = { 40, 90, 55 },
+				},
+			},
+			bright_wizard = {
+				left = {
+					node = default_node,
+					position = { -0.1, -0.15, -0.1 },
+					rotation = { 120, 110, 0 },
+				}
+			},
+			way_watcher = {
+				left = {
+					node = default_node,
+					position = { -0.19, -0.1, -0.12 },
+					rotation = { 40, 90, 70 },
+				}
+			},
+			witch_hunter = {
+				left = {
+					node = default_node,
+					position = { -0.15, -0.12, -0.1 },
+					rotation = { 20, 90, 90 },
+				},
+			},
+			dwarf_ranger =
+			{
+				left = {
+					node = default_node,
+					position = { -0.1, -0.1, -0.23 },
+					rotation = { 40, 90, 90 },
+				},
+			},
+		},
 		wpn_grimoire_01 = {
 			empire_soldier = {
 				left = {
 					node = default_node,
-					position = { -0.1, -0.1, -0.15 },
-					rotation = { 40, 90, 0 },
+					position = { -0.045, -0.1, -0.15 },
+					rotation = { 40, 90, 165 },
 				},
 			},
 			bright_wizard = {
@@ -678,82 +867,6 @@ Visible3PEquipment_Definitions = {
 				},
 			},
 			dwarf_ranger = {
-				left = {
-					node = default_node,
-					position = { -0.1, -0.1, -0.23 },
-					rotation = { 40, 90, 90 },
-				},
-			},
-		},
-		potion_speed_boost_01 = {
-			empire_soldier = {
-				left = {
-					node = default_node,
-					position = { -0.1, -0.1, -0.15 },
-					rotation = { 40, 90, 0 },
-				},
-			},
-			bright_wizard = {
-				left = {
-					node = default_node,
-					position = { -0.1, -0.15, -0.1 },
-					rotation = { 120, 110, 0 },
-				}
-			},
-			way_watcher = {
-				left = {
-					node = default_node,
-					position = { -0.17, -0.1, -0.12 },
-					rotation = { 40, 90, 70 },
-				}
-			},
-			witch_hunter = {
-				left = {
-					node = default_node,
-					position = { -0.1, -0.1, -0.15 },
-					rotation = { 40, 90, 90 },
-				},
-			},
-			dwarf_ranger =
-			{
-				left = {
-					node = default_node,
-					position = { -0.1, -0.1, -0.23 },
-					rotation = { 40, 90, 90 },
-				},
-			},
-		},
-		potion_damage_boost_01 = {
-			empire_soldier = {
-				left = {
-					node = default_node,
-					position = { -0.1, -0.1, -0.15 },
-					rotation = { 40, 90, 0 },
-				},
-			},
-			bright_wizard = {
-				left = {
-					node = default_node,
-					position = { -0.1, -0.15, -0.1 },
-					rotation = { 120, 110, 0 },
-				}
-			},
-			way_watcher = {
-				left = {
-					node = default_node,
-					position = { -0.17, -0.1, -0.12 },
-					rotation = { 40, 90, 70 },
-				}
-			},
-			witch_hunter = {
-				left = {
-					node = default_node,
-					position = { -0.1, -0.1, -0.15 },
-					rotation = { 40, 90, 90 },
-				},
-			},
-			dwarf_ranger =
-			{
 				left = {
 					node = default_node,
 					position = { -0.1, -0.1, -0.23 },
@@ -832,132 +945,6 @@ Visible3PEquipment_Definitions = {
 			node = default_node,
 			position = { 0, -0.1, 0.2 },
 			rotation = { 40, 90, 0 },
-		},
-	},
-	healthkit = {
-		potion_healing_draught_01 = {
-			empire_soldier = {
-				left = {
-					node = default_node,
-					position = { 0, -0.15, 0.03 },
-					rotation = { 0, 90, 0 },
-				},
-			},
-			bright_wizard = {
-				left = {
-					node = default_node,
-					position = { 0, 0.13, -0.03 },
-					rotation = { 0, 90, -90 },
-				},
-			},
-			way_watcher = {
-				left = {
-					node = default_node,
-					position = { -0.05, -0.01, -0.2 },
-					rotation = { 90, 90, 70 },
-					-- node = hip_node,
-					-- position = { 0, 0, -0.2 },
-					-- rotation = { -90, 90, -20 },
-				},
-			},
-			witch_hunter = {
-				left = {
-					node = default_node,
-					position = { 0, 0.15, -0.1 },
-					rotation = { 0, 90, 20 },
-				},
-			},
-			dwarf_ranger = {
-				left = {
-					node = backpack_node,
-					position = { 0.15, -0.2, 0.13 },
-					rotation = { 60, -20, -10 },
-				},
-			}
-		},
-		healthkit_first_aid_kit_01 = {
-			empire_soldier = {
-				left = {
-					node = default_node,
-					position = { 0, -0.15, 0.03 },
-					rotation = { 0, 90, 0 },
-				},
-			},
-			bright_wizard = {
-				left = {
-					node = default_node,
-					position = { 0, 0.15, 0.05 },
-					rotation = { 0, 90, 20 },
-				},
-			},
-			way_watcher = {
-				left = {
-					node = default_node,
-					-- x
-					position = { -0.09, -0.13, 0 },
-					-- z,x,y
-					rotation = { 180, 90, 0 },
-					-- node = hip_node,
-					-- position = { 0, 0, -0.2 },
-					-- rotation = { -90, 90, -20 },
-				},
-			},
-			witch_hunter = {
-				left = {
-					node = default_node,
-					position = { 0, 0.15, 0.05 },
-					rotation = { 0, 90, 20 },
-				},
-			},
-			dwarf_ranger = {
-				left = {
-					node = backpack_node,
-					position = { 0.15, -0.2, 0.13 },
-					rotation = { 60, -20, -10 },
-				},
-			}
-		},
-		wpn_side_objective_tome_01 = {
-			empire_soldier = {
-				left = {
-					node = default_node,
-					position = { 0, -0.15, 0.03 },
-					rotation = { 0, 90, 0 },
-				},
-			},
-			bright_wizard = {
-				left = {
-					node = default_node,
-					position = { 0, 0.15, 0.05 },
-					rotation = { 0, 90, 20 },
-				},
-			},
-			way_watcher = {
-				left = {
-					node = default_node,
-					-- x
-					position = { -0.09, -0.13, 0 },
-					-- z,x,y
-					rotation = { 180, 90, 0 },
-					-- node = hip_node,
-					-- position = { 0, 0, -0.2 },
-					-- rotation = { -90, 90, -20 },
-				},
-			},
-			witch_hunter = {
-				left = {
-					node = default_node,
-					position = { 0, 0.15, 0.05 },
-					rotation = { 0, 90, 20 },
-				},
-			},
-			dwarf_ranger = {
-				left = {
-					node = backpack_node,
-					position = { 0.15, -0.2, 0.13 },
-					rotation = { 60, -20, -10 },
-				},
-			}
 		},
 	},
 	-- Default

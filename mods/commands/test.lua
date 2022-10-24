@@ -1,5 +1,6 @@
-Mods.debug.clear_log()
-Mods.debug.write_log(Mods.debug:table_to_string(AlternativeItemSpawner, "AlternativeItemSpawner", 3))
+-- Mods.debug.clear_log()
+-- Mods.debug.write_log(Mods.debug:table_to_string(Managers.state.network.entity_system.system_update_context.dice_keeper, "Managers.state.network.entity_system.system_update_context.dice_keeper", 3))
+
 -- EchoConsole(Application.sysinfo())
 -- local local_player_unit = Managers.player:local_player().player_unit
 -- local item = "drachenfels_statue"
@@ -12,7 +13,7 @@ Mods.debug.write_log(Mods.debug:table_to_string(AlternativeItemSpawner, "Alterna
 -- )
 
 
-
+EchoConsole(Localize("trinket_heal_self_on_heal_other_tier1"))
 --Managers.state.game_mode:start_specific_level("dlc_survival_ruins", nil) --> scripts/flow/flow_callback.lua:2084: attempt to perform arithmetic on local 'wave' (a nil value)
 
 -- ConflictUtils.draw_stack_of_balls = function (pos, a, r, g, b)

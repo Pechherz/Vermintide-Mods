@@ -28,6 +28,33 @@ local mod = GiveOtherItems
 local oi = OptionsInjector
 
 mod.widget_settings = {
+	SUB_GROUP = {
+        ["save"] = "cb_give_other_items_mode_subgroup",
+        ["widget_type"] = "dropdown_checkbox",
+        ["text"] = "Give Other Items",
+        ["tooltip"] = "",
+        ["default"] = false,
+        ["hide_options"] = {
+            {
+                false,
+                mode = "hide",
+                options = {
+                    "cb_give_other_items_mode",
+                    "cb_give_other_items_drop",
+                    "cb_give_other_items_echo",
+                }
+            },
+            {
+                true,
+                mode = "show",
+                options = {
+                    "cb_give_other_items_mode",
+                    "cb_give_other_items_drop",
+                    "cb_give_other_items_echo",
+                }
+            },
+        },
+    },
 	MODE = {
 		["save"] = "cb_give_other_items_mode",
 		["widget_type"] = "dropdown",
@@ -129,8 +156,9 @@ end
 -- ####################################################################################################################
 mod.create_options = function()
 	local group = "cheats"
-	Mods.option_menu:add_group(group, "Items")
-	Mods.option_menu:add_item(group, mod.widget_settings.MODE, true)
+	Mods.option_menu:add_group(group, "Cheats")
+	Mods.option_menu:add_item(group, mod.widget_settings.SUB_GROUP, true)
+	Mods.option_menu:add_item(group, mod.widget_settings.MODE)
 	Mods.option_menu:add_item(group, mod.widget_settings.BOMB)
 	Mods.option_menu:add_item(group, mod.widget_settings.MEDKIT)
 	Mods.option_menu:add_item(group, mod.widget_settings.TOME)

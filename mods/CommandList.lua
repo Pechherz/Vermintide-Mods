@@ -3,6 +3,7 @@ Mods.commands = {
 	--Chat input, arguments?, folder name (commands), filename
 
 	{ "/reload", false, "commands", "reload" },
+	{ "/clear", false, "commands", "clear" },
 	{ "/deathwish", false, "commands", "deathwish" },
 	{ "/mutation", false, "commands", "mutation" },
 	{ "/slayer", false, "commands", "slayer" },

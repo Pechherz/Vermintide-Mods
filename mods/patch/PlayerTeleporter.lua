@@ -1,9 +1,31 @@
 PlayerTeleporter = {}
 PlayerTeleporter.widget_settings = {
+    SUB_GROUP = {
+        ["save"] = "cb_player_teleporter_subgroup",
+        ["widget_type"] = "dropdown_checkbox",
+        ["text"] = "Player Teleporter",
+        ["default"] = false,
+        ["hide_options"] = {
+            {
+                false,
+                mode = "hide",
+                options = {
+                    "cb_player_teleporter_enabled",
+                }
+            },
+            {
+                true,
+                mode = "show",
+                options = {
+                    "cb_player_teleporter_enabled",
+                }
+            },
+        },
+    },
     PLAYER_TELEPORTER_ENABLED = {
         ["save"] = "cb_player_teleporter_enabled",
         ["widget_type"] = "stepper",
-        ["text"] = "Enable Player Teleporter",
+        ["text"] = "Enabled",
         ["tooltip"] = "",
         ["value_type"] = "boolean",
         ["options"] = {
@@ -66,11 +88,6 @@ PlayerTeleporter.teleport_to = function(self)
         local position, distance, normal, actor = conflict_director:player_aim_raycast(conflict_director._world, false,
             "filter_ray_horde_spawn")
 
-        EchoConsole("position: " .. tostring(position))
-        -- EchoConsole("distance: " .. tostring(distance))
-        -- EchoConsole("normal: " .. tostring(normal))
-        -- EchoConsole("actor: " .. tostring(actor))
-
         if position ~= nil then
             locomotion_extension.teleport_to(locomotion_extension, position)
         end
@@ -111,8 +128,9 @@ end
 ---@param self table
 PlayerTeleporter.create_options = function(self)
     local group = "cheats"
-    Mods.option_menu:add_group(group, "Gameplay Cheats")
-    Mods.option_menu:add_item(group, self.widget_settings.PLAYER_TELEPORTER_ENABLED, true)
+    Mods.option_menu:add_group(group, "Cheats")
+    Mods.option_menu:add_item(group, self.widget_settings.SUB_GROUP, true)
+    Mods.option_menu:add_item(group, self.widget_settings.PLAYER_TELEPORTER_ENABLED)
     Mods.option_menu:add_item(group, self.widget_settings.TELEPORT_TO)
     Mods.option_menu:add_item(group, self.widget_settings.TELEPORT_BOTS_TO)
 end

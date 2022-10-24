@@ -1,0 +1,6 @@
+{
+	"vmf_text_no_silent_assasins_active_text": "Geen stille Assasins",
+	"vmf_text_no_silent_assasins_active_tooltip":[
+		"Gebruik een andere spawn geluid voor assasins om te voorkoment dat ze geluidloos spawnen."
+	]
+}

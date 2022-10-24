@@ -100,6 +100,7 @@ Mods.debug = {
 	-- 	end
 	-- end,
 
+	debug_message = "",
 	---Convert a table to a string
 	---@param self Mods.debug
 	---@param input_table table The table to be converted to a string representation
@@ -123,7 +124,8 @@ Mods.debug = {
 			tabs = tabs or "    "
 
 			for field_name, field_value in pairs(table_field)do
-				if type(field_name) == "number" or type(field_name) == "string" and type(tonumber(field_name:sub(1, 1))) == "number" then
+				--if number or when first letter in string is number
+				if type(field_name) == "number" or type(field_name) == "table" or type(field_name) == "string" and type(tonumber(field_name:sub(1, 1))) == "number" then
 					field_name = "[\"" .. tostring(field_name) .. "\"]"
 				else
 					field_name = tostring(field_name)
@@ -161,8 +163,12 @@ Mods.debug = {
 					table_string_format = table_string_format .. "\n" .. tabs .. field_name .. " = " .. tostring(field_value) .. ","
 				elseif type(field_value) == "userdata" then
 					table_string_format = table_string_format .. "\n" .. tabs .. field_name .. " = " .. "\"" .. tostring(field_value) .. "\"" .. ","
-				else					
-					table_string_format = table_string_format .. "\n" .. tabs .. field_name .. " = " .. "\"" .. tostring(string.gsub(field_value, "\n", "\\n")) .. "\","
+				else	
+					--escape line break
+					field_value = string.gsub(field_value, "\n", "\\n")
+					--escape quotation marks
+					field_value = string.gsub(field_value, "\"", "\\\"")				
+					table_string_format = table_string_format .. "\n" .. tabs .. field_name .. " = " .. "\"" .. field_value .. "\","
 				end
 			end
 

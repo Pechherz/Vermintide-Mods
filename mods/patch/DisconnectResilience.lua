@@ -249,7 +249,7 @@ end)
 
 Mods.network.register(RPC_DISCO_RESIL_DISCONNECTED, function(sender_id, peer_is_disconnected)
 	local player = Managers.player:player_from_peer_id(sender_id, 1)
-	local player_name = player._cached_name
+	local player_name = player._cached_name or (rawget(_G, "Steam") and Steam.user_name(sender_id))
 
 	if peer_is_disconnected and not RESILIENCE_DISCONNECTED_PEERS[sender_id] then
 		EchoConsole("DisconnectionResilience : Player '" .. player_name .. "' has been disconnected from the game network.")
