@@ -680,7 +680,7 @@ Visible3PEquipment_Definitions = {
 				left = {
 					node = backpack_node,
 					position = { 0.15, -0.2, 0.13 },
-					rotation = { 60, -20, -10 },
+					rotation = { 60, -20, -90 },
 				},
 			}
 		},
@@ -869,8 +869,8 @@ Visible3PEquipment_Definitions = {
 			dwarf_ranger = {
 				left = {
 					node = default_node,
-					position = { -0.1, -0.1, -0.23 },
-					rotation = { 40, 90, 90 },
+					position = { -0.1, -0.125, -0.2 },
+					rotation = { 40, 90, 180 },
 				},
 			},
 		},
