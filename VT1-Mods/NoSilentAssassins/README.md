@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../../assets/banner-top.png" width="1080">
+  <img src="../../../assets/banner-top.png" alt="" width="1080">
 </p>
 
 ## Description:
@@ -11,10 +11,10 @@ This is a simple port of [No Silent Assassins](https://www.nexusmods.com/vermint
 - copy *NoSilentAssassins.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
 
 ## Credits:
-**I did not create this mod.** All credits go to Jsat & Prop joe & IamLupo.
+**I did not create this mod.** All credits go to *Jsat* & *Prop joe* & *IamLupo* [<img src="https://steamcommunity.com/favicon.ico" alt="Steam" title="IamLupo" width="16">](https://steamcommunity.com/profiles/76561198069012995).
 
 <br/>
 
 <p align="center">
-  <img src="../../../assets/banner-buttom.png" width="1080">
+  <img src="../../../assets/banner-buttom.png" alt="" width="1080">
 </p>

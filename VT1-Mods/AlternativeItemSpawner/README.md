@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../../assets/banner-top.png" width="1080">
+  <img src="../../../assets/banner-top.png" alt="" width="1080">
 </p>
 
 ## Description:
@@ -9,7 +9,7 @@ The player can iterate through a selected item group and spawn a currently choos
 It features predefined item groups like *All Items*, *Only Consumables*, *Only Loot Items*, objects and a custom group,  
 which can be adjusted by the player.   
 
-Mod options are found under *Cheats*.
+Mod options are found under: **Game Menu → Options → Mod Settings → Cheats**
 
 ## Installation:
 - download and unzip the [AlternativeItemSpawner.zip](../../../../releases/tag/AlternativeItemSpawner) archive
@@ -19,5 +19,5 @@ Mod options are found under *Cheats*.
 <br/>
 
 <p align="center">
-  <img src="../../../assets/banner-buttom.png" width="1080">
+  <img src="../../../assets/banner-buttom.png" alt="" width="1080">
 </p>

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../../assets/banner-top.png" width="1080">
+  <img src="../../../assets/banner-top.png" alt="" width="1080">
 </p>
 
 ## Description:
@@ -84,5 +84,5 @@ Refer to the following help command to get ingame information:
 <br/>
 
 <p align="center">
-  <img src="../../../assets/banner-buttom.png" width="1080">
+  <img src="../../../assets/banner-buttom.png" alt="" width="1080">
 </p>

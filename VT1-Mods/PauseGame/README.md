@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../../assets/banner-top.png" width="1080">
+  <img src="../../../assets/banner-top.png" alt="" width="1080">
 </p>
 
 ## Description:
@@ -9,7 +9,7 @@ When a host pauses the game, then all clients including the host and the game wi
 If a client attempts to pause the game, then only the client will be paused while the other peers won't be affected.  
 The said client will perceive the world to be paused, but in actuallity its only causes a client side desync.
 
-Mod options are found under *Shenanigans*.
+Mod options are found under: **Game Menu → Options → Mod Settings → Shenanigans**
 
 ## Installation:
 - download and unzip the [PauseGame.zip](../../../../releases/tag/PauseGame) archive
@@ -26,5 +26,5 @@ update your file with a [compatible version](./optional/DisconnectResilience.lua
 <br/>
 
 <p align="center">
-  <img src="../../../assets/banner-buttom.png" width="1080">
+  <img src="../../../assets/banner-buttom.png" alt="" width="1080">
 </p>

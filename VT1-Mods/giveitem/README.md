@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../../assets/banner-top.png" width="1080">
+  <img src="../../../assets/banner-top.png" alt="" width="1080">
 </p>
 
 ## Description:
@@ -7,7 +7,7 @@ This is a chat command to award yourself with item e.g. trinkets, melee/range we
 
 ## Installation:
 - download and unzip the [giveitem.zip](../../../../releases/tag/giveitem) archive
-- copy *giveitem.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\commands\
+- copy giveitem.lua to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\commands\
 - add the following line to the file \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\CommandList.lua: 
 `{ "/giveitem", true, "commands", "giveitem" },`
 
@@ -27,10 +27,10 @@ Here is a sheet containing all available items: [Vermintide_Item_List_v1.10.ods]
 Simply open the sheet with Microsoft Excel or Google Sheets etc. and look out for the *Key* column containing the item ids.
 
 ## Credits:
-**I do NOT take any credits for creation of this mod.**
+**I do NOT take any credits for the creation of this mod.**
 
 <br/>
 
 <p align="center">
-  <img src="../../../assets/banner-buttom.png" width="1080">
+  <img src="../../../assets/banner-buttom.png" alt="" width="1080">
 </p>
