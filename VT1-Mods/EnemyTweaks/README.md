@@ -18,7 +18,7 @@ Mod options are found under: **Game Menu → Options → Mod Settings → Gamepl
 This mod doesn't work properly with More Rat Weapons.
 
 ## Credits:
-Credits to *Jsat*, *Prop joe* and *IamLupo* [<img src="https://steamcommunity.com/favicon.ico" alt="Steam" title="IamLupo" width="16">](https://steamcommunity.com/profiles/76561198069012995) for creating [No Silent Assassins](https://www.nexusmods.com/vermintide/mods/40).  
+Credits to *Jsat* [<img src="https://steamcommunity.com/favicon.ico" alt="Steam" title="IamLupo" width="16">](https://steamcommunity.com/id/jsat), *Prop joe* and *IamLupo* [<img src="https://steamcommunity.com/favicon.ico" alt="Steam" title="IamLupo" width="16">](https://steamcommunity.com/profiles/76561198069012995) for creating [No Silent Assassins](https://www.nexusmods.com/vermintide/mods/40).  
 Credits to *Xq* [<img src="https://steamcommunity.com/favicon.ico" alt="Steam" title="Xq" width="16">](https://steamcommunity.com/profiles/76561197972725633) for creating specials_spawn_idling.
 
 <br/>

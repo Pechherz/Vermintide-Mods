@@ -10,7 +10,7 @@ This mod enables bar fights with other player characters in the Red Moon Inn. Th
 - copy *PubBrawl.lua* to \SteamLibrary\steamapps\common\Warhammer End Times Vermintide\binaries\mods\patch\
 
 ## Credits:
-**I did not create the original mod.** Credits to IamLupo [<img src="https://steamcommunity.com/favicon.ico" alt="Steam" title="IamLupo" width="16">](https://steamcommunity.com/profiles/76561198069012995).
+**I did not create the original mod.** Credits to *IamLupo* [<img src="https://steamcommunity.com/favicon.ico" alt="Steam" title="IamLupo" width="16">](https://steamcommunity.com/profiles/76561198069012995).
 
 <br/>
 
