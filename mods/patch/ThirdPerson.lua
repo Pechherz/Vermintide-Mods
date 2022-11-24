@@ -384,6 +384,28 @@ Mods.hook.set(mod_name, "PlayerUnitFirstPerson.update", function(func, self, uni
 	
 end)
 
+Mods.hook.set(mod_name, "PlayerUnitFirstPerson.set_first_person_mode", function (func, self, active)
+	Unit.set_unit_visibility(self.unit, true)
+	if not self.debug_first_person_mode then
+		Unit.set_unit_visibility(self.first_person_attachment_unit, active)
+
+		if self.toggle_visibility_timer then
+			self.toggle_visibility_timer = nil
+		end
+
+		if active then
+			self:unhide_weapons("third_person_mode")
+		else
+			self:hide_weapons("third_person_mode", true)
+		end
+
+		self.inventory_extension:show_third_person_inventory(true)
+		self.attachment_extension:show_attachments(true)
+	end
+
+	self.first_person_mode = active
+end)
+
 -- ####################################################################################################################
 -- ##### Reset ########################################################################################################
 -- ####################################################################################################################

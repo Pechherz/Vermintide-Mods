@@ -13,7 +13,6 @@
 -- )
 
 
-EchoConsole(Localize("trinket_heal_self_on_heal_other_tier1"))
 --Managers.state.game_mode:start_specific_level("dlc_survival_ruins", nil) --> scripts/flow/flow_callback.lua:2084: attempt to perform arithmetic on local 'wave' (a nil value)
 
 -- ConflictUtils.draw_stack_of_balls = function (pos, a, r, g, b)

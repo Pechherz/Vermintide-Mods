@@ -6,14 +6,14 @@ Mods.InventoryFiltering = {}
 Mods.InventoryFiltering.filters = {}
 Mods.InventoryFiltering.favs = {}
 Mods.InventoryFiltering.filename = "Favorite_items"
-Mods.InventoryFiltering.hotkey = "r"
+Mods.InventoryFiltering.hotkey = "f"
 
 local me = Mods.InventoryFiltering
 
 Mods.InventoryFiltering.save = function()
 	local file_path = "mods/patch/storage/" .. Mods.InventoryFiltering.filename .. ".lua"
 
-	local file = io.open(file_path, "w+")
+	local file = io.open(file_path, "w")
 	if file ~= nil then
 		file:write("Mods.InventoryFiltering.favs = {\n")
 
@@ -27,7 +27,15 @@ Mods.InventoryFiltering.save = function()
 end
 
 Mods.InventoryFiltering.load = function()
-	Mods.exec("patch/storage", Mods.InventoryFiltering.filename)
+	local directory = "mods/patch/storage/"
+	local file_name = "Favorite_items"
+	local file_attributes, error_message, error_code = lfs.attributes(directory .. file_name .. ".lua", "mode") 
+
+	if file_attributes == "file" then
+		Mods.exec("patch/storage", file_name)
+	else
+		lfs.mkdir(directory)
+	end
 end
 
 local filter_operators = {
@@ -1047,7 +1055,7 @@ local function clear_filter_button_onclick(button)
 		textbox:text_changed()
 	else
 		EchoConsole("----------FILTERING AND FAVORITES----------")
-		EchoConsole("Hover over an inventory item and press \"r\" to set the item as your favorite! Repeat to undo. Favorites won't show on the scavenge tab of the forge!")
+		EchoConsole("Hover over an inventory item and press \"" .. Mods.InventoryFiltering.hotkey .."\" to set the item as your favorite! Repeat to undo. Favorites won't show on the scavenge tab of the forge!")
 		EchoConsole("Filter by item name, item type or by trait names. Narrow the search with multiple search terms separated with a comma.")
 		EchoConsole("----------------------------------------------------------------------")
 

@@ -1,0 +1,1 @@
+AlternativeCreatureSpawner:toggle_conflict_director()

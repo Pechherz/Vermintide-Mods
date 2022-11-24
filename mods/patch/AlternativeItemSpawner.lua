@@ -424,12 +424,11 @@ AlternativeItemSpawner.spawn_item = function(self)
 
             local item = self.items_pool_current_list[self.items_pool_current_index]
 
-            if item then
-                
+            if item then              
                 local conflict_director = Managers.state.conflict
                 local position, distance, normal, actor = conflict_director:player_aim_raycast(conflict_director._world, false, "filter_ray_horde_spawn")
+                -- local rotation = Unit.local_rotation(local_player_unit, 0) 
                 local spawn_pickup_function = "rpc_spawn_pickup_with_physics"
-
                 if position == nil then
                     local local_player_unit = Managers.player:local_player().player_unit
                     position = Unit.local_position(local_player_unit, 0)
@@ -445,6 +444,7 @@ AlternativeItemSpawner.spawn_item = function(self)
                     NetworkLookup.pickup_names[tostring(item.key)],
                     position,
                     Quaternion.axis_angle(Vector3(0, 0, 0), 0),
+                    -- rotation, --todo: get camera rotation
                     NetworkLookup.pickup_spawn_types["debug"]
                 )
                 
@@ -452,7 +452,6 @@ AlternativeItemSpawner.spawn_item = function(self)
             else
                 self:add_local_system_message("[There are no available items in current item pool]")
             end
-
         end
     end
 end

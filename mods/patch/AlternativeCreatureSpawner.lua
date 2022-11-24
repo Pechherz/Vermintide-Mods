@@ -77,7 +77,7 @@ AlternativeCreatureSpawner.breeds = {
 }
 AlternativeCreatureSpawner.breed_index = 1
 AlternativeCreatureSpawner.spawn_multiplier = 1
-AlternativeCreatureSpawner.disable_ai = false
+AlternativeCreatureSpawner.ai_disabled = false
 
 AlternativeCreatureSpawner.widget_settings = {
     SUB_GROUP = {
@@ -97,6 +97,7 @@ AlternativeCreatureSpawner.widget_settings = {
                     "cb_alternative_creature_spawner_increase_multiplier",
                     "cb_alternative_creature_spawner_decrease_multiplier",
                     "cb_alternative_creature_spawner_toggle_ai",
+                    "cb_alternative_creature_spawner_toggle_conflict_director",
                     "cb_alternative_creature_spawner_spawn_creature",
                     "cb_alternative_creature_spawner_kill_all_creatures",
                     "cb_alternative_creature_spawner_kill_last_creature",
@@ -112,6 +113,7 @@ AlternativeCreatureSpawner.widget_settings = {
                     "cb_alternative_creature_spawner_increase_multiplier",
                     "cb_alternative_creature_spawner_decrease_multiplier",
                     "cb_alternative_creature_spawner_toggle_ai",
+                    "cb_alternative_creature_spawner_toggle_conflict_director",
                     "cb_alternative_creature_spawner_spawn_creature",
                     "cb_alternative_creature_spawner_kill_all_creatures",
                     "cb_alternative_creature_spawner_kill_last_creature",
@@ -175,12 +177,25 @@ AlternativeCreatureSpawner.widget_settings = {
         ["save"] = "cb_alternative_creature_spawner_toggle_ai",
         ["widget_type"] = "keybind",
         ["text"] = "Disable AI",
-        ["tooltip"] = "",
+        ["tooltip"] = "Enemy AI\n" ..
+            "Toggle the Enemy AI ON and OFF.",
         ["default"] = {
             "p",
             oi.key_modifiers.ALT,
         },
         ["exec"] = { "patch/action/alternative_creature_spawner_action", "toggle_ai" },
+    },
+    TOGGLE_CONFLICT_DIRECTOR = {
+        ["save"] = "cb_alternative_creature_spawner_toggle_conflict_director",
+        ["widget_type"] = "keybind",
+        ["text"] = "Disable Conflict Director",
+        ["tooltip"] = "Conflict Director\n" ..
+            "Toggle the Conflict Director ON and OFF to prevent the game from spawning all types creatures.",
+        ["default"] = {
+            "o",
+            oi.key_modifiers.ALT,
+        },
+        ["exec"] = { "patch/action/alternative_creature_spawner_action", "toggle_conflict_director" },
     },
     SPAWN_CREATURE = {
         ["save"] = "cb_alternative_creature_spawner_spawn_creature",
@@ -279,10 +294,27 @@ AlternativeCreatureSpawner.decrease_spawn_multiplier = function(self)
     end
 end
 
+---Turn enemy AI on and off
+---@param self table
 AlternativeCreatureSpawner.toggle_ai = function(self)
     if self.get(self.widget_settings.CREATURE_SPAWNER_ENABLED) then 
-        self.disable_ai = not self.disable_ai
-        self:add_local_system_message("toggle_ai", self.disable_ai)
+        self.ai_disabled = not self.ai_disabled
+
+        self:add_local_system_message("toggle_ai", self.ai_disabled)
+    end
+end
+
+---Turn enemy spawning on and off
+---@param self table
+AlternativeCreatureSpawner.toggle_conflict_director = function(self)
+    local conflict_director = Managers.state.conflict
+    
+    if self.get(self.widget_settings.CREATURE_SPAWNER_ENABLED) then 
+        conflict_director.disabled = not conflict_director.disabled
+
+        self:add_local_system_message("toggle_conflict_director", conflict_director.disabled)
+    else
+        conflict_director.disabled = false
     end
 end
 
@@ -404,7 +436,7 @@ end)
 
 Mods.hook.set(mod_name, "AISystem.update_brains", function (func, self, t, dt)
     local mod = AlternativeCreatureSpawner
-    if mod.disable_ai == false or mod.get(mod.widget_settings.CREATURE_SPAWNER_ENABLED) == false then
+    if mod.ai_disabled == false or mod.get(mod.widget_settings.CREATURE_SPAWNER_ENABLED) == false then
         func(self, t, dt)
     end
 end)
@@ -438,10 +470,22 @@ AlternativeCreatureSpawner.message_definitions = {
         format_strings = {
             single = "AI Disabled: %s",
         },
-        format = function (self, previous_message, disable_ai)
+        format = function (self, previous_message, ai_disabled)
             local message_template = self.format_strings.single
             local message_id = "toggle_ai"
-            return string.format(message_template, disable_ai), message_id
+
+            return string.format(message_template, ai_disabled), message_id
+        end,
+    },
+    toggle_conflict_director = {
+        format_strings = {
+            single = "Conflict Director Disabled: %s",
+        },
+        format = function (self, previous_message, conflict_director_disabled)
+            local message_template = self.format_strings.single
+            local message_id = "toggle_conflict_director"
+
+            return string.format(message_template, conflict_director_disabled), message_id
         end,
     },
     spawn_creature = {
@@ -545,6 +589,7 @@ AlternativeCreatureSpawner.create_options = function(self)
     Mods.option_menu:add_item(group, self.widget_settings.INCREASE_SPAWN_MULTIPLIER)
     Mods.option_menu:add_item(group, self.widget_settings.DECREASE_SPAWN_MULTIPLIER)
     Mods.option_menu:add_item(group, self.widget_settings.TOGGLE_AI)
+    Mods.option_menu:add_item(group, self.widget_settings.TOGGLE_CONFLICT_DIRECTOR)
     Mods.option_menu:add_item(group, self.widget_settings.SPAWN_CREATURE)
     Mods.option_menu:add_item(group, self.widget_settings.KILL_LAST_CREATURE )
     Mods.option_menu:add_item(group, self.widget_settings.KILL_ALL_CREATURES)
