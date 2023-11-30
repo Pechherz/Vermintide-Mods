@@ -3,7 +3,7 @@
 </p>
 
 ## Description:
-Adds the option to disable the snowy look on Skaven, but this only applies only to newly spawned Skaven and affects just the Dwarven DLC maps.
+Adds the option to disable the snowy look on Skaven, but this only applies to newly spawned enemies.
 
 Mod options are found under: **Game Menu → Options → Mod Settings → Gameplay Tweaks → Snow Material Disabled**
 
