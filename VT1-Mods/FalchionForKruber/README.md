@@ -14,8 +14,10 @@ Allows Kruber to wield Saltzpyre's falchion.
 Simply open the inventory and equip an existing falchion.
 
 ## Note:
-This mod will crash any player in the lobby, which doesn't have this mod installed.  
-Thus it is highly advised to play in private lobbies or let all joining players install the mod.
+~~This mod will crash any player in the lobby, which doesn't have this mod installed.~~
+~~Thus it is highly advised to play in private lobbies or let all joining players install the mod.~~
+
+The current implementation now allows it to be used when hosting or playing as a client.
 
 If a Kruber bot uses a loadout with a falchion, then said bot can also wield it in battle.
 
